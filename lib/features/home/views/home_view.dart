@@ -25,7 +25,7 @@ class HomeView extends StatelessWidget {
       bottomNavigationBar: CustomBottomNavigation(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Transform.translate(
-        offset: Offset(0,-30),
+        offset: Offset(0,-35),
         child: FloatingActionButton(
           onPressed: () {},
           backgroundColor: Color(0xffA8E6CF),

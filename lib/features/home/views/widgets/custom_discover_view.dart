@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/constants.dart';
 
-class DiscoverView extends StatelessWidget{
-  const DiscoverView({super.key});
+class CustomDiscoverView extends StatelessWidget{
+  const CustomDiscoverView({super.key});
 
   @override
   Widget build(BuildContext context) {
