@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/constants.dart';
+import '../../../core/utils/constants.dart';
 
-class CustomDiscoverView extends StatelessWidget{
-  const CustomDiscoverView({super.key});
+class DiscoverScreenBody extends StatelessWidget{
+  const DiscoverScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 20,
+      itemCount: 10,
       itemBuilder: (context, index) {
         return  Container(
             padding: EdgeInsets.all(10),

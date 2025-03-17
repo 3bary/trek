@@ -74,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
             text: 'Log in',
             backgroundColor: kSecondaryColor,
             onPressed: () {
-             GoRouter.of(context).pushReplacement(AppRouter.kHomeView) ;
+             GoRouter.of(context).pushReplacement(AppRouter.kDiscoverView) ;
             },
             textColor: kTextColor,
           ),
