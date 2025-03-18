@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:greendo/core/utils/app_router.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/features/auth/views/widgets/signup_form.dart';
-
 import 'arrow_back_button.dart';
 
 class SignupViewBody extends StatelessWidget {
@@ -37,21 +38,26 @@ class SignupViewBody extends StatelessWidget {
             const SignupForm(),
             const SizedBox(height: 28),
             Center(
-              child: RichText(
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 14, color: kPrimaryColor),
-                  children: [
-                    TextSpan(
-                      text: 'Already member? ',
-                    ),
-                    TextSpan(
-                      text: 'Log in',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        decorationColor: kSecondaryColor,
+              child: GestureDetector(
+                onTap: (){
+                  GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+                },
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(fontSize: 14, color: kTextColor),
+                    children: [
+                      TextSpan(
+                        text: 'Already member? ',
                       ),
-                    ),
-                  ],
+                      TextSpan(
+                        text: 'Log in',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationColor: kSecondaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

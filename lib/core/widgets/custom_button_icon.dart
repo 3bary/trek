@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 class CustomButtonIcon extends StatelessWidget {
-  const CustomButtonIcon({Key? key, required this.backgroundColor, required this.text, required this.textColor, this.onPressed, required this.icon}) : super(key: key);
+  const CustomButtonIcon({super.key, required this.backgroundColor, required this.text, required this.textColor, this.onPressed, required this.icon});
   final Color backgroundColor;
   final String text;
   final Color textColor;
