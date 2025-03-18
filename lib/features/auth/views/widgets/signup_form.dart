@@ -19,90 +19,92 @@ class _SignupFormState extends State<SignupForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: formKey,
-        child: Column(
-          children: [
-            CustomTextFormField(
-              validator: (data) {
-                if (data!.isEmpty) {
-                  return 'field is required';
-                }
-                return null;
+      key: formKey,
+      child: Column(
+        children: [
+          CustomTextFormField(
+            validator: (data) {
+              if (data!.isEmpty) {
+                return 'field is required';
+              }
+              return null;
+            },
+            icon: FontAwesomeIcons.user,
+            hintText: 'Username',
+            obscureText: false,
+          ),
+          const SizedBox(height: 24),
+          CustomTextFormField(
+            validator: (data) {
+              if (!(data!.contains('@'))) {
+                return 'email is not true';
+              }
+              return null;
+            },
+            icon: FontAwesomeIcons.envelopeOpen,
+            hintText: 'Email address',
+            obscureText: false,
+          ),
+          const SizedBox(height: 24),
+          CustomTextFormField(
+            validator: (data) {
+              if (data!.isEmpty) {
+                return 'field is required';
+              }
+              return null;
+            },
+            onChanged: (data) {
+              password = data;
+            },
+            icon: Icons.lock_outlined,
+            hintText: 'Password',
+            obscureText: obscurePassword1,
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  obscurePassword1 = !obscurePassword1;
+                });
               },
-              icon: FontAwesomeIcons.user,
-              hintText: 'Username',
-              obscureText: false,
-            ),
-            const SizedBox(height: 24),
-            CustomTextFormField(
-              validator: (data) {
-                if (!(data!.contains('@'))) {
-                  return 'email is not true';
-                }
-                return null;
-              },
-              icon: FontAwesomeIcons.envelopeOpen,
-              hintText: 'Email address',
-              obscureText: false,
-            ),
-            const SizedBox(height: 24),
-            CustomTextFormField(
-              validator: (data){
-                if (data!.isEmpty) {
-                  return 'field is required';
-                }
-                return null;
-              },
-              onChanged: (data){
-                password = data;
-              },
-              icon: Icons.lock_outlined,
-              hintText: 'Password',
-              obscureText: obscurePassword1,
-              suffixIcon: IconButton(
-                onPressed:(){
-                  setState(() {
-                    obscurePassword1 = !obscurePassword1;
-                  });
-                },
-                icon: const Icon(
-                  Icons.remove_red_eye_outlined,
-                  color: Color(0xff96A7AF),
-                ),
+              icon: const Icon(
+                Icons.remove_red_eye_outlined,
+                color: Color(0xff96A7AF),
               ),
             ),
-            const SizedBox(height: 24),
-             CustomTextFormField(
-              validator: (data){
-                if(data != password){
-                  return 'not correct';
+          ),
+          const SizedBox(height: 24),
+          CustomTextFormField(
+            validator: (data) {
+              if (data != password) {
+                return 'not correct';
               }
-                return null;
-                },
-              icon: Icons.lock_outlined,
-              hintText: 'Confirm password',
-               obscureText: obscurePassword2,
-               suffixIcon: IconButton(
-                 onPressed:(){
-                   setState(() {
-                     obscurePassword2 = !obscurePassword2;
-                   });
-                 },
-                 icon: const Icon(
-                   Icons.remove_red_eye_outlined,
-                   color: Color(0xff96A7AF),
-                 ),
-               ),
+              return null;
+            },
+            icon: Icons.lock_outlined,
+            hintText: 'Confirm password',
+            obscureText: obscurePassword2,
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  obscurePassword2 = !obscurePassword2;
+                });
+              },
+              icon: const Icon(
+                Icons.remove_red_eye_outlined,
+                color: Color(0xff96A7AF),
+              ),
             ),
-            const SizedBox(height: 24),
-            CustomButton(
-              text: 'Sign up',
-              backgroundColor: kSecondaryColor,
-              onPressed: (){
-                formKey.currentState!.validate();
-              }, textColor: kTextColor,
-            ),
-          ],
-        ));
+          ),
+          const SizedBox(height: 24),
+          CustomButton(
+            text: 'Sign up',
+            backgroundColor: kSecondaryColor,
+            onPressed: () {
+              formKey.currentState!.validate();
+            },
+            textColor: kTextColor,
+          ),
+        ],
+      ),
+    );
   }
 }
