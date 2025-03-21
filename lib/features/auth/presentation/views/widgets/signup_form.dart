@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/core/widgets/custom_button.dart';
 import 'package:greendo/core/widgets/custom_text_form_field.dart';
+
+import '../../../../../core/utils/app_router.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -99,7 +102,8 @@ class _SignupFormState extends State<SignupForm> {
             text: 'Sign up',
             backgroundColor: kSecondaryColor,
             onPressed: () {
-              formKey.currentState!.validate();
+              //formKey.currentState!.validate();
+              GoRouter.of(context).push(AppRouter.kPreferencesView);
             },
             textColor: kTextColor,
           ),
