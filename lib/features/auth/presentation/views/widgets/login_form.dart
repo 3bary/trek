@@ -4,8 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/core/widgets/custom_button.dart';
 import 'package:greendo/core/widgets/custom_text_form_field.dart';
-
-import '../../../../core/utils/app_router.dart';
+import '../../../../../core/utils/app_router.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -63,7 +62,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Text(
               'Forgot password?',
               style: TextStyle(
-                color: kPrimaryColor,
+                color: kTextColor,
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
@@ -74,7 +73,8 @@ class _LoginFormState extends State<LoginForm> {
             text: 'Log in',
             backgroundColor: kSecondaryColor,
             onPressed: () {
-             GoRouter.of(context).pushReplacement(AppRouter.kDiscoverView) ;
+              //formKey.currentState!.validate();
+              GoRouter.of(context).pushReplacement(AppRouter.kDiscoverView) ;
             },
             textColor: kTextColor,
           ),

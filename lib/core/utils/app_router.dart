@@ -3,12 +3,8 @@ import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
-import 'package:greendo/features/auth/views/login_view.dart';
-import 'package:greendo/features/auth/views/onboarding_view.dart';
-import 'package:greendo/features/auth/views/signup_view.dart';
 import 'package:greendo/features/home/views/discover_view.dart';
 import 'package:greendo/features/home/views/favorite_screen.dart';
-
 import '../../features/home/views/group_screen.dart';
 import '../../features/home/views/profile_screen.dart';
 
@@ -40,7 +36,6 @@ abstract class AppRouter {
         path: kPreferencesView,
         builder: (context, state) => const PreferencesView(),
       ),
-    ],
       GoRoute(
         path: kDiscoverView,
         builder: (context, state) => const HomeView(),
