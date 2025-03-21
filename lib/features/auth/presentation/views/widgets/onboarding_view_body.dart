@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/core/utils/constants.dart';
-import 'package:greendo/features/auth/views/widgets/actions_buttons.dart';
-import 'package:greendo/features/auth/views/widgets/circle_dot.dart';
-import 'package:greendo/features/auth/views/widgets/image_shape.dart';
+
+import 'actions_buttons.dart';
+import 'circle_dot.dart';
+import 'image_shape.dart';
 
 class OnboardingViewBody extends StatelessWidget {
   const OnboardingViewBody({super.key});

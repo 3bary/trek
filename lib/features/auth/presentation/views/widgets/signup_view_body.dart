@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/app_router.dart';
 import 'package:greendo/core/utils/constants.dart';
-import 'package:greendo/features/auth/views/widgets/arrow_back_button.dart';
-import 'package:greendo/features/auth/views/widgets/login_form.dart';
+import 'package:greendo/features/auth/presentation/views/widgets/signup_form.dart';
+import 'arrow_back_button.dart';
 
-class LoginViewBody extends StatelessWidget {
-  const LoginViewBody({super.key});
+class SignupViewBody extends StatelessWidget {
+  const SignupViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class LoginViewBody extends StatelessWidget {
             const ArrowBackButton(),
             const SizedBox(height: 36),
             const Text(
-              'Welcome back',
+              'Create account',
               style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
@@ -28,38 +28,38 @@ class LoginViewBody extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Enter your credential to continue',
+              'Sign up to get started!',
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: Color(0xff879EA4)),
             ),
             const SizedBox(height: 36),
-            const LoginForm(),
-            const SizedBox(height: 36),
+            const SignupForm(),
+            const SizedBox(height: 28),
             Center(
-                child: GestureDetector(
-                  onTap: (){
-                    GoRouter.of(context).pushReplacement(AppRouter.kSignupView);
-                  },
-                  child: RichText(
-                                text: const TextSpan(
-                  style: TextStyle(fontSize: 14, color: kTextColor),
-                  children: [
-                    TextSpan(
-                      text: 'Don’t have account? ',
-                    ),
-                    TextSpan(
-                      text: 'Sign up',
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                        decorationColor: kSecondaryColor,
+              child: GestureDetector(
+                onTap: (){
+                  GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+                },
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(fontSize: 14, color: kTextColor),
+                    children: [
+                      TextSpan(
+                        text: 'Already member? ',
                       ),
-                    ),
-                  ],
-                                ),
-                              ),
+                      TextSpan(
+                        text: 'Log in',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationColor: kSecondaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+              ),
             ),
             const SizedBox(
               height: 24,
