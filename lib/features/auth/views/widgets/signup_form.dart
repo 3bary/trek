@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/core/widgets/custom_button.dart';
 import 'package:greendo/core/widgets/custom_text_form_field.dart';
+
+import '../../../../core/utils/app_router.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -77,31 +80,32 @@ class _SignupFormState extends State<SignupForm> {
               if (data != password) {
                 return 'not correct';
               }
-              return null;
-            },
-            icon: Icons.lock_outlined,
-            hintText: 'Confirm password',
-            obscureText: obscurePassword2,
-            suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  obscurePassword2 = !obscurePassword2;
-                });
-              },
-              icon: const Icon(
-                Icons.remove_red_eye_outlined,
-                color: Color(0xff96A7AF),
-              ),
+                return null;
+                },
+              icon: Icons.lock_outlined,
+              hintText: 'Confirm password',
+               obscureText: obscurePassword2,
+               suffixIcon: IconButton(
+                 onPressed:(){
+                   setState(() {
+                     obscurePassword2 = !obscurePassword2;
+                   });
+                 },
+                 icon: const Icon(
+                   Icons.remove_red_eye_outlined,
+                   color: Color(0xff96A7AF),
+                 ),
+               ),
             ),
-          ),
-          const SizedBox(height: 24),
-          CustomButton(
-            text: 'Sign up',
-            backgroundColor: kSecondaryColor,
-            onPressed: () {
-              formKey.currentState!.validate();
-            },
-            textColor: kTextColor,
+            const SizedBox(height: 24),
+            CustomButton(
+              text: 'Sign up',
+              backgroundColor: kSecondaryColor,
+              onPressed: (){
+                GoRouter.of(context).pushReplacement(AppRouter.kDiscoverView);
+                formKey.currentState!.validate();
+              }, textColor: kTextColor,
+            ),
           ),
         ],
       ),
