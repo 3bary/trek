@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/utils/constants.dart';
 
-class TagsView extends StatefulWidget {
-  const TagsView({super.key, required this.onNext});
-  final Function() onNext;
+class CategoriesView extends StatefulWidget {
+  const CategoriesView({super.key});
 
   @override
-  _TagsViewState createState() => _TagsViewState();
+  _CategoriesViewState createState() => _CategoriesViewState();
 }
 
-class _TagsViewState extends State<TagsView> {
-  List<String> selectedTags = [];
+class _CategoriesViewState extends State<CategoriesView> {
+  List<String> selectedCategories = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Select Tags"),
+        title: Text("Select Categories"),
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -29,15 +29,15 @@ class _TagsViewState extends State<TagsView> {
                   spacing: 8,
                   runSpacing: 8,
                   alignment: WrapAlignment.start,
-                  children: AppConstants.tags.map((tag) {
-                    bool isSelected = selectedTags.contains(tag.name);
+                  children: AppConstants.categories.map((category) {
+                    bool isSelected = selectedCategories.contains(category.name);
                     return ChoiceChip(
                       label: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(tag.description.split(" ").first, style: TextStyle(fontSize: 18)), // Emoji
+                          Text(category.examples.first, style: TextStyle(fontSize: 18)), // First example
                           SizedBox(width: 2),
-                          Text(tag.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          Text(category.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                         ],
                       ),
                       selected: isSelected,
@@ -51,7 +51,7 @@ class _TagsViewState extends State<TagsView> {
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       onSelected: (bool selected) {
                         setState(() {
-                          selected ? selectedTags.add(tag.name) : selectedTags.remove(tag.name);
+                          selected ? selectedCategories.add(category.name) : selectedCategories.remove(category.name);
                         });
                       },
                     );
@@ -64,13 +64,13 @@ class _TagsViewState extends State<TagsView> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  widget.onNext();
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kSecondaryColor,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                 ),
-                child: Text("Next", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                child: Text("Finish", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
               ),
             ),
             SizedBox(height: 20),
@@ -78,5 +78,6 @@ class _TagsViewState extends State<TagsView> {
         ),
       ),
     );
+
   }
 }
