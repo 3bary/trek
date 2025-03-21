@@ -51,7 +51,7 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
           ),
           CustomButton(
             backgroundColor: kSecondaryColor,
-            text: "Next",
+            text: "Finish",
             textColor: Colors.white,
             onPressed: () {
 
