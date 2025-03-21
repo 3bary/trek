@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'tags_view.dart';
+
 class PreferencesView extends StatefulWidget {
   const PreferencesView({super.key});
 
@@ -34,7 +36,7 @@ class _PreferencesViewState extends State<PreferencesView> {
         controller: _pageController,
         physics: NeverScrollableScrollPhysics(), // Disable swiping to force button navigation
         children: [
-
+          TagsView(onNext: _nextPage),
         ],
       ),
     );
