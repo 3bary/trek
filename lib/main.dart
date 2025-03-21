@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/utils/app_router.dart';
 import 'core/utils/constants.dart';
-
-
 void main() {
   runApp(const MyApp());
 }
