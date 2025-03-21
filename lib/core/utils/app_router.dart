@@ -2,11 +2,12 @@ import 'package:go_router/go_router.dart';
 import 'package:greendo/features/auth/views/login_view.dart';
 import 'package:greendo/features/auth/views/onboarding_view.dart';
 import 'package:greendo/features/auth/views/signup_view.dart';
-import 'package:greendo/features/home/views/discover_view.dart';
-import 'package:greendo/features/home/views/favorite_screen.dart';
+import 'package:greendo/features/home/views/home_view.dart';
+import 'package:greendo/features/home/views/favorite_view.dart';
 
-import '../../features/home/views/group_screen.dart';
-import '../../features/home/views/profile_screen.dart';
+import '../../features/home/views/recommendation_view.dart';
+import '../../features/home/views/group_view.dart';
+import '../../features/home/views/profile_view.dart';
 
 abstract class AppRouter {
   static const String kLoginView = '/loginView';
@@ -15,6 +16,7 @@ abstract class AppRouter {
   static const String kGroupView = '/groupView';
   static const String kFavoriteView = '/favoriteView';
   static const String kProfileView = '/profileView';
+  static const String kDocumentationView = '/documentationView';
 
   static final router = GoRouter(
     routes: [
@@ -30,16 +32,20 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kGroupView,
-        builder: (context, state) => const GroupsScreen(),
+        builder: (context, state) => const GroupsView(),
       ),
       GoRoute(
         path: kFavoriteView,
-        builder: (context, state) => const FavoriteScreen(),
+        builder: (context, state) => const FavoriteView(),
       ),
       GoRoute(
         path: kProfileView,
-        builder: (context, state) => const ProfileScreen(),
+        builder: (context, state) => const ProfileView(),
       ),
-      ],
+      GoRoute(
+        path: kDocumentationView,
+        builder: (context, state) => const RecommendationView(),
+      ),
+    ],
   );
 }
