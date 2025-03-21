@@ -96,19 +96,19 @@ class _SignupFormState extends State<SignupForm> {
                    color: Color(0xff96A7AF),
                  ),
                ),
-            ),
-            const SizedBox(height: 24),
-            CustomButton(
+          ),
+          const SizedBox(height: 24),
+          CustomButton(
               text: 'Sign up',
               backgroundColor: kSecondaryColor,
               onPressed: (){
                 GoRouter.of(context).pushReplacement(AppRouter.kDiscoverView);
                 formKey.currentState!.validate();
-              }, textColor: kTextColor,
+              },
+            textColor: kTextColor,
             ),
-          ),
         ],
-      ),
+          ),
     );
   }
 }
