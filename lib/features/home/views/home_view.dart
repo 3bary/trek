@@ -54,7 +54,7 @@ class HomeView extends StatelessWidget {
                 offset: Offset(0, -35),
                 child: FloatingActionButton(
                   onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kDocumentationView);
+                    GoRouter.of(context).push(AppRouter.kRecommendationView);
                   },
                   backgroundColor: Color(0xffA8E6CF),
                   shape: CircleBorder(),
