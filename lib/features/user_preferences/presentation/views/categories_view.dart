@@ -18,7 +18,7 @@ class _CategoriesViewState extends State<CategoriesView> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Select Categories"),
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,
       ),
       body: CategoriesViewBody(),

@@ -56,7 +56,7 @@ class _TagsViewBodyState extends State<TagsViewBody> {
           ),
           CustomButton(
             backgroundColor: kSecondaryColor,
-            text: "Next",
+            text: "Continue",
             textColor: Colors.white,
             onPressed: () {
               widget.onNext();
