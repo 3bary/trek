@@ -9,7 +9,7 @@ class FavoriteView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Text("Favorite Screen ", style: TextStyle(fontSize: 24)),
+          child: Text("Favorite view ", style: TextStyle(fontSize: 24)),
         ),
       ),
     );

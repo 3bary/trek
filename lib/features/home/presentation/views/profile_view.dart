@@ -8,7 +8,7 @@ class ProfileView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: const Center(
-          child: Text("Profile Screen ", style: TextStyle(fontSize: 24)),
+          child: Text("Profile view ", style: TextStyle(fontSize: 24)),
         ),
       ),
     );

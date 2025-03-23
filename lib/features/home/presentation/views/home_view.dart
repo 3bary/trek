@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:greendo/features/home/views/discover_view.dart';
-import 'package:greendo/features/home/views/profile_view.dart';
+import 'package:greendo/features/home/presentation/views/profile_view.dart';
 
-import '../../../core/utils/app_router.dart';
-import 'cubit/navigation_cubit.dart';
+import '../../../../core/utils/app_router.dart';
+
+import '../view_model/navigation_cubit/navigation_cubit.dart';
+import 'discover_view.dart';
 import 'favorite_view.dart';
 import 'group_view.dart';
 import 'widgets/bottom_naviagation_bar.dart';
@@ -49,15 +50,18 @@ class HomeView extends StatelessWidget {
               ),
               body: IndexedStack(index: currentIndex, children: pages),
               bottomNavigationBar: CustomBottomNavigation(),
-              floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
               floatingActionButton: Transform.translate(
-                offset: Offset(0, -35),
+                offset: Offset(0, -30),
                 child: FloatingActionButton(
                   onPressed: () {
                     GoRouter.of(context).push(AppRouter.kRecommendationView);
                   },
+                  // tooltip: "hello",
                   backgroundColor: Color(0xffA8E6CF),
                   shape: CircleBorder(),
+
                   child: Icon(Icons.mode_edit, color: Colors.black38, size: 30),
                 ),
               ),

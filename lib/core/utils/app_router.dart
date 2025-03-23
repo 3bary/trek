@@ -2,12 +2,13 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/home/presentation/views/favorite_view.dart';
+import '../../features/home/presentation/views/group_view.dart';
+import '../../features/home/presentation/views/home_view.dart';
+import '../../features/home/presentation/views/profile_view.dart';
+import '../../features/home/presentation/views/recommendation_view.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
-import 'package:greendo/features/home/views/home_view.dart';
-import 'package:greendo/features/home/views/favorite_view.dart';
-import '../../features/home/views/recommendation_view.dart';
-import '../../features/home/views/group_view.dart';
-import '../../features/home/views/profile_view.dart';
+
 
 abstract class AppRouter {
   static const String kLoginView = '/loginView';

@@ -9,7 +9,7 @@ class GroupsView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Text("Group Screen ", style: TextStyle(fontSize: 24)),
+          child: Text("Group view ", style: TextStyle(fontSize: 24)),
         ),
       ),
     );
