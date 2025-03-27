@@ -6,6 +6,7 @@ import 'custom_chip.dart';
 
 class TagsViewBody extends StatefulWidget {
   const TagsViewBody({super.key, required this.onNext});
+
   final Function() onNext;
 
   @override
@@ -14,6 +15,7 @@ class TagsViewBody extends StatefulWidget {
 
 class _TagsViewBodyState extends State<TagsViewBody> {
   List<String> selectedTags = [];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,9 +35,18 @@ class _TagsViewBodyState extends State<TagsViewBody> {
                         label: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(tag.description.split(" ").first, style: TextStyle(fontSize: 18)), // Emoji
+                            Text(
+                              tag.description.split(" ").first,
+                              style: TextStyle(fontSize: 18),
+                            ), // Emoji
                             SizedBox(width: 6),
-                            Text(tag.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text(
+                              tag.name,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
                           ],
                         ),
                         isSelected: isSelected,

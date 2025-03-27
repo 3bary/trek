@@ -38,7 +38,7 @@ class HomeView extends StatelessWidget {
                 toolbarHeight: 80,
                 backgroundColor: Color(0xffA8E6CF),
                 automaticallyImplyLeading: false,
-                elevation: 0,
+                elevation: 10,
                 title: Text(
                   appBarTitles[currentIndex],
                   textAlign: TextAlign.start,
@@ -48,21 +48,31 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
-              body: IndexedStack(index: currentIndex, children: pages),
+              body: Padding(
+                padding: EdgeInsets.only(top: 3),
+                child: IndexedStack(index: currentIndex, children: pages),
+              ),
               bottomNavigationBar: CustomBottomNavigation(),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endFloat,
-              floatingActionButton: Transform.translate(
-                offset: Offset(0, -30),
-                child: FloatingActionButton(
-                  onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kRecommendationView);
-                  },
-                  // tooltip: "hello",
-                  backgroundColor: Color(0xffA8E6CF),
-                  shape: CircleBorder(),
-
-                  child: Icon(Icons.mode_edit, color: Colors.black38, size: 30),
+              floatingActionButton: Tooltip(
+                message: " recommendation!",
+                preferBelow: false,
+                verticalOffset: 50,
+                child: Transform.translate(
+                  offset: Offset(0, -30),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      GoRouter.of(context).push(AppRouter.kRecommendationView);
+                    },
+                    backgroundColor: Color(0xffA8E6CF),
+                    // shape: CircleBorder(),
+                    child: Icon(
+                      Icons.mode_edit,
+                      color: Colors.black38,
+                      size: 30,
+                    ),
+                  ),
                 ),
               ),
             ),

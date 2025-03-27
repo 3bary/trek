@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../../../core/utils/constants.dart';
 
 class CustomChip extends StatefulWidget {
-  const CustomChip({super.key, required this.isSelected, required this.label, required this.onChipSelected, required this.onChipDeselected});
+  const CustomChip({
+    super.key,
+    required this.isSelected,
+    required this.label,
+    required this.onChipSelected,
+    required this.onChipDeselected,
+  });
+
   final bool isSelected;
   final Widget label;
   final Function() onChipSelected;
@@ -21,7 +28,9 @@ class _CustomChipState extends State<CustomChip> {
       selected: widget.isSelected,
       selectedColor: kSecondaryColor,
       backgroundColor: Colors.white,
-      labelStyle: TextStyle(color: widget.isSelected ? Colors.white : Colors.black),
+      labelStyle: TextStyle(
+        color: widget.isSelected ? Colors.white : Colors.black,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
         side: BorderSide(color: Colors.grey.shade300),
