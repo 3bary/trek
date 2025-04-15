@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/constants.dart';
 
-class CustomChip extends StatefulWidget {
-  const CustomChip({
+class CustomChooseChip extends StatefulWidget {
+  const CustomChooseChip({
     super.key,
     required this.isSelected,
     required this.label,
@@ -17,10 +17,10 @@ class CustomChip extends StatefulWidget {
   final Function() onChipDeselected;
 
   @override
-  _CustomChipState createState() => _CustomChipState();
+  _CustomChooseChipState createState() => _CustomChooseChipState();
 }
 
-class _CustomChipState extends State<CustomChip> {
+class _CustomChooseChipState extends State<CustomChooseChip> {
   @override
   Widget build(BuildContext context) {
     return ChoiceChip(
