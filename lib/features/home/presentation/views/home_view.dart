@@ -5,9 +5,11 @@ import 'package:greendo/features/home/presentation/views/profile_view.dart';
 
 import '../../../../core/utils/app_router.dart';
 
+import '../../../favorites/presentation/views/favorite_view.dart';
+
 import '../view_model/navigation_cubit/navigation_cubit.dart';
 import 'discover_view.dart';
-import 'favorite_view.dart';
+
 import 'group_view.dart';
 import 'widgets/bottom_naviagation_bar.dart';
 

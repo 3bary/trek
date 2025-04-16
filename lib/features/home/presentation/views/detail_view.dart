@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/features/home/data/models/placeCard_model.dart';
 
+import '../../../../core/utils/constants.dart';
+
 class DetailView extends StatefulWidget {
   final PlaceCardModel place;
 
@@ -56,6 +58,7 @@ class _DetailViewState extends State<DetailView> {
       }
     });
   }
+
   bool isFavorite = false;
 
   void toggleFavorite() {
@@ -75,11 +78,10 @@ class _DetailViewState extends State<DetailView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xffA8E6CF),
-          elevation: 0,
-          toolbarHeight: 80,
+          backgroundColor: kPrimaryColor,
+          elevation: 3,
           title: Text(
-            "",
+            "Details",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black38,
@@ -100,11 +102,14 @@ class _DetailViewState extends State<DetailView> {
                 SizedBox(height: 20),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // لضبط التوزيع بين العنوان والأيقونة
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       title,
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     IconButton(
                       icon: Icon(

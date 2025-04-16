@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PlaceCard extends StatefulWidget {
+class FavoritePlaceCard extends StatefulWidget {
   final String title;
   final String city;
   final double rating;
@@ -8,7 +8,7 @@ class PlaceCard extends StatefulWidget {
   final VoidCallback onDetailsPressed;
 
 
-  const PlaceCard({
+  const FavoritePlaceCard({
     super.key,
     required this.title,
     required this.city,
@@ -18,11 +18,11 @@ class PlaceCard extends StatefulWidget {
   });
 
   @override
-  State<PlaceCard> createState() => _PlaceCardState();
+  State<FavoritePlaceCard> createState() => _FavoritePlaceCardState();
 }
 
-class _PlaceCardState extends State<PlaceCard> {
-  bool isFavorite = false;
+class _FavoritePlaceCardState extends State<FavoritePlaceCard> {
+  bool isFavorite = true;
 
   void toggleFavorite() {
     setState(() {
