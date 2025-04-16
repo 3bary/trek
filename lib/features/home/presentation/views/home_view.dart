@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:greendo/features/home/presentation/views/profile_view.dart';
+
 
 import '../../../../core/utils/app_router.dart';
 
+import '../../../profile/presentation/views/profile_view.dart';
 import '../view_model/navigation_cubit/navigation_cubit.dart';
 import 'discover_view.dart';
+
 import 'favorite_view.dart';
 import 'group_view.dart';
 import 'widgets/bottom_naviagation_bar.dart';
