@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:greendo/features/profile/presentation/views/profile_view.dart';
+import 'package:greendo/features/home/presentation/views/profile_view.dart';
+
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/constants.dart';
 import '../view_model/navigation_cubit/navigation_cubit.dart';
 import 'discover_view.dart';
-import '../../../favorites/presentation/views/favorite_view.dart';
+
+import 'favorite_view.dart';
 import 'group_view.dart';
 import 'widgets/bottom_naviagation_bar.dart';
 
@@ -32,28 +34,8 @@ class HomeView extends StatelessWidget {
             ProfileView(),
           ];
           return SafeArea(
-
             child: Scaffold(
-              appBar:
-                  currentIndex == 3
-                      ? null
-                      : AppBar(
-                        backgroundColor: kPrimaryColor,
-                        automaticallyImplyLeading: false,
-
-                        title: Text(
-                          appBarTitles[currentIndex],
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black38,
-                          ),
-                        ),
-                      ),
-              body: Padding(
-                padding: EdgeInsets.only(top: 3),
-                child: IndexedStack(index: currentIndex, children: pages),
-              ),
+              body: IndexedStack(index: currentIndex, children: pages),
               bottomNavigationBar: CustomBottomNavigation(),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endFloat,
