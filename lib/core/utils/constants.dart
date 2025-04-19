@@ -158,6 +158,7 @@ class AppConstants {
       city: "Colorado",
       rating: 4.7,
       shortDescription: "Breathtaking mountain scenery for hiking lovers.",
+      imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "Ahlam Gomaa",
@@ -174,6 +175,7 @@ class AppConstants {
       city: "London",
       rating: 4.8,
       shortDescription: "A journey through history with amazing artifacts.",
+      imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "John Doe",
@@ -190,6 +192,7 @@ class AppConstants {
       city: "Arizona",
       rating: 4.9,
       shortDescription: "A stunning natural wonder with incredible views.",
+imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "Ahlam Gomaa",
@@ -207,6 +210,7 @@ class AppConstants {
       rating: 4.6,
       shortDescription:
           "An iconic bridge connecting the Golden Gate to California.",
+      imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "John Doe",

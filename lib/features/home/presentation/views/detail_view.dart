@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/features/home/data/models/placeCard_model.dart';
+import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
+import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
 
 class DetailView extends StatefulWidget {
   final PlaceCardModel place;
@@ -56,6 +59,7 @@ class _DetailViewState extends State<DetailView> {
       }
     });
   }
+
   bool isFavorite = false;
 
   void toggleFavorite() {
@@ -75,11 +79,10 @@ class _DetailViewState extends State<DetailView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xffA8E6CF),
-          elevation: 0,
-          toolbarHeight: 80,
-          title: Text(
-            "",
+          backgroundColor: kPrimaryColor,
+          iconTheme: const IconThemeData(color: Colors.grey),
+          title: const Text(
+            "Details",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black38,
@@ -88,23 +91,26 @@ class _DetailViewState extends State<DetailView> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 200,
-                  color: Colors.grey[300],
-                  child: Center(child: Text("Image Placeholder")),
+                PlaceImage(
+                  placeUrl: widget.place.imageUre ?? '',
+                  placeCardModel: widget.place,
                 ),
-                SizedBox(height: 20),
+
+                const SizedBox(height: 20),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // لضبط التوزيع بين العنوان والأيقونة
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       title,
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     IconButton(
                       icon: Icon(
@@ -115,32 +121,31 @@ class _DetailViewState extends State<DetailView> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
-                Text(city, style: TextStyle(color: Colors.grey)),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
+                Text(city, style: const TextStyle(color: Colors.grey)),
+                const SizedBox(height: 10),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(rating),
-                    SizedBox(width: 4),
-                    Icon(Icons.star, color: Colors.amber),
+                    const SizedBox(width: 4),
+                    const Icon(Icons.star, color: Colors.amber),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-                Text(
+                const Text(
                   "Full Description",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(description),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-                Text(
+                const Text(
                   "Reviews:",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
 
                 Column(
                   children:
@@ -148,64 +153,10 @@ class _DetailViewState extends State<DetailView> {
                         int index = entry.key;
                         Map<String, dynamic> review = entry.value;
 
-                        return Card(
-                          elevation: 2,
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          child: Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  review["name"] ?? "Unknown User",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 5),
-                                Text(review["comment"] ?? "No comment"),
-                                SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.thumb_up,
-                                        color:
-                                            (review["isLiked"] ?? false)
-                                                ? Colors.green
-                                                : Colors.grey,
-                                      ),
-                                      onPressed: () => toggleLike(index),
-                                    ),
-                                    review["likeCount"] > 0
-                                        ? Text(
-                                          review["likeCount"].toString(),
-                                          style: TextStyle(fontSize: 16),
-                                        )
-                                        : SizedBox(),
-
-                                    SizedBox(width: 10),
-
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.thumb_down,
-                                        color:
-                                            (review["isDisliked"] ?? false)
-                                                ? Colors.red
-                                                : Colors.grey,
-                                      ),
-                                      onPressed: () => toggleDislike(index),
-                                    ),
-                                    review["dislikeCount"] > 0
-                                        ? Text(
-                                          review["dislikeCount"].toString(),
-                                          style: TextStyle(fontSize: 16),
-                                        )
-                                        : SizedBox(),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                        return ReviewCard(
+                          review: review,
+                          onLike: () => toggleLike(index),
+                          onDislike: () => toggleDislike(index),
                         );
                       }).toList(),
                 ),
