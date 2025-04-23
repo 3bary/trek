@@ -33,9 +33,18 @@ class _TagsViewBodyState extends State<TagsViewBody> {
                         label: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(tag.emoji, style: TextStyle(fontSize: 18)), // Emoji
+                            Text(
+                              tag.emoji,
+                              style: TextStyle(fontSize: 18),
+                            ), // Emoji
                             SizedBox(width: 6),
-                            Text(tag.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text(
+                              tag.name,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
                           ],
                         ),
                         isSelected: isSelected,
@@ -43,11 +52,13 @@ class _TagsViewBodyState extends State<TagsViewBody> {
                           setState(() {
                             selectedTags.add(tag.name);
                           });
+                          print(selectedTags);
                         },
                         onChipDeselected: () {
                           setState(() {
                             selectedTags.remove(tag.name);
                           });
+                          print(selectedTags);
                         },
                       );
                     }).toList(),
