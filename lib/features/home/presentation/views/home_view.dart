@@ -50,10 +50,10 @@ class _HomeViewState extends State<HomeView> {
               onPressed: () {
                 GoRouter.of(context).push(AppRouter.kRecommendationView);
               },
-              backgroundColor: kSecondaryColor,
+              backgroundColor: Colors.blueGrey,
               child: const Icon(
                 Icons.mode_edit,
-                color: Colors.black38,
+                color: Colors.white,
                 size: 30,
               ),
             ),

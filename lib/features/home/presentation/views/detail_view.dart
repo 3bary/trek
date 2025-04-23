@@ -23,17 +23,18 @@ class _DetailViewState extends State<DetailView> {
     reviews =
         widget.place.reviews
             ?.map(
-              (review) => {
-                "name": review.name ?? "Unknown User",
-                "comment": review.comment ?? "No comment",
-                "isLiked": review.isLiked ?? false,
-                "likeCount": review.likeCount ?? 0,
-                "isDisliked": review.isDisliked ?? false,
-                "dislikeCount": review.dislikeCount ?? 0,
-              },
-            )
+              (review) =>
+          {
+            "name": review.name ?? "Unknown User",
+            "comment": review.comment ?? "No comment",
+            "isLiked": review.isLiked ?? false,
+            "likeCount": review.likeCount ?? 0,
+            "isDisliked": review.isDisliked ?? false,
+            "dislikeCount": review.dislikeCount ?? 0,
+          },
+        )
             .toList() ??
-        [];
+            [];
   }
 
   void toggleLike(int index) {
@@ -122,7 +123,9 @@ class _DetailViewState extends State<DetailView> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text(city, style: const TextStyle(color: Colors.grey)),
+                Text(city,
+                    style: const TextStyle(color: Colors.grey,
+                      overflow: TextOverflow.ellipsis,)),
                 const SizedBox(height: 10),
 
                 Row(
@@ -149,16 +152,19 @@ class _DetailViewState extends State<DetailView> {
 
                 Column(
                   children:
-                      reviews.asMap().entries.map((entry) {
-                        int index = entry.key;
-                        Map<String, dynamic> review = entry.value;
+                  reviews
+                      .asMap()
+                      .entries
+                      .map((entry) {
+                    int index = entry.key;
+                    Map<String, dynamic> review = entry.value;
 
-                        return ReviewCard(
-                          review: review,
-                          onLike: () => toggleLike(index),
-                          onDislike: () => toggleDislike(index),
-                        );
-                      }).toList(),
+                    return ReviewCard(
+                      review: review,
+                      onLike: () => toggleLike(index),
+                      onDislike: () => toggleDislike(index),
+                    );
+                  }).toList(),
                 ),
               ],
             ),

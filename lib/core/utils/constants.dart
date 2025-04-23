@@ -10,6 +10,10 @@ const Color kSecondaryColor = Color(0xffA8E6CF);
 const Color kTertiaryColor = Color(0xffF5E6CA);
 const Color kTextColor = Colors.black87;
 
+//--------------Api---------------
+const String apiLink =
+    "https://travel-recommendation-api-production.up.railway.app/recommendations/user001";
+
 class AppConstants {
   static List<TagModel> tags = [
     TagModel(
@@ -130,10 +134,6 @@ class AppConstants {
   ];
   static List<PlaceCardModel> places = [
     PlaceCardModel(
-      title: "Beautiful Beach",
-      city: "Miami",
-      rating: 4.5,
-      shortDescription: "A wonderful beach with clear water and golden sand.",
       reviews: [
         ReviewModel(
           name: "John Doe",
@@ -154,11 +154,6 @@ class AppConstants {
       ],
     ),
     PlaceCardModel(
-      title: "Mountain View",
-      city: "Colorado",
-      rating: 4.7,
-      shortDescription: "Breathtaking mountain scenery for hiking lovers.",
-      imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "Ahlam Gomaa",
@@ -171,11 +166,6 @@ class AppConstants {
       ],
     ),
     PlaceCardModel(
-      title: "Historical Museum",
-      city: "London",
-      rating: 4.8,
-      shortDescription: "A journey through history with amazing artifacts.",
-      imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "John Doe",
@@ -188,11 +178,6 @@ class AppConstants {
       ],
     ),
     PlaceCardModel(
-      title: "The Grand Canyon",
-      city: "Arizona",
-      rating: 4.9,
-      shortDescription: "A stunning natural wonder with incredible views.",
-imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "Ahlam Gomaa",
@@ -205,12 +190,6 @@ imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beauti
       ],
     ),
     PlaceCardModel(
-      title: "Golden Gate Bridge",
-      city: "San Francisco",
-      rating: 4.6,
-      shortDescription:
-          "An iconic bridge connecting the Golden Gate to California.",
-      imageUre: "https://www.harpersbazaar.com/culture/travel-dining/g7171/most-beautiful-places-in-the-world/",
       reviews: [
         ReviewModel(
           name: "John Doe",
