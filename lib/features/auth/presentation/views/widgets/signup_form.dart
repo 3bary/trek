@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/core/widgets/custom_button.dart';
 import 'package:greendo/core/widgets/custom_text_form_field.dart';
-
 import '../../../../../core/utils/app_router.dart';
 
 class SignupForm extends StatefulWidget {
