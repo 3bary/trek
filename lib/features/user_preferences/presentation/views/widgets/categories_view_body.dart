@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/features/user_preferences/presentation/views/widgets/custom_choose_chip.dart';
+import 'package:greendo/features/user_preferences/presentation/views/widgets/custom_chip.dart';
 
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/custom_button.dart';
@@ -31,9 +31,16 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
                       bool isSelected = selectedCategories.contains(
                         category.name,
                       );
-                      return CustomChooseChip(
+                      return CustomChip(
                         isSelected: isSelected,
-                        label: Text(category.name),
+                        label: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(category.emoji, style: TextStyle(fontSize: 18)), // Emoji
+                            SizedBox(width: 6),
+                            Text(category.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          ],
+                        ),
                         onChipSelected: () {
                           setState(() {
                             selectedCategories.add(category.name);

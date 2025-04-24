@@ -1,6 +1,6 @@
 class TagModel {
 final String name;
-final String description;
+final String emoji;
 
-TagModel({required this.name, required this.description});
+TagModel({required this.name, required this.emoji});
 }

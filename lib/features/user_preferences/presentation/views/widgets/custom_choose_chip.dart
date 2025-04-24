@@ -13,8 +13,8 @@ class CustomChooseChip extends StatefulWidget {
 
   final bool isSelected;
   final Widget label;
-  final Function() onChipSelected;
-  final Function() onChipDeselected;
+  final VoidCallback onChipSelected;
+  final VoidCallback onChipDeselected;
 
   @override
   _CustomChooseChipState createState() => _CustomChooseChipState();

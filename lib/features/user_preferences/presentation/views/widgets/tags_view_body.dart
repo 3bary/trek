@@ -5,7 +5,6 @@ import 'custom_choose_chip.dart';
 
 class TagsViewBody extends StatefulWidget {
   const TagsViewBody({super.key, required this.onNext});
-
   final Function() onNext;
 
   @override
@@ -14,7 +13,6 @@ class TagsViewBody extends StatefulWidget {
 
 class _TagsViewBodyState extends State<TagsViewBody> {
   List<String> selectedTags = [];
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +33,7 @@ class _TagsViewBodyState extends State<TagsViewBody> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              tag.description.split(" ").first,
+                              tag.emoji,
                               style: TextStyle(fontSize: 18),
                             ), // Emoji
                             SizedBox(width: 6),
@@ -53,11 +51,13 @@ class _TagsViewBodyState extends State<TagsViewBody> {
                           setState(() {
                             selectedTags.add(tag.name);
                           });
+                          print(selectedTags);
                         },
                         onChipDeselected: () {
                           setState(() {
                             selectedTags.remove(tag.name);
                           });
+                          print(selectedTags);
                         },
                       );
                     }).toList(),
@@ -66,7 +66,7 @@ class _TagsViewBodyState extends State<TagsViewBody> {
           ),
           CustomButton(
             backgroundColor: kSecondaryColor,
-            text: "Next",
+            text: "Continue",
             textColor: Colors.white,
             onPressed: () {
               widget.onNext();
