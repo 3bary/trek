@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/recommendation/presentation/views/recommendation_view.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
 import 'package:greendo/features/home/views/discover_view.dart';
 import 'package:greendo/features/home/views/favorite_screen.dart';
@@ -16,6 +17,7 @@ abstract class AppRouter {
   static const String kFavoriteView = '/favoriteView';
   static const String kProfileView = '/profileView';
   static const String kPreferencesView = '/preferencesView';
+  static const String kRecommendationView = '/recommendationView';
 
   static final router = GoRouter(
     initialLocation: '/',
@@ -51,6 +53,10 @@ abstract class AppRouter {
       GoRoute(
         path: kProfileView,
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: kRecommendationView,
+        builder: (context, state) => const RecommendationView(),
       ),
       ],
   );
