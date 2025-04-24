@@ -14,10 +14,7 @@ import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
-import 'package:greendo/features/home/views/discover_view.dart';
-import 'package:greendo/features/home/views/favorite_screen.dart';
-import '../../features/home/views/group_screen.dart';
-import '../../features/home/views/profile_screen.dart';
+
 
 abstract class AppRouter {
   static const String kLoginView = '/loginView';
