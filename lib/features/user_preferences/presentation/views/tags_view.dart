@@ -4,6 +4,7 @@ import 'widgets/tags_view_body.dart';
 
 class TagsView extends StatefulWidget {
   const TagsView({super.key, required this.onNext});
+
   final Function() onNext;
 
   @override

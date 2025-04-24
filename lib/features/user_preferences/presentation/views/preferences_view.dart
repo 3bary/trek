@@ -14,10 +14,11 @@ class _PreferencesViewState extends State<PreferencesView> {
   final PageController _pageController = PageController();
 
   void _nextPage() {
-    _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+    _pageController.nextPage(
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +26,9 @@ class _PreferencesViewState extends State<PreferencesView> {
       child: Scaffold(
         body: PageView(
           controller: _pageController,
-          physics: NeverScrollableScrollPhysics(), // Disable swiping to force button navigation
-          children: [
-            TagsView(onNext: _nextPage),
-            CategoriesView(),
-          ],
+          physics: NeverScrollableScrollPhysics(),
+          // Disable swiping to force button navigation
+          children: [TagsView(onNext: _nextPage), CategoriesView()],
         ),
       ),
     );

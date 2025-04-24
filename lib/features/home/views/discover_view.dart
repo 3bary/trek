@@ -3,12 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/features/home/views/discover_screen_body.dart';
 import 'package:greendo/features/home/views/profile_screen.dart';
-
 import '../../../core/utils/app_router.dart';
-import 'cubit/navigation_cubit.dart';
-import 'favorite_screen.dart';
-import 'group_screen.dart';
-import 'widgets/bottom_naviagation_bar.dart';
+
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
