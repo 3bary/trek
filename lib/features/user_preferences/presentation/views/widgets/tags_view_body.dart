@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/custom_button.dart';
-import 'custom_choose_chip.dart';
+import 'custom_choice_chip.dart';
 
 class TagsViewBody extends StatefulWidget {
   const TagsViewBody({super.key, required this.onNext});

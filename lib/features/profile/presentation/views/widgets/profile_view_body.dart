@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/core/utils/constants.dart';
-
 import 'custom_chip.dart';
 
 class ProfileViewBody extends StatelessWidget {
@@ -19,9 +18,13 @@ class ProfileViewBody extends StatelessWidget {
               showCategories
                   ? AppConstants.categories.map((category) {
                     return CustomChip(
-                      label: Text(
-                        category.name,
-                        style: const TextStyle(color: Colors.black),
+                      label: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(category.emoji, style: TextStyle(fontSize: 18)), // Emoji
+                          SizedBox(width: 6),
+                          Text(category.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        ],
                       ),
                     );
                   }).toList()
@@ -31,19 +34,15 @@ class ProfileViewBody extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            tag.description.split(" ").first,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
+                            tag.emoji,
+                            style: TextStyle(fontSize: 18),
+                          ), // Emoji
+                          SizedBox(width: 6),
                           Text(
                             tag.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Colors.black,
                             ),
                           ),
                         ],
