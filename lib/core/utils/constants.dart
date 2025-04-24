@@ -11,12 +11,10 @@ const Color kTertiaryColor = Color(0xffF5E6CA);
 const Color kTextColor = Colors.black87;
 
 //--------------Api---------------
-const String kBaseUrl = "https://travel-recommendation-api-production.up.railway.app";
 const String kUserId = "user001";
 // Endpoints
-const String kRecommendationsEndpoint = "$kBaseUrl/recommendations/$kUserId";
-String kSearchEndpoint(String query) => "$kBaseUrl/search/$kUserId?query=$query";
-
+const String kRecommendationsEndpoint = "recommendations/$kUserId";
+String kSearchEndpoint(String query) => "search/$kUserId?query=$query";
 
 abstract class AppConstants {
   static List<TagModel> tags = [
