@@ -27,7 +27,7 @@ class _DiscoverViewState extends State<DiscoverView> {
   void initState() {
     super.initState();
     searchedPlaces = [];
-    context.read<DiscoverCubit>().getAllPlaces();
+    context.read<DiscoverCubit>().fetchAllPlaces();
   }
 
   void addSearchedPlacesToSearchedList(String searchPlaces) {
@@ -36,11 +36,11 @@ class _DiscoverViewState extends State<DiscoverView> {
           allPlaces
               .where(
                 (place) =>
-            place.title?.toLowerCase().startsWith(
-              searchPlaces.toLowerCase(),
-            ) ??
-                false,
-          )
+                    place.title?.toLowerCase().startsWith(
+                      searchPlaces.toLowerCase(),
+                    ) ??
+                    false,
+              )
               .toList();
     });
   }
@@ -74,7 +74,11 @@ class _DiscoverViewState extends State<DiscoverView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CategoryNamesList(),
+            CategoryNamesList(
+              onCategorySelected: (categoryName) {
+                context.read<DiscoverCubit>().fetchPlacesByCategory(categoryName);
+              },
+            ),
             const SizedBox(height: 5),
             Expanded(
               child: BlocBuilder<DiscoverCubit, DiscoverState>(
@@ -87,18 +91,18 @@ class _DiscoverViewState extends State<DiscoverView> {
                     allPlaces = state.places;
                     print('Loaded places: ${allPlaces.length}');
                     searchedPlaces =
-                    _searchTextController.text.isEmpty
-                        ? allPlaces
-                        : allPlaces
-                        .where(
-                          (place) =>
-                      place.title?.toLowerCase().startsWith(
-                        _searchTextController.text
-                            .toLowerCase(),
-                      ) ??
-                          false,
-                    )
-                        .toList();
+                        _searchTextController.text.isEmpty
+                            ? allPlaces
+                            : allPlaces
+                                .where(
+                                  (place) =>
+                                      place.title?.toLowerCase().startsWith(
+                                        _searchTextController.text
+                                            .toLowerCase(),
+                                      ) ??
+                                      false,
+                                )
+                                .toList();
 
                     return PlaceList(
                       searchTextController: _searchTextController,

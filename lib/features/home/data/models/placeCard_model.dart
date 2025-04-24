@@ -24,9 +24,8 @@ class PlaceCardModel {
       imageUre: json['imageUre'],
       title: json['name'],
       city: json['location']['city'],
-
       shortDescription: json['description'],
-      rating: json['average_rating'],
+      rating: json['average_rating'].toDouble(),
     );
   }
 }

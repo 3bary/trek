@@ -1,8 +1,15 @@
+
 import 'package:flutter/material.dart';
+
 import '../../../../../core/utils/constants.dart';
 
 class CategoryNamesList extends StatelessWidget {
-  const CategoryNamesList({super.key});
+  final Function(String categoryName) onCategorySelected;
+
+  const CategoryNamesList({
+    super.key,
+    required this.onCategorySelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +24,16 @@ class CategoryNamesList extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           final categoryName = categories[index].name;
-          return Chip(
-            label: Text(
-              categoryName,
-              style: const TextStyle(color: Colors.black),
+          return GestureDetector(
+            onTap: () => onCategorySelected(categoryName),
+            child: Chip(
+              label: Text(
+                categoryName,
+                style: const TextStyle(color: Colors.black),
+              ),
+              backgroundColor: Colors.white,
+              side: const BorderSide(color: Colors.white),
             ),
-            backgroundColor: Colors.white,
-            side: const BorderSide(color: Colors.white),
           );
         },
       ),

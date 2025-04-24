@@ -7,8 +7,12 @@ class DiscoverRepo {
   DiscoverRepo(this.discoverApi);
 
   Future<List<PlaceCardModel>> getAllPlaces() async {
-    final places = await DiscoverApi().getAllPlaces();
-    print('Raw places: $places');
+    final places = await discoverApi.getAllPlaces();
+    return places.map((place) => PlaceCardModel.fromJson(place)).toList();
+  }
+
+  Future<List<PlaceCardModel>> getPlacesByCategory(String category) async {
+    final places = await discoverApi.searchPlacesByCategory(category);
     return places.map((place) => PlaceCardModel.fromJson(place)).toList();
   }
 }

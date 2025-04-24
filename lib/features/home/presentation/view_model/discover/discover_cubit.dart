@@ -1,32 +1,30 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/models/placeCard_model.dart';
 import '../../../data/repos/discover_repo.dart';
 import 'discover_state.dart';
 
 class DiscoverCubit extends Cubit<DiscoverState> {
-  final DiscoverRepo placeRepo;
-  List<PlaceCardModel> places = [];
+  final DiscoverRepo discoverRepo;
 
-  DiscoverCubit(this.placeRepo) : super(DiscoverInitial());
+  DiscoverCubit(this.discoverRepo) : super(DiscoverInitial());
 
-  void getAllPlaces({bool isRefresh = false}) {
-    if (isRefresh) {
-      emit(DiscoverRefreshing());
-    } else {
-      emit(DiscoverLoading());
+  Future<void> fetchAllPlaces() async {
+    emit(DiscoverLoading());
+    try {
+      final places = await discoverRepo.getAllPlaces();
+      emit(DiscoverLoaded(places));
+    } catch (e) {
+      emit(DiscoverError("Failed to load places: $e"));
     }
+  }
 
-    placeRepo
-        .getAllPlaces()
-        .then((places) {
-          print('✅ Places Fetched: ${places.length}');
-          emit(DiscoverLoaded(places));
-          this.places = places;
-        })
-        .catchError((e) {
-          print('❌ Error while fetching places: $e');
-          emit(DiscoverError(e.toString()));
-        });
+  Future<void> fetchPlacesByCategory(String category) async {
+    emit(DiscoverLoading());
+    try {
+      final places = await discoverRepo.getPlacesByCategory(category);
+      emit(DiscoverLoaded(places));
+    } catch (e) {
+      emit(DiscoverError("Failed to load places for category '$category': $e"));
+    }
   }
 }
