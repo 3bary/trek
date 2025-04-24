@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class PlaceCard extends StatefulWidget {
+class FavoritePlaceCard extends StatefulWidget {
   final String title;
-  final String? imageUrl;
   final String city;
   final double rating;
   final String shortDescription;
   final VoidCallback onDetailsPressed;
 
 
-  const PlaceCard({
+  const FavoritePlaceCard({
     super.key,
-    this.imageUrl,
     required this.title,
     required this.city,
     required this.rating,
@@ -20,11 +18,11 @@ class PlaceCard extends StatefulWidget {
   });
 
   @override
-  State<PlaceCard> createState() => _PlaceCardState();
+  State<FavoritePlaceCard> createState() => _FavoritePlaceCardState();
 }
 
-class _PlaceCardState extends State<PlaceCard> {
-  bool isFavorite = false;
+class _FavoritePlaceCardState extends State<FavoritePlaceCard> {
+  bool isFavorite = true;
 
   void toggleFavorite() {
     setState(() {
@@ -38,7 +36,6 @@ class _PlaceCardState extends State<PlaceCard> {
     return Padding(
       padding: const EdgeInsets.only(top: 4, left: 5, right: 5),
       child: Card(
-        color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 5,
         child: Padding(

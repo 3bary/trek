@@ -4,6 +4,8 @@ import 'package:greendo/features/home/data/models/placeCard_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
 
+import '../../../../core/utils/constants.dart';
+
 class DetailView extends StatefulWidget {
   final PlaceCardModel place;
 
@@ -81,6 +83,7 @@ class _DetailViewState extends State<DetailView> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
+          elevation: 3,
           iconTheme: const IconThemeData(color: Colors.grey),
           title: const Text(
             "Details",
@@ -108,7 +111,7 @@ class _DetailViewState extends State<DetailView> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),

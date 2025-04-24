@@ -8,12 +8,11 @@ import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/home/data/repos/discover_repo.dart';
 import '../../features/home/presentation/view_model/discover/discover_cubit.dart';
 import '../../features/home/presentation/views/detail_view.dart';
-import '../../features/home/presentation/views/favorite_view.dart';
+import '../../features/favorites/presentation/views/favorite_view.dart';
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/home/presentation/views/profile_view.dart';
 import '../../features/home/presentation/views/recommendation_view.dart';
-import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
 
 abstract class AppRouter {
@@ -53,10 +52,7 @@ abstract class AppRouter {
         path: kGroupView,
         builder: (context, state) => const GroupsView(),
       ),
-      GoRoute(
-        path: kFavoriteView,
-        builder: (context, state) => const FavoriteView(),
-      ),
+      GoRoute(path: kFavoriteView, builder: (context, state) => FavoriteView()),
       GoRoute(
         path: kProfileView,
         builder: (context, state) => const ProfileView(),
