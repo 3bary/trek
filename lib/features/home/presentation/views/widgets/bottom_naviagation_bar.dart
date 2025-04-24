@@ -1,27 +1,35 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../view_model/navigation_cubit/navigation_cubit.dart';
+import 'package:greendo/core/utils/constants.dart';
 
-class CustomBottomNavigation extends StatelessWidget {
-  const CustomBottomNavigation({super.key});
+class CustomBottomNavigationBar extends StatelessWidget {
+  const CustomBottomNavigationBar({
+    super.key,
+    this.onTap,
+    required this.currentIndex,
+  });
+
+  final Function(int)? onTap;
+  final int currentIndex;
 
   @override
   Widget build(BuildContext context) {
-    return CurvedNavigationBar(
-      color: Color(0xffA8E6CF),
-      onTap: (index) {
-        context.read<NavigationCubit>().changePage(index);
-      },
-      animationDuration: Duration(milliseconds: 250),
-      backgroundColor: Colors.transparent,
-      items: [
-        Icon(Icons.search, size: 35,color: Colors.black38),
-        Icon(Icons.groups_2, size: 35,color: Colors.black38),
-        Icon(Icons.favorite, size: 35,color: Colors.black38),
-        Icon(Icons.person, size: 35,color: Colors.black38),
-      ],
+    return SizedBox(
+      height: 60,
+      child: CurvedNavigationBar(
+        index: currentIndex,
+        color: Colors.blueGrey,
+        onTap: onTap,
+        animationDuration: Duration(milliseconds: 250),
+        backgroundColor: Colors.transparent,
+        items: [
+          Icon(Icons.search, size: 30, color: Colors.white),
+          Icon(Icons.groups_2, size: 30, color: Colors.white),
+          Icon(Icons.favorite, size: 30, color: Colors.white),
+          Icon(Icons.person, size: 30, color: Colors.white),
+        ],
+      ),
     );
   }
 }
