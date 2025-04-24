@@ -1,6 +1,6 @@
 class CategoryModel {
   final String name;
-  final List<String> examples;
+  final String emoji;
 
-  CategoryModel({required this.name, required this.examples});
+  CategoryModel({required this.name, required this.emoji});
 }

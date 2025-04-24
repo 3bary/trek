@@ -27,25 +27,32 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
                 runSpacing: 8,
                 alignment: WrapAlignment.start,
                 children:
-                AppConstants.categories.map((category) {
-                  bool isSelected = selectedCategories.contains(
-                    category.name,
-                  );
-                  return CustomChip(
-                      isSelected: isSelected,
-                      label: Text(category.name),
-                      onChipSelected: (){
-                        setState(() {
-                          selectedCategories.add(category.name);
-                        });
-                      },
-                      onChipDeselected: (){
-                        setState(() {
-                          selectedCategories.remove(category.name);
-                        });
-                      }
-                  );
-                }).toList(),
+                    AppConstants.categories.map((category) {
+                      bool isSelected = selectedCategories.contains(
+                        category.name,
+                      );
+                      return CustomChip(
+                        isSelected: isSelected,
+                        label: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(category.emoji, style: TextStyle(fontSize: 18)), // Emoji
+                            SizedBox(width: 6),
+                            Text(category.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          ],
+                        ),
+                        onChipSelected: () {
+                          setState(() {
+                            selectedCategories.add(category.name);
+                          });
+                        },
+                        onChipDeselected: () {
+                          setState(() {
+                            selectedCategories.remove(category.name);
+                          });
+                        },
+                      );
+                    }).toList(),
               ),
             ),
           ),
@@ -53,9 +60,7 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
             backgroundColor: kSecondaryColor,
             text: "Finish",
             textColor: Colors.white,
-            onPressed: () {
-
-            },
+            onPressed: () {},
           ),
           SizedBox(height: 20),
         ],

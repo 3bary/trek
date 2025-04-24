@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/core/widgets/custom_appBar.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
