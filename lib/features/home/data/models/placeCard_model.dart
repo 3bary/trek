@@ -18,4 +18,14 @@ class PlaceCardModel {
     this.shortDescription,
     this.reviews,
   });
+
+  factory PlaceCardModel.fromJson(Map<String, dynamic> json) {
+    return PlaceCardModel(
+      imageUre: json['imageUre'],
+      title: json['name'],
+      city: json['location']['city'],
+      shortDescription: json['description'],
+      rating: json['average_rating'].toDouble(),
+    );
+  }
 }

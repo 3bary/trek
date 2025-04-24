@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class PlaceCard extends StatefulWidget {
   final String title;
+  final String? imageUrl;
   final String city;
   final double rating;
   final String shortDescription;
@@ -9,6 +10,7 @@ class PlaceCard extends StatefulWidget {
 
   const PlaceCard({
     super.key,
+    this.imageUrl,
     required this.title,
     required this.city,
     required this.rating,
@@ -35,6 +37,7 @@ class _PlaceCardState extends State<PlaceCard> {
     return Padding(
       padding: const EdgeInsets.only(top: 4, left: 5, right: 5),
       child: Card(
+        color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 5,
         child: Padding(

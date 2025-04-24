@@ -33,7 +33,14 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
                       );
                       return CustomChip(
                         isSelected: isSelected,
-                        label: Text(category.name),
+                        label: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(category.emoji, style: TextStyle(fontSize: 18)), // Emoji
+                            SizedBox(width: 6),
+                            Text(category.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          ],
+                        ),
                         onChipSelected: () {
                           setState(() {
                             selectedCategories.add(category.name);
