@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/features/home/data/models/placeCard_model.dart';
+import 'package:greendo/features/home/data/models/place_model.dart';
 
 import '../../features/home/data/models/review_model.dart';
 import '../../features/user_preferences/data/models/category_model.dart';
@@ -51,8 +51,8 @@ abstract class AppConstants {
     CategoryModel(name: "Wine Tour", emoji: '🍷',),
     CategoryModel(name: "Cultural", emoji: '🏛',),
   ];
-  static List<PlaceCardModel> places = [
-    PlaceCardModel(
+  static List<PlaceModel> places = [
+    PlaceModel(
       reviews: [
         ReviewModel(
           name: "John Doe",
@@ -72,7 +72,7 @@ abstract class AppConstants {
         ),
       ],
     ),
-    PlaceCardModel(
+    PlaceModel(
       reviews: [
         ReviewModel(
           name: "Ahlam Gomaa",
@@ -84,7 +84,7 @@ abstract class AppConstants {
         ),
       ],
     ),
-    PlaceCardModel(
+    PlaceModel(
       reviews: [
         ReviewModel(
           name: "John Doe",
@@ -96,7 +96,7 @@ abstract class AppConstants {
         ),
       ],
     ),
-    PlaceCardModel(
+    PlaceModel(
       reviews: [
         ReviewModel(
           name: "Ahlam Gomaa",
@@ -108,7 +108,7 @@ abstract class AppConstants {
         ),
       ],
     ),
-    PlaceCardModel(
+    PlaceModel(
       reviews: [
         ReviewModel(
           name: "John Doe",

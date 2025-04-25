@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/features/home/data/models/placeCard_model.dart';
+import 'package:greendo/features/home/data/models/place_model.dart';
 
 mixin PlaceSearch<T extends StatefulWidget> on State<T> {
-  late List<PlaceCardModel> searchedPlaces;
-  late List<PlaceCardModel> allPlaces;
+  late List<PlaceModel> searchedPlaces;
+  late List<PlaceModel> allPlaces;
   bool _isSearching = false;
   final TextEditingController searchTextController = TextEditingController();
 
@@ -11,7 +11,7 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
 
   void initializeSearch(
     StateSetter setStateCallback,
-    List<PlaceCardModel> places,
+    List<PlaceModel> places,
   ) {
     allPlaces = places;
     searchedPlaces = allPlaces;

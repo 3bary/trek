@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-abstract class Failure {
+ class Failure {
   final String errorMessage;
 
   const Failure(this.errorMessage);

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:greendo/features/home/data/models/placeCard_model.dart';
+import 'package:greendo/features/home/data/models/place_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/placeCard.dart';
 
 import '../../../../../core/utils/app_router.dart';
 
 class DiscoverBody extends StatelessWidget {
-  final List<PlaceCardModel> places;
+  final List<PlaceModel> places;
   final BuildContext context;
 
   const DiscoverBody({super.key, required this.places, required this.context});

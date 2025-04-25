@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils/app_router.dart';
-import '../../../data/models/placeCard_model.dart';
+import '../../../data/models/place_model.dart';
 
 import 'placeCard.dart';
 
 class PlaceList extends StatelessWidget {
   final TextEditingController searchTextController;
-  final List<PlaceCardModel> allPlaces;
-  final List<PlaceCardModel> searchedPlaces;
+  final List<PlaceModel> allPlaces;
+  final List<PlaceModel> searchedPlaces;
 
   const PlaceList({
     super.key,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/placeCard_model.dart';
+import '../../../data/models/place_model.dart';
 
 class PlaceImage extends StatelessWidget {
   const PlaceImage({
@@ -11,7 +11,7 @@ class PlaceImage extends StatelessWidget {
 
   final String? placeUrl;
   final double imageHeight;
-  final PlaceCardModel placeCardModel;
+  final PlaceModel placeCardModel;
 
   @override
   Widget build(BuildContext context) {
