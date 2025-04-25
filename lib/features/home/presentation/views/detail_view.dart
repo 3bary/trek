@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/core/utils/constants.dart';
-import 'package:greendo/features/home/data/models/placeCard_model.dart';
+import 'package:greendo/features/home/data/models/place_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
 
 import '../../../../core/utils/constants.dart';
 
 class DetailView extends StatefulWidget {
-  final PlaceCardModel place;
+  final PlaceModel place;
 
   const DetailView({super.key, required this.place});
 

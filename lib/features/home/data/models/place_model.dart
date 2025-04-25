@@ -1,6 +1,6 @@
 import 'package:greendo/features/home/data/models/review_model.dart';
 
-class PlaceCardModel {
+class PlaceModel {
   String? imageUre;
   String? title;
   String? city;
@@ -9,7 +9,7 @@ class PlaceCardModel {
   String? description;
   List<ReviewModel>? reviews;
 
-  PlaceCardModel({
+  PlaceModel({
     this.description,
     this.imageUre,
     this.title,
@@ -19,8 +19,8 @@ class PlaceCardModel {
     this.reviews,
   });
 
-  factory PlaceCardModel.fromJson(Map<String, dynamic> json) {
-    return PlaceCardModel(
+  factory PlaceModel.fromJson(Map<String, dynamic> json) {
+    return PlaceModel(
       imageUre: json['imageUre'],
       title: json['name'],
       city: json['location']['city'],
