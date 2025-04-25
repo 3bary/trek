@@ -19,9 +19,10 @@ class HomeRepoImp implements HomeRepo {
       print('Type of data: ${data.runtimeType}');
 
       final places =
-          (data)
-              .map((place) => PlaceModel.fromJson(place))
-              .toList();
+          (data['data'])
+              ?.map((item) => PlaceModel.fromJson(item['place']))
+              .toList() ??
+          [];
 
       return right(places);
     } catch (e) {
@@ -42,9 +43,10 @@ class HomeRepoImp implements HomeRepo {
       );
 
       final places =
-          (data)
-              .map((place) => PlaceModel.fromJson(place))
-              .toList();
+          (data['data'] as List<dynamic>?)
+              ?.map((item) => PlaceModel.fromJson(item['place']))
+              .toList() ??
+          [];
 
       return right(places);
     } catch (e) {
