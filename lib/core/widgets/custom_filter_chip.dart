@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/constants.dart';
+import '../utils/constants.dart';
 
-class CustomChooseChip extends StatefulWidget {
-  const CustomChooseChip({
+class CustomFilterChip extends StatelessWidget {
+  const CustomFilterChip({
     super.key,
     required this.isSelected,
     required this.label,
@@ -17,19 +17,14 @@ class CustomChooseChip extends StatefulWidget {
   final VoidCallback onChipDeselected;
 
   @override
-  _CustomChooseChipState createState() => _CustomChooseChipState();
-}
-
-class _CustomChooseChipState extends State<CustomChooseChip> {
-  @override
   Widget build(BuildContext context) {
-    return ChoiceChip(
-      label: widget.label,
-      selected: widget.isSelected,
+    return FilterChip(
+      label: label,
+      selected: isSelected,
       selectedColor: kSecondaryColor,
       backgroundColor: Colors.white,
       labelStyle: TextStyle(
-        color: widget.isSelected ? Colors.white : Colors.black,
+        color: isSelected ? Colors.white : Colors.black,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
@@ -37,9 +32,7 @@ class _CustomChooseChipState extends State<CustomChooseChip> {
       ),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       onSelected: (bool selected) {
-        setState(() {
-          selected ? widget.onChipSelected() : widget.onChipDeselected();
-        });
+          selected ? onChipSelected() : onChipDeselected();
       },
     );
   }
