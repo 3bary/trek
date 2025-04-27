@@ -22,7 +22,7 @@ class HomeRepoImp implements HomeRepo {
           (data['data'] as List<dynamic>?)
               ?.map((item) => PlaceModel.fromJson(item['place']))
               .toList() ??
-              [];
+          [];
 
       return right(places);
     } catch (e) {
@@ -44,7 +44,8 @@ class HomeRepoImp implements HomeRepo {
 
       final places =
           (data['data'] as List<dynamic>?)
-              ?.map((item) => PlaceModel.fromJson(item['place']))
+              ?.where((item) => item.containsKey('place'))
+              .map((item) => PlaceModel.fromJson(item['place']))
               .toList() ??
           [];
 

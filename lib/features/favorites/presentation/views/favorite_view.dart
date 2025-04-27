@@ -16,10 +16,11 @@ class FavoriteView extends StatelessWidget {
               return SizedBox(
                 width: double.infinity,
                 child: PlaceCard(
+                  likes: place.likes!,
                   title: place.title!,
                   city: place.city!,
                   rating: place.rating!,
-                  shortDescription: place.shortDescription!,
+                  description: place.description!,
                   onDetailsPressed: () {
                     GoRouter.of(
                       context,
