@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:greendo/core/errors/failures.dart';
 import 'package:greendo/features/home/data/models/place_model.dart';
-import 'package:greendo/features/home/data/repos/home_repo.dart';
+import 'package:greendo/features/home/data/repos/home/home_repo.dart';
 
-import '../../../../core/utils/api_service.dart';
+import '../../../../../core/utils/api_service.dart';
 
 class HomeRepoImp implements HomeRepo {
   HomeRepoImp(this.apiService);

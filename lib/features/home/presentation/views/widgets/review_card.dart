@@ -15,6 +15,7 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.blueGrey,
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Padding(
@@ -24,10 +25,17 @@ class ReviewCard extends StatelessWidget {
           children: [
             Text(
               review["name"] ?? "Unknown User",
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 5),
-            Text(review["comment"] ?? "No comment"),
+            Text(
+              review["comment"] ?? "No comment",
+              style: TextStyle(color: Colors.white70),
+            ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

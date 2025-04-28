@@ -1,7 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:greendo/features/home/data/models/place_model.dart';
+import 'package:greendo/features/home/data/models/review_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
+import 'package:greendo/features/home/presentation/views/widgets/silver_app_bar.dart';
+
+import '../../../../core/utils/review_api_service.dart';
+import '../../data/repos/review/review_repo_imp.dart';
 
 class DetailView extends StatefulWidget {
   final PlaceModel place;
@@ -13,35 +19,53 @@ class DetailView extends StatefulWidget {
 }
 
 class _DetailViewState extends State<DetailView> {
-  List<Map<String, dynamic>> reviews = [];
+  List<ReviewModel> reviews = [];
   bool isFavorite = false;
+  late final ReviewRepoImp reviewRepoImp;
 
   @override
   void initState() {
     super.initState();
+    reviewRepoImp = ReviewRepoImp(ReviewApiService(Dio()));
+    fetchReviews();
+  }
 
+  void fetchReviews() async {
+    var result = await reviewRepoImp.getReviews();
+    result.fold(
+      (failure) {
+        print('❌ Failed to fetch reviews: $failure');
+      },
+      (fetchedReviews) {
+        setState(() {
+          reviews = fetchedReviews;
+        });
+      },
+    );
   }
 
   void toggleLike(int index) {
     setState(() {
-      if (reviews[index]["isLiked"] == true) {
-        reviews[index]["isLiked"] = false;
-        reviews[index]["likeCount"]--;
+      final review = reviews[index];
+      if (review.isLiked) {
+        review.isLiked = false;
+        review.likes = (review.likes ?? 0) - 1;
       } else {
-        reviews[index]["isLiked"] = true;
-        reviews[index]["likeCount"]++;
+        review.isLiked = true;
+        review.likes = (review.likes ?? 0) + 1;
       }
     });
   }
 
   void toggleDislike(int index) {
     setState(() {
-      if (reviews[index]["isDisliked"] == true) {
-        reviews[index]["isDisliked"] = false;
-        reviews[index]["dislikeCount"]--;
+      final review = reviews[index];
+      if (review.isDisliked) {
+        review.isDisliked = false;
+        review.disLikes = (review.disLikes ?? 0) - 1;
       } else {
-        reviews[index]["isDisliked"] = true;
-        reviews[index]["dislikeCount"]++;
+        review.isDisliked = true;
+        review.disLikes = (review.disLikes ?? 0) + 1;
       }
     });
   }
@@ -72,37 +96,7 @@ class _DetailViewState extends State<DetailView> {
               flexibleSpace: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   final top = constraints.biggest.height;
-                  return FlexibleSpaceBar(
-                    titlePadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    title: Text(
-                      textAlign: TextAlign.start,
-                      title,
-                      style: TextStyle(
-                        fontSize: top > 100 ? 18 : 18,
-                        color: Colors.white,
-                        shadows: const [
-                          Shadow(
-                            blurRadius: 2,
-                            color: Colors.black54,
-                            offset: Offset(0, 1),
-                          ),
-                        ],
-                      ),
-                    ),
-                    background: Hero(
-                      tag:
-                          widget.place.id ?? widget.place.title ?? 'defaultTag',
-                      child: PlaceImage(
-                        imageUrl: widget.place.imageUre ?? '',
-                        placeCardModel: widget.place,
-                      ),
-                    ),
-
-                    collapseMode: CollapseMode.parallax,
-                  );
+                  return SilverAppBar(title: title, top: top, widget: widget);
                 },
               ),
               actions: [
@@ -158,7 +152,6 @@ class _DetailViewState extends State<DetailView> {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 15),
                       const Text(
                         "Description : ",
@@ -183,17 +176,23 @@ class _DetailViewState extends State<DetailView> {
                 ),
                 ...reviews.asMap().entries.map((entry) {
                   int index = entry.key;
-                  Map<String, dynamic> review = entry.value;
+                  ReviewModel review = entry.value;
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: ReviewCard(
-                      review: review,
+                      review: {
+                        "comment": review.comment ?? '',
+                        "likeCount": review.likes ?? 0,
+                        "dislikeCount": review.disLikes ?? 0,
+                        "isLiked": review.isLiked,
+                        "isDisliked": review.isDisliked,
+                      },
                       onLike: () => toggleLike(index),
                       onDislike: () => toggleDislike(index),
                     ),
                   );
                 }),
-                const SizedBox(height: 250),
+                const SizedBox(height: 50),
               ]),
             ),
           ],

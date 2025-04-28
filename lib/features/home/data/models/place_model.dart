@@ -23,7 +23,7 @@ class PlaceModel {
 
   factory PlaceModel.fromJson(Map<String, dynamic> json) {
     return PlaceModel(
-      id: json['_id'],
+      id: json['place_id'],
       imageUre: json['image_url'],
       likes: json['likes'],
       title: json['name'],
