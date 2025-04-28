@@ -4,12 +4,12 @@ import '../../../data/models/place_model.dart';
 class PlaceImage extends StatelessWidget {
   const PlaceImage({
     super.key,
-    required this.placeUrl,
+    required this.imageUrl,
     required this.placeCardModel,
     this.imageHeight = 250,
   });
 
-  final String? placeUrl;
+  final String? imageUrl;
   final double imageHeight;
   final PlaceModel placeCardModel;
 

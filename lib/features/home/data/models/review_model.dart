@@ -1,17 +1,30 @@
 class ReviewModel {
-  final String name;
-  final String comment;
-  bool isLiked;
-  int likeCount;
-  bool isDisliked;
-  int dislikeCount;
+  String? id;
+  String? name; // هنا المفروض user name مش place_id
+  String? comment;
+  int? likes;
+  int? disLikes;
+
+  bool isLiked; // محلية (مش جاية من API)
+  bool isDisliked; // محلية
 
   ReviewModel({
-    required this.name,
-    required this.comment,
+    this.id,
+    this.name,
+    this.comment,
+    this.likes,
+    this.disLikes,
     this.isLiked = false,
-    this.likeCount = 0,
     this.isDisliked = false,
-    this.dislikeCount = 0,
   });
+
+  factory ReviewModel.fromJson(Map<String, dynamic> json) {
+    return ReviewModel(
+      id: json['place_id'],
+      name: json['user_id'],
+      comment: json['review_text'],
+      likes: json['likes'],
+      disLikes: json['dislikes'],
+    );
+  }
 }

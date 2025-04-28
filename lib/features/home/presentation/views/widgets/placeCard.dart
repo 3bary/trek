@@ -5,9 +5,9 @@ class PlaceCard extends StatefulWidget {
   final String? imageUrl;
   final String city;
   final double rating;
-  final String shortDescription;
+  final String description;
+  final int likes;
   final VoidCallback onDetailsPressed;
-
 
   const PlaceCard({
     super.key,
@@ -15,8 +15,9 @@ class PlaceCard extends StatefulWidget {
     required this.title,
     required this.city,
     required this.rating,
-    required this.shortDescription,
+    required this.description,
     required this.onDetailsPressed,
+    required this.likes,
   });
 
   @override
@@ -76,9 +77,10 @@ class _PlaceCardState extends State<PlaceCard> {
                   Icon(Icons.star, color: Colors.amber, size: 18),
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(width: 15),
+
               Text(
-                widget.shortDescription,
+                widget.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -89,7 +91,7 @@ class _PlaceCardState extends State<PlaceCard> {
                   child: Text(
                     "Details",
                     style: TextStyle(
-                      color: Colors.green,
+                      color: Colors.blueGrey,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
