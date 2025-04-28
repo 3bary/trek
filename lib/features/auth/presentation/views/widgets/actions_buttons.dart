@@ -16,7 +16,7 @@ class ActionsButtons extends StatelessWidget {
           backgroundColor: kSecondaryColor,
           onPressed: () {
             GoRouter.of(context).push(AppRouter.kLoginView);
-          }, textColor: kTextColor,
+          }, textColor: Colors.white,
         ),
         const SizedBox(height: 16,),
         CustomButton(

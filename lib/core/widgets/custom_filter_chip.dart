@@ -24,7 +24,7 @@ class CustomFilterChip extends StatelessWidget {
       selectedColor: kSecondaryColor,
       backgroundColor: Colors.white,
       labelStyle: TextStyle(
-        color: isSelected ? Colors.white : Colors.black,
+        color: isSelected ? Colors.white : kTextColor,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),

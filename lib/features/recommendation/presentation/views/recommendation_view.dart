@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greendo/core/utils/constants.dart';
 
 import 'widgets/recommendation_view_body.dart';
 
@@ -7,10 +8,14 @@ class RecommendationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Travel Questionnaire")),
-      body: RecommendationViewBody(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Travel Questionnaire"),
+          backgroundColor: kPrimaryColor,
+        ),
+        body: RecommendationViewBody(),
+      ),
     );
   }
-
 }

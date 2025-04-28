@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:greendo/core/utils/app_router.dart';
 
+import '../../../../../core/utils/constants.dart';
+import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_filter_chip.dart';
 import 'custom_choice_chip.dart';
 
@@ -85,6 +89,7 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
     print("Group: $selectedGroup");
     print("Accessibility: $selectedAccessibility");
     print("Budget: $selectedBudget");
+    GoRouter.of(context).push( AppRouter.kRoadMapView);
   }
 
   @override
@@ -215,14 +220,14 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
           SizedBox(
             width: double.infinity,
             height: 50,
-            child: ElevatedButton(
+            child: CustomButton(
               onPressed: generateRecommendation,
-              child: const Text(
-                "Generate Recommendation",
-                style: TextStyle(fontSize: 16),
-              ),
+              text: "Generate Recommendation",
+              backgroundColor: kSecondaryColor,
+              textColor: Colors.white,
             ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );

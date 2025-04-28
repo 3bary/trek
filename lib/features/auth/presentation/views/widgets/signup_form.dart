@@ -104,7 +104,7 @@ class _SignupFormState extends State<SignupForm> {
               //formKey.currentState!.validate();
               GoRouter.of(context).push(AppRouter.kPreferencesView);
             },
-            textColor: kTextColor,
+            textColor: Colors.white,
           ),
         ],
       ),
