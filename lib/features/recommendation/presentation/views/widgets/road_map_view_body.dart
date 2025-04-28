@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/constants.dart';
+
 class RoadMapViewBody extends StatelessWidget {
   const RoadMapViewBody({super.key});
 
@@ -7,41 +9,41 @@ class RoadMapViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Travel Road Map'),
+        title: const Text('Road Map'),
+        backgroundColor: kPrimaryColor,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          // Show Warnings
-          if (warnings.isNotEmpty)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "⚠️ Warnings",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.redAccent),
-                ),
-                const SizedBox(height: 8),
-                ...warnings.map((warning) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    warning.message,
-                    style: const TextStyle(color: Colors.black87),
+          padding: const EdgeInsets.all(16),
+          children: [
+            // Show Warnings
+            if (warnings.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "⚠️ Warnings",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.redAccent),
                   ),
-                )),
-                const Divider(),
-              ],
+                  const SizedBox(height: 8),
+                  ...warnings.map((warning) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      warning.message,
+                      style: const TextStyle(color: Colors.black87),
+                    ),
+                  )).toList(), // ف,
+                  const Divider(),
+                ],
+              ),
+            // Show Travel Steps
+            const Text(
+              "🗺️ Your Travel Plan",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-
-          // Show Travel Steps
-          const Text(
-            "🗺️ Your Travel Plan",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          ...travelSteps.map((step) => TravelStepCard(step: step)),
-        ],
-      ),
+            const SizedBox(height: 8),
+            ...travelSteps.map((step) => TravelStepCard(step: step)).toList(),
+          ],
+        ),
     );
   }
 }
@@ -184,6 +186,24 @@ final List<TravelStep> travelSteps = [
     ),
     nextDestination: "Suez Canal",
   ),
+  TravelStep(
+    place: Place(
+      id: "place009",
+      name: "Suez Canal",
+      category: "historical",
+      tags: ["museum", "national hero", "military", "history"],
+      description: "The Suez Canal is a navigable waterway connecting the Mediterranean Sea to the Red Sea...",
+      city: "Suez",
+      country: "Egypt",
+      accessibility: ["wheelchair-friendly"],
+      averageRating: 4.5,
+      likes: 2800,
+      reviewsCount: 670,
+      appropriateTime: ["October", "November", "March"],
+      budget: "low",
+      groupType: ["family", "solo"],
+    ),
+  )
   // Add more TravelStep dummy data from your JSON...
 ];
 
