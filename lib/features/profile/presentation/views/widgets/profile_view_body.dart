@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/core/utils/constants.dart';
-import 'custom_chip.dart';
+import '../../../../../core/widgets/custom_chip.dart';
 
 class ProfileViewBody extends StatelessWidget {
   final bool showCategories;
