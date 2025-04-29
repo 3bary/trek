@@ -38,15 +38,15 @@ class _HomeViewState extends State<HomeView> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: Tooltip(
-          message: "recommendation!",
-          preferBelow: false,
-          verticalOffset: 70,
-          child: Transform.translate(
-            offset: const Offset(0, -30),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: Tooltip(
+            message: "recommendation!",
+            preferBelow: false,
+            verticalOffset: 70,
             child: FloatingActionButton(
               onPressed: () {
-                GoRouter.of(context).push(AppRouter.kRecommendationView);
+                context.push(AppRouter.kRecommendationView);
               },
               backgroundColor: Colors.blueGrey,
               child: const Icon(

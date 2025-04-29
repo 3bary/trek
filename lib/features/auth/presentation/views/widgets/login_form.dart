@@ -76,7 +76,7 @@ class _LoginFormState extends State<LoginForm> {
               //formKey.currentState!.validate();
               GoRouter.of(context).pushReplacement(AppRouter.kDiscoverView) ;
             },
-            textColor: kTextColor,
+            textColor: Colors.white,
           ),
         ],
       ),

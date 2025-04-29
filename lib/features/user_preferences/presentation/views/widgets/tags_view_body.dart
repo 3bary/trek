@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/custom_button.dart';
-import 'custom_choice_chip.dart';
+import '../../../../../core/widgets/custom_filter_chip.dart';
 
 class TagsViewBody extends StatefulWidget {
   const TagsViewBody({super.key, required this.onNext});
@@ -28,7 +28,7 @@ class _TagsViewBodyState extends State<TagsViewBody> {
                 children:
                     AppConstants.tags.map((tag) {
                       bool isSelected = selectedTags.contains(tag.name);
-                      return CustomChooseChip(
+                      return CustomFilterChip(
                         label: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
