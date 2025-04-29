@@ -19,7 +19,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       height: 60,
       child: CurvedNavigationBar(
         index: currentIndex,
-        color: Colors.blueGrey,
+        color: kSecondaryColor,
         onTap: onTap,
         animationDuration: Duration(milliseconds: 250),
         backgroundColor: Colors.transparent,

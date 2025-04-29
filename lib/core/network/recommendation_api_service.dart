@@ -1,14 +1,17 @@
 import 'package:dio/dio.dart';
+import 'package:greendo/core/network/api_service.dart';
 
-class ApiService {
+class RecommendationApiService implements IApiService{
   final _baseUrl = 'https://travel-recommendation-api-production.up.railway.app/';
   final Dio _dio;
 
-  ApiService(this._dio);
+  RecommendationApiService(this._dio);
 
-  Future<Map<String,dynamic>> get({required String endpoint})async{
+  @override
+  Future<Map<String, dynamic>> get({required String endpoint}) async {
     var response = await _dio.get('$_baseUrl$endpoint');
     print('✅ Response Data: ${response.data}');
     return response.data;
   }
+
 }

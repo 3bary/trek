@@ -1,4 +1,4 @@
-import '../../../data/models/place_model.dart';
+part of 'home_cubit.dart';
 
 sealed class HomeState {}
 

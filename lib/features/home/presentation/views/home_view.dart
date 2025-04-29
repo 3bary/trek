@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:greendo/core/utils/constants.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../favorites/presentation/views/favorite_view.dart';
 import '../../../profile/presentation/views/profile_view.dart';
@@ -48,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
               onPressed: () {
                 context.push(AppRouter.kRecommendationView);
               },
-              backgroundColor: Colors.blueGrey,
+              backgroundColor: kSecondaryColor,
               child: const Icon(
                 Icons.mode_edit,
                 color: Colors.white,

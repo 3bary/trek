@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import '../../../../../core/models/place_model.dart';
 import '../../../../../core/utils/app_router.dart';
-import '../../../data/models/place_model.dart';
 
-import 'placeCard.dart';
+import '../../../../../core/widgets/placeCard.dart';
 
 class PlaceList extends StatelessWidget {
   final TextEditingController searchTextController;
@@ -44,9 +43,9 @@ class PlaceList extends StatelessWidget {
             width: double.infinity,
             child: PlaceCard(
               likes: place.likes!,
-              title: place.title!,
-              city: place.city!,
-              rating: place.rating!,
+              title: place.name!,
+              city: place.location!.city!,
+              rating: place.averageRating!,
               description: place.description!,
               onDetailsPressed: () =>
                   GoRouter.of(context).push(AppRouter.kDetailView, extra: place),

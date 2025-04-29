@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:greendo/features/home/data/models/place_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/category_list.dart';
+import '../../../../core/models/place_model.dart';
 import '../../../../core/utils/assets.dart';
-
 import '../view_model/home/home_cubit.dart';
-import '../view_model/home/home_state.dart';
 import 'widgets/discover_app_bar.dart';
 import 'widgets/place_list.dart';
 import 'package:lottie/lottie.dart';
@@ -37,7 +34,7 @@ class _DiscoverViewState extends State<DiscoverView> {
           allPlaces
               .where(
                 (place) =>
-                    place.title?.toLowerCase().startsWith(
+                    place.name?.toLowerCase().startsWith(
                       searchPlaces.toLowerCase(),
                     ) ??
                     false,
@@ -97,7 +94,7 @@ class _DiscoverViewState extends State<DiscoverView> {
                             : allPlaces
                                 .where(
                                   (place) =>
-                                      place.title?.toLowerCase().startsWith(
+                                      place.name?.toLowerCase().startsWith(
                                         _searchTextController.text
                                             .toLowerCase(),
                                       ) ??

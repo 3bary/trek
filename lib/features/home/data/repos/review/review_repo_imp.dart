@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:greendo/core/errors/failures.dart';
-import 'package:greendo/core/utils/review_api_service.dart';
+import 'package:greendo/core/network/core_api_service.dart';
 import 'package:greendo/features/home/data/models/review_model.dart';
 import 'package:greendo/features/home/data/repos/review/review_repo.dart';
 
@@ -9,7 +9,7 @@ import 'package:greendo/features/home/data/repos/review/review_repo.dart';
 class ReviewRepoImp implements ReviewRepo {
   ReviewRepoImp(this.reviewApiService);
 
-  final ReviewApiService reviewApiService;
+  final CoreApiService reviewApiService;
 
   @override
   Future<Either<Failure, List<ReviewModel>>> getReviews() async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greendo/core/utils/constants.dart';
 
 class DiscoverAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSearching;
@@ -19,9 +20,8 @@ class DiscoverAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 10,
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: kPrimaryColor,
       title: isSearching
           ? TextField(
         controller: searchTextController,
@@ -42,13 +42,13 @@ class DiscoverAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         onChanged: onChanged,
       )
-          : const Text("Discover", style: TextStyle(color: Colors.white54)),
+          : const Text("Discover", style: TextStyle(color: kTextColor)),
       actions: [
         IconButton(
           onPressed: isSearching ? onStopSearch : onStartSearch,
           icon: Icon(
             isSearching ? Icons.clear : Icons.search,
-            color: Colors.white54,
+            color: kTextColor,
           ),
         )
       ],

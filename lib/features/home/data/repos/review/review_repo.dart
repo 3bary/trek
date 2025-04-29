@@ -6,5 +6,4 @@ import '../../models/review_model.dart';
 abstract class ReviewRepo {
   Future<Either<Failure, List<ReviewModel>>> getReviews();
 
-
 }

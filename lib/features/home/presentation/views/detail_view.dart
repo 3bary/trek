@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:greendo/features/home/data/models/place_model.dart';
 import 'package:greendo/features/home/data/models/review_model.dart';
-import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
 import 'package:greendo/features/home/presentation/views/widgets/silver_app_bar.dart';
 
-import '../../../../core/utils/review_api_service.dart';
+import '../../../../core/models/place_model.dart';
+import '../../../../core/network/core_api_service.dart';
 import '../../data/repos/review/review_repo_imp.dart';
 
 class DetailView extends StatefulWidget {
@@ -26,7 +25,7 @@ class _DetailViewState extends State<DetailView> {
   @override
   void initState() {
     super.initState();
-    reviewRepoImp = ReviewRepoImp(ReviewApiService(Dio()));
+    reviewRepoImp = ReviewRepoImp(CoreApiService(Dio()));
     fetchReviews();
   }
 
@@ -79,9 +78,9 @@ class _DetailViewState extends State<DetailView> {
   @override
   Widget build(BuildContext context) {
     final place = widget.place;
-    final title = place.title ?? "Unknown Title";
-    final city = place.city ?? "Unknown City";
-    final rating = place.rating?.toString() ?? "No Rating";
+    final title = place.name ?? "Unknown Title";
+    final city = place.location?.city ?? "Unknown City";
+    final rating = place.averageRating?.toString() ?? "No Rating";
     final description = place.description ?? "No description available.";
 
     return SafeArea(

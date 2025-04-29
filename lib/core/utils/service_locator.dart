@@ -1,16 +1,16 @@
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:greendo/core/network/recommendation_api_service.dart';
 
 import '../../features/home/data/repos/home/home_repo_imp.dart';
-import 'api_service.dart';
 
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
-  getIt.registerSingleton<HomeRepoImp>(
-    HomeRepoImp(
-      ApiService(
+  getIt.registerLazySingleton<HomeRepoImp>(
+    () => HomeRepoImp(
+      RecommendationApiService(
         Dio(options),
       ),
     ),

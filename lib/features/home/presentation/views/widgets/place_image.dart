@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/place_model.dart';
+import '../../../../../core/models/place_model.dart';
 
 class PlaceImage extends StatelessWidget {
   const PlaceImage({
     super.key,
     required this.imageUrl,
-    required this.placeCardModel,
+    required this.place,
     this.imageHeight = 250,
   });
 
   final String? imageUrl;
   final double imageHeight;
-  final PlaceModel placeCardModel;
+  final PlaceModel place;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,10 @@ class PlaceImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child:
-          placeCardModel.imageUre != null && placeCardModel.imageUre!.isNotEmpty
+          place.imageUrl != null && place.imageUrl!.isNotEmpty
               ? FadeInImage.assetNetwork(
                 placeholder: 'assets/images/plane.jpg',
-                image: placeCardModel.imageUre!,
+                image: place.imageUrl!,
                 width: double.infinity,
                 height: finalHeight,
                 fit: BoxFit.cover,

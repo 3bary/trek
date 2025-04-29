@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/features/home/data/models/place_model.dart';
+import '../../../../../core/models/place_model.dart';
 
 mixin PlaceSearch<T extends StatefulWidget> on State<T> {
   late List<PlaceModel> searchedPlaces;
@@ -21,7 +21,7 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
     searchedPlaces =
         allPlaces
             .where(
-              (place) => place.title!.toLowerCase().startsWith(
+              (place) => place.name!.toLowerCase().startsWith(
                 searchPlaces.toLowerCase(),
               ),
             )

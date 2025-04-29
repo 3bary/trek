@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../../../../core/models/place_model.dart';
 import '../../../data/repos/home/home_repo.dart';
-import 'home_state.dart';
+
+part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;

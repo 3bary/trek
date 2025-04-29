@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/features/home/data/models/place_model.dart';
 import '../../features/user_preferences/data/models/category_model.dart';
 import '../../features/user_preferences/data/models/tag_model.dart';
 
 const Color kPrimaryColor = Color(0xffE3F2FD);
-const Color kSecondaryColor = Color(0xffA8E6CF);
+const Color kSecondaryColor = Color(0xff2e3532);
 const Color kTertiaryColor = Color(0xffF5E6CA);
 const Color kTextColor = Colors.black87;
 
@@ -43,5 +42,4 @@ abstract class AppConstants {
     CategoryModel(name: "Wine Tour", emoji: '🍷'),
     CategoryModel(name: "Cultural", emoji: '🏛'),
   ];
-  static List<PlaceModel> places = [];
 }

@@ -31,10 +31,10 @@ class SilverAppBar extends StatelessWidget {
         ),
       ),
       background: Hero(
-        tag: widget.place.id ?? widget.place.title ?? 'defaultTag',
+        tag: widget.place.id ?? widget.place.name ?? 'defaultTag',
         child: PlaceImage(
-          imageUrl: widget.place.imageUre ?? '',
-          placeCardModel: widget.place,
+          imageUrl: widget.place.imageUrl ?? '',
+          place: widget.place,
         ),
       ),
       collapseMode: CollapseMode.parallax,
