@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/features/home/data/models/place_model.dart';
-
-import '../../features/home/data/models/review_model.dart';
 import '../../features/user_preferences/data/models/category_model.dart';
 import '../../features/user_preferences/data/models/tag_model.dart';
 
@@ -9,12 +7,6 @@ const Color kPrimaryColor = Color(0xffE3F2FD);
 const Color kSecondaryColor = Color(0xffA8E6CF);
 const Color kTertiaryColor = Color(0xffF5E6CA);
 const Color kTextColor = Colors.black87;
-
-//--------------Api---------------
-const String kUserId = "user001";
-// Endpoints
-const String kRecommendationsEndpoint = "recommendations/$kUserId";
-String kSearchEndpoint(String query) => "search/$kUserId?query=$query";
 
 abstract class AppConstants {
   static List<TagModel> tags = [
@@ -42,83 +34,14 @@ abstract class AppConstants {
   ];
 
   static List<CategoryModel> categories = [
-    CategoryModel(name: "Historical", emoji: '🏰', ),
-    CategoryModel(name: "Nature", emoji: '🌿', ),
-    CategoryModel(name: "Beach", emoji: '🏖',),
-    CategoryModel(name: "Food", emoji: '🍽', ),
-    CategoryModel(name: "City", emoji: '🌆', ),
-    CategoryModel(name: "Adventure", emoji: '⛰',),
-    CategoryModel(name: "Wine Tour", emoji: '🍷',),
-    CategoryModel(name: "Cultural", emoji: '🏛',),
+    CategoryModel(name: "Historical", emoji: '🏰'),
+    CategoryModel(name: "Nature", emoji: '🌿'),
+    CategoryModel(name: "Beach", emoji: '🏖'),
+    CategoryModel(name: "Food", emoji: '🍽'),
+    CategoryModel(name: "City", emoji: '🌆'),
+    CategoryModel(name: "Adventure", emoji: '⛰'),
+    CategoryModel(name: "Wine Tour", emoji: '🍷'),
+    CategoryModel(name: "Cultural", emoji: '🏛'),
   ];
-  static List<PlaceModel> places = [
-    PlaceModel(
-      reviews: [
-        ReviewModel(
-          name: "John Doe",
-          comment: "Amazing place! Totally recommended.",
-          isLiked: false,
-          isDisliked: false,
-          likeCount: 0,
-          dislikeCount: 0,
-        ),
-        ReviewModel(
-          name: "Emily",
-          comment: "Loved the view!",
-          isLiked: false,
-          isDisliked: false,
-          likeCount: 2,
-          dislikeCount: 0,
-        ),
-      ],
-    ),
-    PlaceModel(
-      reviews: [
-        ReviewModel(
-          name: "Ahlam Gomaa",
-          comment: "Great spot for hiking!",
-          isLiked: false,
-          isDisliked: false,
-          likeCount: 1,
-          dislikeCount: 0,
-        ),
-      ],
-    ),
-    PlaceModel(
-      reviews: [
-        ReviewModel(
-          name: "John Doe",
-          comment: "Informative and well organized.",
-          isLiked: false,
-          isDisliked: false,
-          likeCount: 3,
-          dislikeCount: 0,
-        ),
-      ],
-    ),
-    PlaceModel(
-      reviews: [
-        ReviewModel(
-          name: "Ahlam Gomaa",
-          comment: "Breathtaking views, must visit!",
-          isLiked: false,
-          isDisliked: false,
-          likeCount: 5,
-          dislikeCount: 0,
-        ),
-      ],
-    ),
-    PlaceModel(
-      reviews: [
-        ReviewModel(
-          name: "John Doe",
-          comment: "A must-see when in SF.",
-          isLiked: false,
-          isDisliked: false,
-          likeCount: 4,
-          dislikeCount: 0,
-        ),
-      ],
-    ),
-  ];
+  static List<PlaceModel> places = [];
 }

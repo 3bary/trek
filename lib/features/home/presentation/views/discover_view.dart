@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/features/home/data/models/place_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/category_list.dart';
 import '../../../../core/utils/assets.dart';
-import '../view_model/discover/home_cubit.dart';
-import '../view_model/discover/home_state.dart';
+
+import '../view_model/home/home_cubit.dart';
+import '../view_model/home/home_state.dart';
 import 'widgets/discover_app_bar.dart';
 import 'widgets/place_list.dart';
 import 'package:lottie/lottie.dart';
