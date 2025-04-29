@@ -1,4 +1,3 @@
-import 'package:greendo/features/home/data/models/review_model.dart';
 
 class PlaceModel {
   String? id;

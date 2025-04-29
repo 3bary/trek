@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/service_locator.dart';
 import 'package:greendo/features/home/data/models/place_model.dart';
-import 'package:greendo/features/recommendation/presentation/views/widgets/road_map_view_body.dart';
 import 'package:greendo/features/home/data/repos/home/home_repo_imp.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
@@ -14,6 +13,7 @@ import '../../features/favorites/presentation/views/favorite_view.dart';
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
+import '../../features/recommendation/presentation/views/road_map_view.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
 
 
@@ -74,7 +74,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kRoadMapView,
-        builder: (context, state) => RoadMapViewBody(),
+        builder: (context, state) => RoadMapView(),
       ),
     ],
   );
