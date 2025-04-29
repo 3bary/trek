@@ -35,7 +35,6 @@ class _PlaceCardState extends State<PlaceCard> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> places = [];
     return Padding(
       padding: const EdgeInsets.only(top: 4, left: 5, right: 5),
       child: Card(
