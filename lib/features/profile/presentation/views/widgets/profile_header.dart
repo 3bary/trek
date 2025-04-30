@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/constants.dart';
 
-class ProfileHeader extends StatelessWidget {
+class ProfileHeader extends StatefulWidget {
   final bool showCategories;
   final VoidCallback onTapTags;
   final VoidCallback onTapCategories;
@@ -13,6 +13,13 @@ class ProfileHeader extends StatelessWidget {
     required this.onTapTags,
     required this.onTapCategories,
   });
+
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
+  String selected = "Tags";
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,7 @@ class ProfileHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withValues(blue: 0.5),
                 spreadRadius: 4,
                 blurRadius: 10,
               ),
@@ -37,8 +44,12 @@ class ProfileHeader extends StatelessWidget {
             children: [
               const SizedBox(height: 100),
               const Text(
-                "Welcome , Ahlam!",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                "Ahlam gomaa",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white54,
+                ),
               ),
               const SizedBox(height: 25),
               Row(
@@ -47,59 +58,80 @@ class ProfileHeader extends StatelessWidget {
                   Material(
                     color: Colors.transparent,
                     shape: const CircleBorder(),
-
                     child: InkWell(
-                      onTap: onTapTags,
+                      onTap: () {
+                        widget.onTapTags();
+                        setState(() {
+                          selected = "Tags";
+                        });
+                      },
                       borderRadius: BorderRadius.circular(12),
                       splashColor: Colors.black12,
                       highlightColor: Colors.transparent,
                       child: Column(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.tag_sharp,
                             size: 30,
-                            color: kTertiaryColor,
+                            color:
+                                selected == "Tags"
+                                    ? Colors.white
+                                    : Colors.white54,
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(
                             "Tags",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color:
+                                  selected == "Tags"
+                                      ? Colors.white
+                                      : Colors.white54,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-
                   Container(
                     width: 1,
                     height: 40,
-                    color: Colors.black.withOpacity(0.3),
+                    color: const Color.fromRGBO(255, 255, 255, 0.5),
                   ),
-
                   Material(
                     color: Colors.transparent,
                     shape: const CircleBorder(),
                     child: InkWell(
-                      onTap: onTapCategories,
+                      onTap: () {
+                        widget.onTapCategories();
+                        setState(() {
+                          selected = "Categories";
+                        });
+                      },
                       borderRadius: BorderRadius.circular(12),
                       splashColor: Colors.black12,
                       highlightColor: Colors.transparent,
                       child: Column(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.category_rounded,
                             size: 30,
-                            color: kTertiaryColor,
+                            color:
+                                selected == "Categories"
+                                    ? Colors.white
+                                    : Colors.white54,
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(
                             "Categories",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color:
+                                  selected == "Categories"
+                                      ? Colors.white
+                                      : Colors.white54,
                             ),
                           ),
                         ],
@@ -120,6 +152,21 @@ class ProfileHeader extends StatelessWidget {
             child: CircleAvatar(
               radius: 74,
               backgroundImage: AssetImage("assets/images/profile.jpg"),
+            ),
+          ),
+        ),
+
+        Positioned(
+          top: 50,
+          left: 105,
+          child: CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.white54,
+            child: IconButton(
+              icon: const Icon(Icons.settings, color: Colors.black, size: 18),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
             ),
           ),
         ),

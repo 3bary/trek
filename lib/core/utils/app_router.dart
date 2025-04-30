@@ -28,6 +28,7 @@ abstract class AppRouter {
   static const String kRecommendationView = '/recommendationView';
   static const String kDetailView = '/detailView';
   static const String kRoadMapView = '/roadMapView';
+  static const String kSettingsView='/settingsView';
 
   static final router = GoRouter(
     initialLocation: '/',
@@ -76,6 +77,7 @@ abstract class AppRouter {
         path: kRoadMapView,
         builder: (context, state) => RoadMapView(),
       ),
+
     ],
   );
 }
