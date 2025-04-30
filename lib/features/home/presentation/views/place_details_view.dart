@@ -108,7 +108,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
           slivers: [
             SliverAppBar(
               pinned: true,
-              expandedHeight: 380,
+              expandedHeight: 450,
               backgroundColor: kSecondaryColor,
               iconTheme: const IconThemeData(color: Colors.white),
               flexibleSpace: LayoutBuilder(
@@ -158,7 +158,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                             children: [
                               Text(
                                 widget.place.likes?.toString() ?? '0',
-                                style: const TextStyle(fontSize: 14),
+                                style: const TextStyle(fontSize: 14,color: kTextColor),
                               ),
                               const SizedBox(width: 4),
                               const Icon(
@@ -204,6 +204,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                         "dislikeCount": review.disLikes ?? 0,
                         "isLiked": review.isLiked,
                         "isDisliked": review.isDisliked,
+
                       },
                       onLike: () => toggleLike(index),
                       onDislike: () => toggleDislike(index),

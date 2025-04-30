@@ -41,36 +41,37 @@ class ReviewCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                const SizedBox(width: 10),
                 IconButton(
                   icon: Icon(
                     Icons.thumb_up,
                     color:
-                        (review["isLiked"] ?? false)
-                            ? Colors.green
-                            : Colors.grey,
+                    (review["isLiked"] ?? false)
+                        ? Colors.green
+                        : Colors.grey,
                   ),
                   onPressed: onLike,
                 ),
                 if (review["likeCount"] > 0)
                   Text(
                     review["likeCount"].toString(),
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16,color: Colors.white),
                   ),
                 const SizedBox(width: 10),
                 IconButton(
                   icon: Icon(
                     Icons.thumb_down,
                     color:
-                        (review["isDisliked"] ?? false)
-                            ? Colors.red
-                            : Colors.grey,
+                    (review["isDisliked"] ?? false)
+                        ? Colors.red
+                        : Colors.grey,
                   ),
                   onPressed: onDislike,
                 ),
                 if (review["dislikeCount"] > 0)
                   Text(
                     review["dislikeCount"].toString(),
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16,color: Colors.white),
                   ),
               ],
             ),
