@@ -1,26 +1,39 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/features/home/data/models/review_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
 import 'package:greendo/features/home/presentation/views/widgets/silver_app_bar.dart';
-
 import '../../../../core/models/place_model.dart';
 import '../../../../core/network/core_api_service.dart';
 import '../../data/repos/review/review_repo_imp.dart';
 
-class DetailView extends StatefulWidget {
+class PlaceDetailsView extends StatefulWidget {
   final PlaceModel place;
 
-  const DetailView({super.key, required this.place});
+  const PlaceDetailsView({super.key, required this.place});
 
   @override
-  _DetailViewState createState() => _DetailViewState();
+  _PlaceDetailsViewState createState() => _PlaceDetailsViewState();
 }
 
-class _DetailViewState extends State<DetailView> {
+class _PlaceDetailsViewState extends State<PlaceDetailsView> {
   List<ReviewModel> reviews = [];
   bool isFavorite = false;
   late final ReviewRepoImp reviewRepoImp;
+  void fetchReviews() async {
+    var result = await reviewRepoImp.getReviews();
+    result.fold(
+          (failure) {
+        print(' Failed : $failure');
+      },
+          (fetchedReviews) {
+        setState(() {
+          reviews = fetchedReviews;
+        });
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -29,29 +42,25 @@ class _DetailViewState extends State<DetailView> {
     fetchReviews();
   }
 
-  void fetchReviews() async {
-    var result = await reviewRepoImp.getReviews();
-    result.fold(
-      (failure) {
-        print('❌ Failed to fetch reviews: $failure');
-      },
-      (fetchedReviews) {
-        setState(() {
-          reviews = fetchedReviews;
-        });
-      },
-    );
-  }
 
   void toggleLike(int index) {
     setState(() {
       final review = reviews[index];
+
       if (review.isLiked) {
+
         review.isLiked = false;
-        review.likes = (review.likes ?? 0) - 1;
+        review.likes = (review.likes ?? 1) - 1;
       } else {
+
         review.isLiked = true;
         review.likes = (review.likes ?? 0) + 1;
+
+
+        if (review.isDisliked) {
+          review.isDisliked = false;
+          review.disLikes = (review.disLikes ?? 1) - 1;
+        }
       }
     });
   }
@@ -59,15 +68,25 @@ class _DetailViewState extends State<DetailView> {
   void toggleDislike(int index) {
     setState(() {
       final review = reviews[index];
+
       if (review.isDisliked) {
+
         review.isDisliked = false;
-        review.disLikes = (review.disLikes ?? 0) - 1;
+        review.disLikes = (review.disLikes ?? 1) - 1;
       } else {
+
         review.isDisliked = true;
         review.disLikes = (review.disLikes ?? 0) + 1;
+
+
+        if (review.isLiked) {
+          review.isLiked = false;
+          review.likes = (review.likes ?? 1) - 1;
+        }
       }
     });
   }
+
 
   void toggleFavorite() {
     setState(() {
@@ -88,9 +107,9 @@ class _DetailViewState extends State<DetailView> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              expandedHeight: 380,
               pinned: true,
-              backgroundColor: Colors.blueGrey,
+              expandedHeight: 380,
+              backgroundColor: kSecondaryColor,
               iconTheme: const IconThemeData(color: Colors.white),
               flexibleSpace: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
@@ -151,7 +170,7 @@ class _DetailViewState extends State<DetailView> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 10),
                       const Text(
                         "Description : ",
                         style: TextStyle(
@@ -169,7 +188,7 @@ class _DetailViewState extends State<DetailView> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 10),
+
                     ],
                   ),
                 ),
@@ -191,7 +210,7 @@ class _DetailViewState extends State<DetailView> {
                     ),
                   );
                 }),
-                const SizedBox(height: 50),
+                const SizedBox(height: 1),
               ]),
             ),
           ],

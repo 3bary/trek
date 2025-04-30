@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 
-import '../detail_view.dart';
+import '../place_details_view.dart';
 
 class SilverAppBar extends StatelessWidget {
   const SilverAppBar({
@@ -13,7 +13,7 @@ class SilverAppBar extends StatelessWidget {
 
   final String title;
   final double top;
-  final DetailView widget;
+  final PlaceDetailsView widget;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +32,7 @@ class SilverAppBar extends StatelessWidget {
       ),
       background: Hero(
         tag: widget.place.id ?? widget.place.name ?? 'defaultTag',
-        child: PlaceImage(
-          imageUrl: widget.place.imageUrl ?? '',
-          place: widget.place,
-        ),
+        child: PlaceImage(imageUrl: widget.place.imageUrl ?? ''),
       ),
       collapseMode: CollapseMode.parallax,
     );

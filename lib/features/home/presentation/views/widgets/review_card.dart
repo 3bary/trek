@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greendo/core/utils/constants.dart';
 
 class ReviewCard extends StatelessWidget {
   final Map<String, dynamic> review;
@@ -15,7 +16,7 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.blueGrey,
+      color: kSecondaryColor,
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Padding(

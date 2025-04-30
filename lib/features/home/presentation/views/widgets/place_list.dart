@@ -36,23 +36,21 @@ class PlaceList extends StatelessWidget {
       );
     }
 
-    return SingleChildScrollView(
-      child: Wrap(
-        children: listToShow.map((place) {
-          return SizedBox(
-            width: double.infinity,
-            child: PlaceCard(
-              likes: place.likes!,
-              title: place.name!,
-              city: place.location!.city!,
-              rating: place.averageRating!,
-              description: place.description!,
-              onDetailsPressed: () =>
-                  GoRouter.of(context).push(AppRouter.kDetailView, extra: place),
-            ),
-          );
-        }).toList(),
-      ),
+    return ListView(
+      children: listToShow.map((place) {
+        return SizedBox(
+          width: double.infinity,
+          child: PlaceCard(
+            likes: place.likes!,
+            title: place.name!,
+            city: place.location!.city!,
+            rating: place.averageRating!,
+            description: place.description!,
+            onDetailsPressed: () =>
+                GoRouter.of(context).push(AppRouter.kDetailView, extra: place),
+          ),
+        );
+      }).toList(),
     );
   }
 }

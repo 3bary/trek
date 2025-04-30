@@ -1,15 +1,18 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/constants.dart';
 
-class CategoryNamesList extends StatelessWidget {
+class CategoryNamesList extends StatefulWidget {
   final Function(String categoryName) onCategorySelected;
 
-  const CategoryNamesList({
-    super.key,
-    required this.onCategorySelected,
-  });
+  const CategoryNamesList({super.key, required this.onCategorySelected});
+
+  @override
+  _CategoryNamesListState createState() => _CategoryNamesListState();
+}
+
+class _CategoryNamesListState extends State<CategoryNamesList> {
+  String? selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +27,21 @@ class CategoryNamesList extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           final categoryName = categories[index].name;
+          bool isSelected = selectedCategory == categoryName;
+
           return GestureDetector(
-            onTap: () => onCategorySelected(categoryName),
+            onTap: () {
+              setState(() {
+                selectedCategory = categoryName;
+              });
+              widget.onCategorySelected(categoryName);
+            },
             child: Chip(
               label: Text(
                 categoryName,
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: isSelected ? Colors.white : kTextColor),
               ),
-              backgroundColor: Colors.white,
+              backgroundColor: isSelected ? kSecondaryColor : Colors.white,
               side: const BorderSide(color: Colors.white),
             ),
           );

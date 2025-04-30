@@ -27,7 +27,7 @@ class PlaceModel {
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
     description = json['description'];
     accessibility = json['accessibility'] != null ? json['accessibility'].cast<String>() : [];
-    averageRating = json['average_rating'];
+    averageRating = json['average_rating'].toDouble();
     likes = json['likes'];
     reviewsCount = json['reviews_count'];
     appropriateTime = json['appropriate_time'] != null ? json['appropriate_time'].cast<String>() : [];
@@ -95,8 +95,8 @@ class Location {
   Location.fromJson(dynamic json) {
     city = json['city'];
     country = json['country'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    latitude = json['latitude'].toDouble();
+    longitude = json['longitude'].toDouble();
   }
   String? city;
   String? country;

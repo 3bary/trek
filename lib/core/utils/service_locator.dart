@@ -19,6 +19,6 @@ void setupServiceLocator() {
 
 BaseOptions options = BaseOptions(
   receiveDataWhenStatusError: true,
-  receiveTimeout: const Duration(seconds: 60),
-  connectTimeout: const Duration(seconds: 30),
+  receiveTimeout: const Duration(seconds: 80),
+  connectTimeout: const Duration(seconds: 50),
 );
