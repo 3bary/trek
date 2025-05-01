@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:greendo/features/auth/data/models/register_request_body.dart';
 import 'package:greendo/features/auth/data/models/user_model.dart';
-
+import '../../../../core/cash/cash_helper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/api_service.dart';
 import '../models/login_request_body.dart';
@@ -23,6 +23,7 @@ class AuthRepo {
         },
       );
       final userData = UserModel.fromJson(response['user']);
+      await CashHelper.cacheUser(userData);
       return right(userData);
     } catch (e) {
       if (e is DioException) {
