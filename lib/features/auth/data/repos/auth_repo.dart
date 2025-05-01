@@ -5,6 +5,7 @@ import 'package:greendo/features/auth/data/models/user_model.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/api_service.dart';
+import '../models/login_request_body.dart';
 
 class AuthRepo {
   final IApiService _apiService;
@@ -30,13 +31,13 @@ class AuthRepo {
       return left(ServerFailure(e.toString()));
     }
   }
-  Future<Either<Failure, String>> login(String email, String password) async {
+  Future<Either<Failure, String>> login(LoginRequestBody loginRequestBody) async {
     try {
       var response = await _apiService.post(
         endpoint: "user/login",
         body: {
-          'email': email,
-          'password': password,
+          'email': loginRequestBody.email,
+          'password': loginRequestBody.password,
         },
       );
       final token = response['token'];
