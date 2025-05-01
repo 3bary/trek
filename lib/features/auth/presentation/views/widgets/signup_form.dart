@@ -49,15 +49,12 @@ class _SignupFormState extends State<SignupForm> {
             isLoading = false;
           }
           );
-           // close loading
-          final user = state.user;
-          // implement cashing
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Register Success'),
             ),
           );
-          GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+          GoRouter.of(context).pushReplacement(AppRouter.kPreferencesView);
         } else if (state is AuthFailure) {
           setState(() {
             isLoading = false;
