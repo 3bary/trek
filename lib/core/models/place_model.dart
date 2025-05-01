@@ -27,7 +27,7 @@ class PlaceModel {
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
     description = json['description'];
     accessibility = json['accessibility'] != null ? json['accessibility'].cast<String>() : [];
-    averageRating = json['average_rating'];
+    averageRating = json['average_rating'].toDouble();
     likes = json['likes'];
     reviewsCount = json['reviews_count'];
     appropriateTime = json['appropriate_time'] != null ? json['appropriate_time'].cast<String>() : [];

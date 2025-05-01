@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:greendo/features/profile/presentation/views/widgets/settings_menu.dart';
 import '../../../../../core/utils/constants.dart';
 
 class ProfileHeader extends StatefulWidget {
@@ -34,7 +34,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withValues(blue: 0.5),
+                color: Colors.grey.withValues(blue: 0.7),
                 spreadRadius: 4,
                 blurRadius: 10,
               ),
@@ -55,88 +55,28 @@ class _ProfileHeaderState extends State<ProfileHeader> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Material(
-                    color: Colors.transparent,
-                    shape: const CircleBorder(),
-                    child: InkWell(
-                      onTap: () {
-                        widget.onTapTags();
-                        setState(() {
-                          selected = "Tags";
-                        });
-                      },
-                      borderRadius: BorderRadius.circular(12),
-                      splashColor: Colors.black12,
-                      highlightColor: Colors.transparent,
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.tag_sharp,
-                            size: 30,
-                            color:
-                                selected == "Tags"
-                                    ? Colors.white
-                                    : Colors.white54,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            "Tags",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color:
-                                  selected == "Tags"
-                                      ? Colors.white
-                                      : Colors.white54,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  _buildIconButton(
+                    icon: Icons.tag_sharp,
+                    label: "Tags",
+                    isSelected: selected == "Tags",
+                    onTap: () {
+                      widget.onTapTags();
+                      setState(() => selected = "Tags");
+                    },
                   ),
                   Container(
                     width: 1,
                     height: 40,
-                    color: const Color.fromRGBO(255, 255, 255, 0.5),
+                    color: const Color.fromRGBO(255, 255, 255, 0.3),
                   ),
-                  Material(
-                    color: Colors.transparent,
-                    shape: const CircleBorder(),
-                    child: InkWell(
-                      onTap: () {
-                        widget.onTapCategories();
-                        setState(() {
-                          selected = "Categories";
-                        });
-                      },
-                      borderRadius: BorderRadius.circular(12),
-                      splashColor: Colors.black12,
-                      highlightColor: Colors.transparent,
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.category_rounded,
-                            size: 30,
-                            color:
-                                selected == "Categories"
-                                    ? Colors.white
-                                    : Colors.white54,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            "Categories",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color:
-                                  selected == "Categories"
-                                      ? Colors.white
-                                      : Colors.white54,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  _buildIconButton(
+                    icon: Icons.category_rounded,
+                    label: "Categories",
+                    isSelected: selected == "Categories",
+                    onTap: () {
+                      widget.onTapCategories();
+                      setState(() => selected = "Categories");
+                    },
                   ),
                 ],
               ),
@@ -155,7 +95,6 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             ),
           ),
         ),
-
         Positioned(
           top: 50,
           left: 105,
@@ -164,13 +103,47 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             backgroundColor: Colors.white54,
             child: IconButton(
               icon: const Icon(Icons.settings, color: Colors.black, size: 18),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
+              onPressed: () => SettingsMenu.show(context),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildIconButton({
+    required IconData icon,
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      shape: const CircleBorder(),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        splashColor: Colors.black12,
+        highlightColor: Colors.transparent,
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              size: 30,
+              color: isSelected ? Colors.white : Colors.white54,
+            ),
+            const SizedBox(height: 5),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: isSelected ? Colors.white : Colors.white54,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
