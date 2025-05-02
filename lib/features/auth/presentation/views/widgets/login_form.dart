@@ -46,7 +46,7 @@ class _LoginFormState extends State<LoginForm> {
           final token = state.token;
           // implement cashing
 
-          context.go(AppRouter.kDiscoverView);
+          context.go(AppRouter.kHomeView);
         } else if (state is AuthFailure) {
           setState(() {
             isLoading = false;// close loading
