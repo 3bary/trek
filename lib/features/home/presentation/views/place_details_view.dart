@@ -6,7 +6,8 @@ import 'package:greendo/features/home/presentation/views/widgets/review_card.dar
 import 'package:greendo/features/home/presentation/views/widgets/silver_app_bar.dart';
 import '../../../../core/models/place_model.dart';
 import '../../../../core/network/core_api_service.dart';
-import '../../data/repos/review/review_repo_imp.dart';
+import '../../data/repos/home/home_repo_imp.dart';
+
 
 class PlaceDetailsView extends StatefulWidget {
   final PlaceModel place;
@@ -20,21 +21,24 @@ class PlaceDetailsView extends StatefulWidget {
 class _PlaceDetailsViewState extends State<PlaceDetailsView> {
   List<ReviewModel> reviews = [];
   bool isFavorite = false;
-  late final ReviewRepoImp reviewRepoImp;
+  late final HomeRepoImp homeRepoImp;
+
   void fetchReviews() async {
-    var result = await reviewRepoImp.getReviews();
+
+    final placeId = widget.place.id ?? 'defaultPlaceId';
+
+    var result = await homeRepoImp.(placeId);
     result.fold(
-          (failure) {
-        print(' Failed : $failure');
+      (failure) {
+        print('Failed to load reviews: $failure');
       },
-          (fetchedReviews) {
+      (fetchedReviews) {
         setState(() {
           reviews = fetchedReviews;
         });
       },
     );
   }
-
   @override
   void initState() {
     super.initState();
@@ -42,20 +46,16 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     fetchReviews();
   }
 
-
   void toggleLike(int index) {
     setState(() {
       final review = reviews[index];
 
       if (review.isLiked) {
-
         review.isLiked = false;
         review.likes = (review.likes ?? 1) - 1;
       } else {
-
         review.isLiked = true;
         review.likes = (review.likes ?? 0) + 1;
-
 
         if (review.isDisliked) {
           review.isDisliked = false;
@@ -70,14 +70,11 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
       final review = reviews[index];
 
       if (review.isDisliked) {
-
         review.isDisliked = false;
         review.disLikes = (review.disLikes ?? 1) - 1;
       } else {
-
         review.isDisliked = true;
         review.disLikes = (review.disLikes ?? 0) + 1;
-
 
         if (review.isLiked) {
           review.isLiked = false;
@@ -86,7 +83,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
       }
     });
   }
-
 
   void toggleFavorite() {
     setState(() {
@@ -158,7 +154,10 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                             children: [
                               Text(
                                 widget.place.likes?.toString() ?? '0',
-                                style: const TextStyle(fontSize: 14,color: kTextColor),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: kTextColor,
+                                ),
                               ),
                               const SizedBox(width: 4),
                               const Icon(
@@ -188,7 +187,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -204,7 +202,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                         "dislikeCount": review.disLikes ?? 0,
                         "isLiked": review.isLiked,
                         "isDisliked": review.isDisliked,
-
                       },
                       onLike: () => toggleLike(index),
                       onDislike: () => toggleDislike(index),

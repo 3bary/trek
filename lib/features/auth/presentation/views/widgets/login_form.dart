@@ -16,6 +16,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -74,7 +75,7 @@ class _LoginFormState extends State<LoginForm> {
             backgroundColor: kSecondaryColor,
             onPressed: () {
               //formKey.currentState!.validate();
-              GoRouter.of(context).pushReplacement(AppRouter.kDiscoverView) ;
+              GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
             },
             textColor: Colors.white,
           ),

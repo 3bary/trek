@@ -11,10 +11,7 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
 
   bool get isSearching => _isSearching;
 
-  void initializeSearch(
-    StateSetter setStateCallback,
-    List<PlaceModel> places,
-  ) {
+  void initializeSearch(StateSetter setStateCallback, List<PlaceModel> places) {
     allPlaces = places;
     searchedPlaces = allPlaces;
   }
@@ -31,6 +28,12 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
     setState(() {});
   }
 
+  @override
+  void dispose() {
+    searchTextController.dispose();
+    super.dispose();
+  }
+
   Widget buildSearchField() {
     return TextField(
       controller: searchTextController,
@@ -44,8 +47,8 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      style:  TextStyle(
-        color:Colors.black54,
+      style: TextStyle(
+        color: Colors.black54,
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),

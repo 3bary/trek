@@ -47,7 +47,7 @@ class PlaceList extends StatelessWidget {
             rating: place.averageRating!,
             description: place.description!,
             onDetailsPressed: () =>
-                GoRouter.of(context).push(AppRouter.kDetailView, extra: place),
+                GoRouter.of(context).push(AppRouter.kPlaceDetailsView, extra: place),
           ),
         );
       }).toList(),
