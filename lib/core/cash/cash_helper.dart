@@ -30,4 +30,16 @@ class CashHelper {
       await _prefs!.remove('CACHED_USER');
     }
   }
+  static Future<void> updateCashedUser(Function(UserModel user) updates) async {
+    final userJson = _prefs!.getString('CACHED_USER');
+    if (userJson != null) {
+      final userMap = jsonDecode(userJson);
+      final user = UserModel.fromJson(userMap);
+
+      updates(user);  // apply custom edits
+
+      await _prefs!.setString('CACHED_USER', jsonEncode(user.toJson()));
+    }
+  }
+
 }
