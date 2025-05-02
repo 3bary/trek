@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 }
 class ServerFailure extends Failure {
   const ServerFailure(super.errorMessage);
-  factory ServerFailure.fromDioError(DioError dioError) {
+  factory ServerFailure.fromDioError(DioException dioError) {
     switch(dioError.type){
       case DioExceptionType.connectionTimeout:
         return const ServerFailure('Connection timeout with ApiServer');
@@ -33,7 +33,7 @@ class ServerFailure extends Failure {
 
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['error']['message']);
+      return ServerFailure(response['error']);
     } else if (statusCode == 404) {
       return const ServerFailure('Your request not found, Please try later!');
     } else if (statusCode == 500) {

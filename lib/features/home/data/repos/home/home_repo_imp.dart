@@ -21,8 +21,7 @@ class HomeRepoImp implements HomeRepo {
       final places =
           (data['data'] as List<dynamic>?)
               ?.map((item) => PlaceModel.fromJson(item['place']))
-              .toList() ??
-          [];
+              .toList() ?? [];
 
       return right(places);
     } catch (e) {
