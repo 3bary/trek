@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:greendo/features/user_preferences/data/models/user_prefs_model.dart';
 import '../../../../core/cash/cash_helper.dart';
 import '../../../../core/errors/failures.dart';
@@ -21,6 +22,9 @@ class UserPreferencesRepo {
       print(CashHelper.getCachedUser()?.preferences.toString());
       return right(null);
     } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
       return left(ServerFailure(e.toString()));
     }
   }

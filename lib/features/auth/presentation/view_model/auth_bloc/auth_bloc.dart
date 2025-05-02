@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../data/models/login_request_body.dart';
 import '../../../data/models/register_request_body.dart';
-import '../../../data/models/user_model.dart';
 import '../../../data/repos/auth_repo.dart';
 
 part 'auth_event.dart';
@@ -21,7 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       result.fold(
             (failure) => emit(AuthFailure(failure.errorMessage)),
-            (user) => emit(RegisterSuccess()),
+            (_) => emit(RegisterSuccess()),
       );
     });
 
