@@ -8,7 +8,7 @@ import 'core/utils/service_locator.dart';
 import 'core/utils/simple_bloc_observer.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // initialize before runApp
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await CashHelper.init();
   setupServiceLocator();

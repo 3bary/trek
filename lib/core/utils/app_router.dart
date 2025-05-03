@@ -10,7 +10,7 @@ import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/recommendation/presentation/views/recommendation_view.dart';
 import '../../features/home/presentation/view_model/home/home_cubit.dart';
 import '../../features/home/presentation/views/detail_view.dart';
-import '../../features/favorites/presentation/views/favorite_view.dart';
+import '../../features/favorites/presentation/views/favorite_place_view.dart';
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
@@ -23,7 +23,7 @@ abstract class AppRouter {
   static const String kSignupView = '/signupView';
   static const String kDiscoverView = '/discoverView';
   static const String kGroupView = '/groupView';
-  static const String kFavoriteView = '/favoriteView';
+  static const String kPlaceFavoriteView = '/placeFavoriteView';
   static const String kProfileView = '/profileView';
   static const String kPreferencesView = '/preferencesView';
   static const String kRecommendationView = '/recommendationView';
@@ -88,7 +88,7 @@ abstract class AppRouter {
         path: kGroupView,
         builder: (context, state) => const GroupsView(),
       ),
-      GoRoute(path: kFavoriteView, builder: (context, state) => FavoriteView()),
+      GoRoute(path: kPlaceFavoriteView, builder: (context, state) => FavoritePlaceView()),
       GoRoute(
         path: kProfileView,
         builder: (context, state) => const ProfileView(),
