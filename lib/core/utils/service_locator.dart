@@ -23,4 +23,5 @@ void setupServiceLocator() {
       CoreApiService(dio),
     ),
   );
+
 }

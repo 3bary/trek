@@ -11,7 +11,7 @@ class FavoritePlacesCubit extends Cubit<FavoritePlacesState> {
 
   FavoritePlacesCubit(this.favoritePlacesRepo) : super(FavoritePlacesInitial());
 
-  Future<void> fetchAllPlaces() async {
+  Future<void> getSavedPlaces() async {
     emit(FavoritePlacesLoading());
     var results = await favoritePlacesRepo.getSavedPlaces();
     results.fold(

@@ -26,7 +26,7 @@ class PlaceList extends StatelessWidget {
     if (listToShow.isEmpty) {
       return const Center(
         child: Text(
-          'No place found!',
+          'No Saved Places!',
           style: TextStyle(
             color: Colors.grey,
             fontSize: 20,

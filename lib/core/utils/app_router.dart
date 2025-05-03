@@ -2,18 +2,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/service_locator.dart';
 import 'package:greendo/features/home/data/repos/home/home_repo_imp.dart';
+
 import '../../features/auth/data/repos/auth_repo.dart';
 import '../../features/auth/presentation/view_model/auth_bloc/auth_bloc.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
-import '../../features/recommendation/presentation/views/recommendation_view.dart';
+import '../../features/favorites/presentation/views/favorite_place_view.dart';
 import '../../features/home/presentation/view_model/home/home_cubit.dart';
 import '../../features/home/presentation/views/detail_view.dart';
-import '../../features/favorites/presentation/views/favorite_place_view.dart';
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
+import '../../features/recommendation/presentation/views/recommendation_view.dart';
 import '../../features/recommendation/presentation/views/road_map_view.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
 import '../models/place_model.dart';
@@ -88,7 +89,15 @@ abstract class AppRouter {
         path: kGroupView,
         builder: (context, state) => const GroupsView(),
       ),
-      GoRoute(path: kPlaceFavoriteView, builder: (context, state) => FavoritePlaceView()),
+      GoRoute(
+        path: kPlaceFavoriteView,
+        builder: (context, state) {
+          return const FavoritePlaceView();
+
+
+        },
+      ),
+
       GoRoute(
         path: kProfileView,
         builder: (context, state) => const ProfileView(),
