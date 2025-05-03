@@ -2,23 +2,24 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:greendo/core/errors/failures.dart';
 import 'package:greendo/core/models/place_model.dart';
-import 'package:greendo/core/network/core_api_service.dart';
 import 'package:greendo/features/favorites/data/repos/place_favorite_repo.dart';
 
-class FavoritePlaceRepoImp extends FavoritePlaceRepo {
-  final CoreApiService coreApiService;
+import '../../../../core/network/api_service.dart';
 
-  FavoritePlaceRepoImp(this.coreApiService);
+class FavoritePlaceRepoImp extends FavoritePlaceRepo {
+  final IApiService apiService;
+
+  FavoritePlaceRepoImp(this.apiService);
 
   @override
   Future<Either<Failure, List<PlaceModel>>> getSavedPlaces() async {
     try {
-      var data = await coreApiService.get(endpoint: 'saved-places/user002');
+      var data = await apiService.get(endpoint: 'user/saved-places/user002');
       print('Raw API Data: $data');
       print('Type of data: ${data.runtimeType}');
       final savedPlaces =
           (data['data'] as List<dynamic>?)
-              ?.map((item) => PlaceModel.fromJson(item['place']))
+              ?.map((item) => PlaceModel.fromJson(item))
               .toList() ??
           [];
 

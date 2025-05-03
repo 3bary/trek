@@ -93,8 +93,6 @@ abstract class AppRouter {
         path: kPlaceFavoriteView,
         builder: (context, state) {
           return const FavoritePlaceView();
-
-
         },
       ),
 
