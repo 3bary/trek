@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class DioClient {
   static BaseOptions baseOptions = BaseOptions(
     receiveDataWhenStatusError: true,
-    receiveTimeout: const Duration(seconds: 60),
+    receiveTimeout: const Duration(seconds: 100),
     connectTimeout: const Duration(seconds: 30),
     headers: {
       'Content-Type': 'application/json',

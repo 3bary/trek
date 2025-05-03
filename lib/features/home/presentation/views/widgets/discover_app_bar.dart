@@ -26,30 +26,30 @@ class DiscoverAppBar extends StatelessWidget implements PreferredSizeWidget {
           isSearching
               ? TextField(
                 controller: searchTextController,
-                cursorColor: Colors.white54,
+                cursorColor: Colors.black54,
                 decoration: const InputDecoration(
                   hintText: "Search for a place",
                   border: InputBorder.none,
                   hintStyle: TextStyle(
-                    color: kTextColor,
+                    color: Colors.black54,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 style: const TextStyle(
-                  color: kTextColor,
+                  color: Colors.black54,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
                 onChanged: onChanged,
               )
-              : const Text("Discover", style: TextStyle(color: kTextColor)),
+              : const Text("Discover", style: TextStyle(color: Colors.black54)),
       actions: [
         IconButton(
           onPressed: isSearching ? onStopSearch : onStartSearch,
           icon: Icon(
             isSearching ? Icons.clear : Icons.search,
-            color: kTextColor,
+            color: Colors.black54,
           ),
         ),
       ],

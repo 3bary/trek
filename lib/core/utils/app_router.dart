@@ -8,6 +8,7 @@ import '../../features/auth/presentation/view_model/auth_bloc/auth_bloc.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/home/presentation/view_model/reviews/place_reviews_cubit.dart';
 import '../../features/recommendation/presentation/views/recommendation_view.dart';
 import '../../features/home/presentation/view_model/home/home_cubit.dart';
 import '../../features/home/presentation/views/place_details_view.dart';
@@ -97,9 +98,14 @@ abstract class AppRouter {
         path: kPlaceDetailsView,
         builder: (context, state) {
           final place = state.extra as PlaceModel;
-          return PlaceDetailsView(place: place);
+          final placeId = place.id ?? '';
+          return BlocProvider(
+            create: (context) => PlaceReviewsCubit(getIt<HomeRepoImp>()..getPlaceReviews(placeId)),
+            child: PlaceDetailsView(place: place),
+          );
         },
       ),
+
       GoRoute(
         path: kRecommendationView,
         builder: (context, state) => const RecommendationView(),

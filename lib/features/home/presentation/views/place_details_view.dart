@@ -1,13 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/features/home/data/models/review_model.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
-import 'package:greendo/features/home/presentation/views/widgets/silver_app_bar.dart';
+import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import '../../../../core/models/place_model.dart';
-import '../../../../core/network/core_api_service.dart';
-import '../../data/repos/home/home_repo_imp.dart';
-
+import '../view_model/reviews/place_reviews_cubit.dart';
 
 class PlaceDetailsView extends StatefulWidget {
   final PlaceModel place;
@@ -19,34 +17,21 @@ class PlaceDetailsView extends StatefulWidget {
 }
 
 class _PlaceDetailsViewState extends State<PlaceDetailsView> {
-  List<ReviewModel> reviews = [];
   bool isFavorite = false;
-  late final HomeRepoImp homeRepoImp;
 
-  void fetchReviews() async {
-
-    final placeId = widget.place.id ?? 'defaultPlaceId';
-
-    var result = await homeRepoImp.(placeId);
-    result.fold(
-      (failure) {
-        print('Failed to load reviews: $failure');
-      },
-      (fetchedReviews) {
-        setState(() {
-          reviews = fetchedReviews;
-        });
-      },
-    );
-  }
   @override
   void initState() {
     super.initState();
-    reviewRepoImp = ReviewRepoImp(CoreApiService(Dio()));
-    fetchReviews();
+    context.read<PlaceReviewsCubit>().getPlaceReviews(widget.place.id ?? '');
   }
 
-  void toggleLike(int index) {
+  void toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+  }
+
+  void toggleLike(int index, List<ReviewModel> reviews) {
     setState(() {
       final review = reviews[index];
 
@@ -65,7 +50,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     });
   }
 
-  void toggleDislike(int index) {
+  void toggleDislike(int index, List<ReviewModel> reviews) {
     setState(() {
       final review = reviews[index];
 
@@ -84,12 +69,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     });
   }
 
-  void toggleFavorite() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final place = widget.place;
@@ -100,32 +79,43 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
 
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 450,
-              backgroundColor: kSecondaryColor,
-              iconTheme: const IconThemeData(color: Colors.white),
-              flexibleSpace: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  final top = constraints.biggest.height;
-                  return SilverAppBar(title: title, top: top, widget: widget);
-                },
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.white,
-                  ),
-                  onPressed: toggleFavorite,
-                ),
-              ],
+        body: Column(
+          children: [
+            Hero(
+              tag: place.id ?? place.name ?? 'defaultTag',
+              child: PlaceImage(imageUrl: place.imageUrl ?? ''),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                Padding(
+            Container(
+              width: double.infinity,
+              color: kPrimaryColor,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: kTextColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.red : Colors.black,
+                    ),
+                    onPressed: toggleFavorite,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,34 +129,25 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              Text(rating),
-                              const SizedBox(width: 4),
-                              const Icon(Icons.star, color: Colors.amber),
-                            ],
+                          Text(rating),
+                          const SizedBox(width: 4),
+                          const Icon(Icons.star, color: Colors.amber),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Text(
+                            widget.place.likes?.toString() ?? '0',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: kTextColor,
+                            ),
                           ),
-                          const SizedBox(height: 6),
-                          Row(
-                            children: [
-                              Text(
-                                widget.place.likes?.toString() ?? '0',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: kTextColor,
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Icon(
-                                Icons.thumb_up,
-                                color: Colors.blue,
-                                size: 20,
-                              ),
-                            ],
-                          ),
+                          const SizedBox(width: 4),
+                          const Icon(Icons.thumb_up, color: Colors.blue, size: 20),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -187,29 +168,47 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      const SizedBox(height: 10),
+
+                      BlocBuilder<PlaceReviewsCubit, PlaceReviewsState>(
+                        builder: (context, state) {
+                          if (state is PlaceReviewsLoading) {
+                            return const Center(child: CircularProgressIndicator());
+                          } else if (state is PlaceReviewsFailure) {
+                            return Center(child: Text("Error: ${state.error}"));
+                          } else if (state is PlaceReviewsSuccess) {
+                            final reviews = state.reviews;
+                            return Column(
+                              children: reviews.asMap().entries.map((entry) {
+                                final index = entry.key;
+                                final review = entry.value;
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 6),
+                                  child: ReviewCard(
+                                    review: {
+                                      "comment": review.comment ?? '',
+                                      "likeCount": review.likes ?? 0,
+                                      "dislikeCount": review.disLikes ?? 0,
+                                      "isLiked": review.isLiked,
+                                      "isDisliked": review.isDisliked,
+                                    },
+                                    onLike: () => toggleLike(index, reviews),
+                                    onDislike: () => toggleDislike(index, reviews),
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        },
+                      ),
+
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
-                ...reviews.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  ReviewModel review = entry.value;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: ReviewCard(
-                      review: {
-                        "comment": review.comment ?? '',
-                        "likeCount": review.likes ?? 0,
-                        "dislikeCount": review.disLikes ?? 0,
-                        "isLiked": review.isLiked,
-                        "isDisliked": review.isDisliked,
-                      },
-                      onLike: () => toggleLike(index),
-                      onDislike: () => toggleDislike(index),
-                    ),
-                  );
-                }),
-                const SizedBox(height: 1),
-              ]),
+              ),
             ),
           ],
         ),
