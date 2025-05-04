@@ -10,7 +10,7 @@ class CoreApiService implements IApiService {
   @override
   Future<Map<String, dynamic>> get({required String endpoint}) async {
     var response = await _dio.get('$_baseUrl$endpoint');
-    print('✅ Response Data (Review): ${response.data}');
+    print('✅ Response Data (): ${response.data}');
     return response.data;
   }
 
