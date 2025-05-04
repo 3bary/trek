@@ -29,14 +29,16 @@ class AuthRepo {
       return left(ServerFailure(e.toString()));
     }
   }
-  Future<Either<Failure, String>> login(LoginRequestBody loginRequestBody) async {
+  Future<Either<Failure, void>> login(LoginRequestBody loginRequestBody) async {
     try {
       var response = await _apiService.post(
         endpoint: "user/login",
         body: loginRequestBody.toJson(),
       );
-      final token = response['token'];
-      return right(token);
+      final userData = UserModel.fromJson(response['data']);
+      await CashHelper.cacheUser(userData);
+      print('Cached User: ${CashHelper.getCachedUser()!.name}');
+      return right(null);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
