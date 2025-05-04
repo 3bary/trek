@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/utils/app_router.dart';
+import '../../data/models/user_prefs_model.dart';
+import '../view_model/user_prefs_cubit.dart';
 import 'categories_view.dart';
 import 'tags_view.dart';
 
@@ -41,41 +46,67 @@ class _PreferencesViewState extends State<PreferencesView> {
 
   void _nextPage() {
     _pageController.nextPage(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.bounceInOut,
     );
   }
 
   void _submitPreferences() {
+    selectedTags = selectedTags.map((tag) => tag.toLowerCase()).toList();
+    selectedCategories =
+        selectedCategories.map((category) => category.toLowerCase()).toList();
+    // ✅ Log selected preferences
     print('✅ Selected Tags: $selectedTags');
     print('✅ Selected Categories: $selectedCategories');
-
-    // Example POST request here:
-    // apiService.post(endpoint: 'save_preferences', body: {
-    //   'tags': selectedTags,
-    //   'categories': selectedCategories,
-    // });
+    // ✅ Prepare model
+    final userPreferences = UserPrefsModel(
+      categories: selectedCategories,
+      tags: selectedTags,
+    );
+      context.read<UserPrefsCubit>().updateUserPreferences(userPreferences);
   }
+
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: PageView(
-          controller: _pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            TagsView(
-              onNext: _nextPage,
-              selectedTags: selectedTags,
-              onTagsChanged: updateSelectedTags,
+    return BlocListener<UserPrefsCubit, UserPrefsState>(
+      listener: (context, state) {
+        if (state is UserPrefsFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error),
             ),
-            CategoriesView(
-              selectedCategories: selectedCategories,
-              onCategoriesChanged: updateSelectedCategories,
-              onFinish: _submitPreferences,
+          );
+        }
+        if (state is UserPrefsSuccess) {
+          context.go(AppRouter.kHomeView);
+        }
+        if (state is UserPrefsLoading) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Loading...'),
             ),
-          ],
+              );
+        }
+      },
+      child: SafeArea(
+        child: Scaffold(
+          body: PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              TagsView(
+                onNext: _nextPage,
+                selectedTags: selectedTags,
+                onTagsChanged: updateSelectedTags,
+              ),
+              CategoriesView(
+                selectedCategories: selectedCategories,
+                onCategoriesChanged: updateSelectedCategories,
+                onFinish: _submitPreferences,
+              ),
+            ],
+          ),
         ),
       ),
     );

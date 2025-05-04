@@ -58,7 +58,7 @@ class TravelStepCard extends StatelessWidget {
                 ) : const SizedBox.shrink(),
                 TextButton(
                   onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kDetailView, extra: place);
+                    GoRouter.of(context).push(AppRouter.kPlaceDetailsView, extra: place);
                   },
                   child: Text(
                     "Details",

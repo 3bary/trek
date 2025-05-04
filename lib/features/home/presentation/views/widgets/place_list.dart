@@ -45,10 +45,10 @@ class PlaceList extends StatelessWidget {
               likes: place.likes!,
               title: place.name!,
               city: place.location!.city!,
-              rating: place.averageRating!,
+              rating: place.averageRating!.toDouble(),
               description: place.description!,
               onDetailsPressed: () =>
-                  GoRouter.of(context).push(AppRouter.kDetailView, extra: place),
+                  GoRouter.of(context).push(AppRouter.kPlaceDetailsView, extra: place),
             ),
           );
         }).toList(),

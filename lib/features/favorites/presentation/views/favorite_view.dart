@@ -24,7 +24,7 @@ class FavoriteView extends StatelessWidget {
                   onDetailsPressed: () {
                     GoRouter.of(
                       context,
-                    ).push(AppRouter.kDetailView, extra: place);
+                    ).push(AppRouter.kPlaceDetailsView, extra: place);
                   },
                 ),
               );

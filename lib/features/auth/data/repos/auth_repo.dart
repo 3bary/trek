@@ -20,7 +20,7 @@ class AuthRepo {
       );
       final userData = UserModel.fromJson(response['user']);
       await CashHelper.cacheUser(userData);
-      print('Cached User: ${CashHelper.getCachedUser().toString()}');
+      print('Cached User: ${CashHelper.getCachedUser()!.name}');
       return right(null);
     } catch (e) {
       if (e is DioException) {

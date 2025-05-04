@@ -46,7 +46,7 @@ class PlaceModel {
   List<String>? tags;
   String? description;
   List<String>? accessibility;
-  double? averageRating;
+  num? averageRating;
   int? likes;
   int? reviewsCount;
   List<String>? appropriateTime;
@@ -100,8 +100,8 @@ class Location {
   }
   String? city;
   String? country;
-  double? latitude;
-  double? longitude;
+  num? latitude;
+  num? longitude;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

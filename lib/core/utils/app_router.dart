@@ -23,32 +23,18 @@ import '../models/place_model.dart';
 abstract class AppRouter {
   static const String kLoginView = '/loginView';
   static const String kSignupView = '/signupView';
-  static const String kDiscoverView = '/discoverView';
+  static const String kHomeView = '/homeView';
   static const String kGroupView = '/groupView';
   static const String kFavoriteView = '/favoriteView';
   static const String kProfileView = '/profileView';
   static const String kPreferencesView = '/preferencesView';
   static const String kRecommendationView = '/recommendationView';
-  static const String kDetailView = '/detailView';
+  static const String kPlaceDetailsView = '/placeDetailsView';
   static const String kRoadMapView = '/roadMapView';
 
   static final router = GoRouter(
     initialLocation: '/',
     routes: [
-      // GoRoute(
-      //   path: '/',
-      //   builder:
-      //       (context, state) => BlocProvider(
-      //         create: (context) => AuthBloc(getIt<AuthRepo>()),
-      //         child: const OnboardingView(),
-      //       ),
-      // ),
-      // GoRoute(path: kLoginView, builder: (context, state) => const LoginView()),
-      // GoRoute(
-      //   path: kSignupView,
-      //   builder: (context, state) => const SignupView(),
-      // ),
-      // ShellRoute groups onboarding + login + signup under same AuthBloc
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
@@ -80,7 +66,7 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-        path: kDiscoverView,
+        path: kHomeView,
         builder: (context, state) {
           return BlocProvider(
             create:
@@ -99,7 +85,7 @@ abstract class AppRouter {
         builder: (context, state) => const ProfileView(),
       ),
       GoRoute(
-        path: kDetailView,
+        path: kPlaceDetailsView,
         builder: (context, state) {
           final place = state.extra as PlaceModel;
           return DetailView(place: place);

@@ -11,15 +11,19 @@ class UserPreferencesRepo {
   UserPreferencesRepo(this._apiService);
   Future<Either<Failure, void>> updateUserPreferences(UserPrefsModel userPrefsModel) async {
     try {
-      var response = await _apiService.post(
+      var response = await _apiService.put(
         endpoint: "user/updatePreferences/${CashHelper.getCachedUser()!.id}",
-        body: userPrefsModel.toJson(),
+        body: {
+          "preferences": userPrefsModel.toJson()
+        },
       );
-      var newUserPrefs = UserPrefsModel.fromJson(response['preferences']);
+      print('cashed user: ${CashHelper.getCachedUser()!.id}');
+      UserPrefsModel newUserPrefs = UserPrefsModel.fromJson(response['preferences']);
       CashHelper.updateCashedUser(
               (user) => user.preferences = newUserPrefs
       );
-      print(CashHelper.getCachedUser()?.preferences.toString());
+      print(CashHelper.getCachedUser()?.preferences!.tags);
+      print(CashHelper.getCachedUser()?.preferences!.categories);
       return right(null);
     } catch (e) {
       if (e is DioException) {
