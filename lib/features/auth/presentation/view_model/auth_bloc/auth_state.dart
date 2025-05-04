@@ -21,12 +21,7 @@ class RegisterSuccess extends AuthState {
 }
 
 class LoginSuccess extends AuthState {
-  final String token;
 
-  const LoginSuccess(this.token);
-
-  @override
-  List<Object> get props => [token];
 }
 
 class AuthFailure extends AuthState {
