@@ -8,7 +8,10 @@ import '../../../../../core/network/api_service.dart';
 import '../../models/review_model.dart';
 
 class HomeRepoImp implements HomeRepo {
-  HomeRepoImp({required this.coreApiService, required this.recommendationApiService});
+  HomeRepoImp({
+    required this.coreApiService,
+    required this.recommendationApiService,
+  });
 
   final IApiService coreApiService;
   final IApiService recommendationApiService;
@@ -75,6 +78,46 @@ class HomeRepoImp implements HomeRepo {
           [];
 
       return right(reviews);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> addPlaceToFavorites(String placeId) async {
+    try {
+      await coreApiService.post(
+        endpoint: 'interaction/add',
+        body: {
+          'user_id': 'user014',
+          'place_id': placeId,
+          'interaction_type': 'save',
+        },
+      );
+      return right('Place added to favorites');
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> addLikeToPlace(String placeId) async {
+    try {
+      await coreApiService.post(
+        endpoint: 'interaction/add',
+        body: {
+          'user_id': 'user014',
+          'place_id': placeId,
+          'interaction_type': 'like',
+        },
+      );
+      return right('Place liked');
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

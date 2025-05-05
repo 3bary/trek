@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:async';
+import 'package:lottie/lottie.dart';
+
 import '../../../../core/models/place_model.dart';
 import '../../../../core/utils/assets.dart';
 import '../view_model/home/home_cubit.dart';
 import 'widgets/discover_app_bar.dart';
 import 'widgets/place_list.dart';
-import 'package:lottie/lottie.dart';
 
 class DiscoverView extends StatefulWidget {
   const DiscoverView({super.key});
@@ -21,6 +23,7 @@ class _DiscoverViewState extends State<DiscoverView> {
   List<PlaceModel> _searchedPlaces = [];
   Timer? _debounceTimer;
   String _lastSearchQuery = '';
+  String placeId = '';
 
   @override
   void initState() {
@@ -104,6 +107,7 @@ class _DiscoverViewState extends State<DiscoverView> {
                       allPlaces: state.places,
                       searchedPlaces:
                           _isSearching ? _searchedPlaces : state.places,
+                      placeId: placeId,
                     );
                   } else if (state is HomeError) {
                     return Center(child: Text('Error: ${state.message}'));

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/features/home/data/models/review_model.dart';
-import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
+import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
+
 import '../../../../core/models/place_model.dart';
+import '../view_model/add_like/add_like_to_place_cubit.dart';
 import '../view_model/reviews/place_reviews_cubit.dart';
 
 class PlaceDetailsView extends StatefulWidget {
@@ -18,6 +20,7 @@ class PlaceDetailsView extends StatefulWidget {
 
 class _PlaceDetailsViewState extends State<PlaceDetailsView> {
   bool isFavorite = false;
+  bool isLiked = false;
 
   @override
   void initState() {
@@ -78,139 +81,183 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     final description = place.description ?? "No description available.";
 
     return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            Hero(
-              tag: place.id ?? place.name ?? 'defaultTag',
-              child: PlaceImage(imageUrl: place.imageUrl ?? ''),
-            ),
-            Container(
-              width: double.infinity,
-              color: kPrimaryColor,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: kTextColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : Colors.black,
-                    ),
-                    onPressed: toggleFavorite,
-                  ),
-                ],
+      child: BlocListener<LikePlaceCubit, LikePlaceState>(
+        listener: (context, state) {
+          if (state is LikePlaceFailure) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
+          } else if (state is LikePlaceSuccess) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));
+          }
+        },
+        child: Scaffold(
+          body: Column(
+            children: [
+              Hero(
+                tag: place.id ?? place.name ?? 'defaultTag',
+                child: PlaceImage(imageUrl: place.imageUrl ?? ''),
               ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        city,
+              Container(
+                width: double.infinity,
+                color: kPrimaryColor,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
                         style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          overflow: TextOverflow.ellipsis,
+                          fontSize: 20,
+                          color: kTextColor,
+                          fontWeight: FontWeight.bold,
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text(rating),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.star, color: Colors.amber),
-                        ],
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.black,
                       ),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Text(
-                            widget.place.likes?.toString() ?? '0',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: kTextColor,
-                            ),
+                      onPressed: toggleFavorite,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          city,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.thumb_up, color: Colors.blue, size: 20),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        "Description : ",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(description),
-                      const SizedBox(height: 20),
-                      const Text(
-                        "Reviews:",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text(rating),
+                            const SizedBox(width: 4),
+                            const Icon(Icons.star, color: Colors.amber),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 10),
+                        const SizedBox(height: 6),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isLiked = !isLiked;
 
-                      BlocBuilder<PlaceReviewsCubit, PlaceReviewsState>(
-                        builder: (context, state) {
-                          if (state is PlaceReviewsLoading) {
-                            return const Center(child: CircularProgressIndicator());
-                          } else if (state is PlaceReviewsFailure) {
-                            return Center(child: Text("Error: ${state.error}"));
-                          } else if (state is PlaceReviewsSuccess) {
-                            final reviews = state.reviews;
-                            return Column(
-                              children: reviews.asMap().entries.map((entry) {
-                                final index = entry.key;
-                                final review = entry.value;
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 6),
-                                  child: ReviewCard(
-                                    review: {
-                                      "comment": review.comment ?? '',
-                                      "likeCount": review.likes ?? 0,
-                                      "dislikeCount": review.disLikes ?? 0,
-                                      "isLiked": review.isLiked,
-                                      "isDisliked": review.isDisliked,
-                                    },
-                                    onLike: () => toggleLike(index, reviews),
-                                    onDislike: () => toggleDislike(index, reviews),
-                                  ),
+                              if (isLiked) {
+                                widget.place.likes =
+                                    (widget.place.likes ?? 0) + 1;
+                                context.read<LikePlaceCubit>().likePlace(
+                                  widget.place.id ?? '',
                                 );
-                              }).toList(),
-                            );
-                          } else {
-                            return const SizedBox.shrink();
-                          }
-                        },
-                      ),
+                              } else {
+                                widget.place.likes =
+                                    (widget.place.likes ?? 1) - 1;
+                              }
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              Text(widget.place.likes?.toString() ?? '0'),
+                              const SizedBox(width: 4),
+                              Icon(
+                                Icons.thumb_up,
+                                color: isLiked ? Colors.blue : Colors.grey,
+                                size: 20,
+                              ),
+                            ],
+                          ),
+                        ),
 
-                      const SizedBox(height: 20),
-                    ],
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Description : ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(description),
+                        const SizedBox(height: 20),
+                        const Text(
+                          "Reviews:",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+
+                        BlocBuilder<PlaceReviewsCubit, PlaceReviewsState>(
+                          builder: (context, state) {
+                            if (state is PlaceReviewsLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (state is PlaceReviewsFailure) {
+                              return Center(
+                                child: Text("Error: ${state.error}"),
+                              );
+                            } else if (state is PlaceReviewsSuccess) {
+                              final reviews = state.reviews;
+                              return Column(
+                                children:
+                                    reviews.asMap().entries.map((entry) {
+                                      final index = entry.key;
+                                      final review = entry.value;
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 6,
+                                        ),
+                                        child: ReviewCard(
+                                          review: {
+                                            "comment": review.comment ?? '',
+                                            "likeCount": review.likes ?? 0,
+                                            "dislikeCount":
+                                                review.disLikes ?? 0,
+                                            "isLiked": review.isLiked,
+                                            "isDisliked": review.isDisliked,
+                                          },
+                                          onLike:
+                                              () => toggleLike(index, reviews),
+                                          onDislike:
+                                              () =>
+                                                  toggleDislike(index, reviews),
+                                        ),
+                                      );
+                                    }).toList(),
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          },
+                        ),
+
+                        const SizedBox(height: 20),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
