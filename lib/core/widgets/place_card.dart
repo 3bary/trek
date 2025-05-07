@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../features/home/presentation/view_model/save_places/save_places_cubit.dart';
+import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 
 class PlaceCard extends StatefulWidget {
   final String title;
@@ -13,6 +13,7 @@ class PlaceCard extends StatefulWidget {
   final VoidCallback onDetailsPressed;
   final String placeId;
 
+
   const PlaceCard({
     super.key,
     this.imageUrl,
@@ -23,6 +24,7 @@ class PlaceCard extends StatefulWidget {
     required this.onDetailsPressed,
     required this.likes,
     required this.placeId,
+
   });
 
   @override
@@ -34,24 +36,24 @@ class _PlaceCardState extends State<PlaceCard> {
 
   void toggleFavorite() {
     setState(() {
-      isFavorite = !isFavorite;
+      isFavorite =!isFavorite;
     });
-    print('placeId sent to savePlace: ${widget.placeId}');
-    context.read<SavePlaceCubit>().savePlace(widget.placeId!);
+
+    context.read<AddInteractionsCubit>().savePlace(widget.placeId, 'save');
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SavePlaceCubit, SavePlaceState>(
+    return BlocListener<AddInteractionsCubit, AddInteractionsState>(
       listener: (context, state) {
-        if (state is SavePlaceFailure) {
+        if (state is AddInteractionsFailure) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
           setState(() {
             isFavorite = !isFavorite;
           });
-        } else if (state is SavePlaceSuccess) {
+        } else if (state is AddInteractionsSuccess) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));

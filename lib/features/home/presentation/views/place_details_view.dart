@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/core/utils/constants.dart';
 import 'package:greendo/features/home/data/models/review_model.dart';
+import 'package:greendo/features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
 
 import '../../../../core/models/place_model.dart';
-import '../view_model/add_like/add_like_to_place_cubit.dart';
 import '../view_model/reviews/place_reviews_cubit.dart';
 
 class PlaceDetailsView extends StatefulWidget {
@@ -81,13 +81,13 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     final description = place.description ?? "No description available.";
 
     return SafeArea(
-      child: BlocListener<LikePlaceCubit, LikePlaceState>(
+      child: BlocListener<AddInteractionsCubit, AddInteractionsState>(
         listener: (context, state) {
-          if (state is LikePlaceFailure) {
+          if (state is AddInteractionsFailure) {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
-          } else if (state is LikePlaceSuccess) {
+          } else if (state is AddInteractionsSuccess) {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));
@@ -159,12 +159,12 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                           onTap: () {
                             setState(() {
                               isLiked = !isLiked;
-
                               if (isLiked) {
                                 widget.place.likes =
                                     (widget.place.likes ?? 0) + 1;
-                                context.read<LikePlaceCubit>().likePlace(
+                                context.read<AddInteractionsCubit>().likePlace(
                                   widget.place.id ?? '',
+                                  'like',
                                 );
                               } else {
                                 widget.place.likes =
@@ -184,7 +184,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                             ],
                           ),
                         ),
-
                         const SizedBox(height: 10),
                         const Text(
                           "Description : ",
@@ -204,7 +203,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                           ),
                         ),
                         const SizedBox(height: 10),
-
                         BlocBuilder<PlaceReviewsCubit, PlaceReviewsState>(
                           builder: (context, state) {
                             if (state is PlaceReviewsLoading) {
@@ -217,6 +215,20 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                               );
                             } else if (state is PlaceReviewsSuccess) {
                               final reviews = state.reviews;
+                              if (reviews.isEmpty) {
+                                return Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Text(
+                                      'No reviews found for this place.',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
                               return Column(
                                 children:
                                     reviews.asMap().entries.map((entry) {
@@ -227,14 +239,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                                           vertical: 6,
                                         ),
                                         child: ReviewCard(
-                                          review: {
-                                            "comment": review.comment ?? '',
-                                            "likeCount": review.likes ?? 0,
-                                            "dislikeCount":
-                                                review.disLikes ?? 0,
-                                            "isLiked": review.isLiked,
-                                            "isDisliked": review.isDisliked,
-                                          },
+                                          review: review,
                                           onLike:
                                               () => toggleLike(index, reviews),
                                           onDislike:
@@ -249,7 +254,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                             }
                           },
                         ),
-
                         const SizedBox(height: 20),
                       ],
                     ),

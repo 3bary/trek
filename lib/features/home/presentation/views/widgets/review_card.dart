@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:greendo/core/utils/constants.dart';
+import 'package:greendo/features/home/data/models/review_model.dart';
 
 class ReviewCard extends StatelessWidget {
-  final Map<String, dynamic> review;
+  final ReviewModel review;
   final VoidCallback onLike;
   final VoidCallback onDislike;
 
@@ -25,7 +26,7 @@ class ReviewCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              review["name"] ?? "Unknown User",
+              review.userId ?? "Unknown User",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -34,8 +35,8 @@ class ReviewCard extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              review["comment"] ?? "No comment",
-              style: TextStyle(color: Colors.white70),
+              review.comment ?? "No comment",
+              style: const TextStyle(color: Colors.white70),
             ),
             const SizedBox(height: 10),
             Row(
@@ -45,33 +46,27 @@ class ReviewCard extends StatelessWidget {
                 IconButton(
                   icon: Icon(
                     Icons.thumb_up,
-                    color:
-                    (review["isLiked"] ?? false)
-                        ? Colors.green
-                        : Colors.grey,
+                    color: review.isLiked ? Colors.green : Colors.grey,
                   ),
                   onPressed: onLike,
                 ),
-                if (review["likeCount"] > 0)
+                if ((review.likes ?? 0) > 0)
                   Text(
-                    review["likeCount"].toString(),
-                    style: const TextStyle(fontSize: 16,color: Colors.white),
+                    '${review.likes}',
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 const SizedBox(width: 10),
                 IconButton(
                   icon: Icon(
                     Icons.thumb_down,
-                    color:
-                    (review["isDisliked"] ?? false)
-                        ? Colors.red
-                        : Colors.grey,
+                    color: review.isDisliked ? Colors.red : Colors.grey,
                   ),
                   onPressed: onDislike,
                 ),
-                if (review["dislikeCount"] > 0)
+                if ((review.disLikes ?? 0) > 0)
                   Text(
-                    review["dislikeCount"].toString(),
-                    style: const TextStyle(fontSize: 16,color: Colors.white),
+                    '${review.disLikes}',
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
               ],
             ),
