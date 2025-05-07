@@ -8,6 +8,8 @@ const Color kTertiaryColor = Color(0xffF5E6CA);
 const Color kTextColor = Colors.black87;
 
 abstract class AppConstants {
+  static String appName = "TREK";
+
   static List<TagModel> tags = [
     TagModel(name: "Castles", emoji: '🏰'),
     TagModel(name: "Hiking", emoji: '🥾'),
