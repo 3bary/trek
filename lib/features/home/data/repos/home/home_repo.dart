@@ -11,6 +11,10 @@ abstract class HomeRepo {
 
   Future<Either<Failure, List<ReviewModel>>> getPlaceReviews(String placeId);
 
-  Future<Either<Failure, String>> addPlaceToFavorites(String placeId);
-  Future<Either<Failure, String>> addLikeToPlace(String placeId);
+  Future<Either<Failure, String>> addInteractions(
+    String placeId,
+    String interactionType,
+  );
+
+
 }

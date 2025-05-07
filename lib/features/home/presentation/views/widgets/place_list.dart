@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+
 import '../../../../../core/models/place_model.dart';
 import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/utils/service_locator.dart';
 import '../../../../../core/widgets/place_card.dart';
 import '../../../data/repos/home/home_repo_imp.dart';
-import '../../view_model/save_places/save_places_cubit.dart';
+import '../../view_model/add_interactions/add_interactions_cubit.dart';
+
 
 class PlaceList extends StatelessWidget {
   final TextEditingController searchTextController;
@@ -28,6 +30,7 @@ class PlaceList extends StatelessWidget {
     final listToShow =
         searchTextController.text.isNotEmpty ? searchedPlaces : allPlaces;
 
+
     if (listToShow.isEmpty) {
       return const Center(
         child: Text(
@@ -43,8 +46,8 @@ class PlaceList extends StatelessWidget {
 
     return BlocProvider(
       create:
-          (context) => SavePlaceCubit(
-            getIt<HomeRepoImp>()..addPlaceToFavorites(placeId),
+          (context) => AddInteractionsCubit(
+            getIt<HomeRepoImp>()..addInteractions(placeId, 'save'),
           ),
       child: ListView(
         children:
@@ -52,16 +55,22 @@ class PlaceList extends StatelessWidget {
               return SizedBox(
                 width: double.infinity,
                 child: PlaceCard(
-                  placeId: place.id??'',
+                  placeId: place.id ?? '',
                   likes: place.likes!,
                   title: place.name!,
                   city: place.location!.city!,
                   rating: place.averageRating!,
                   description: place.description!,
-                  onDetailsPressed:
-                      () => GoRouter.of(
-                        context,
-                      ).push(AppRouter.kPlaceDetailsView, extra: place),
+                  onDetailsPressed: () {
+                    context.read<AddInteractionsCubit>().viewPlace(
+                      place.id ?? '',
+                      'view',
+                    );
+                    GoRouter.of(
+                      context,
+                    ).push(AppRouter.kPlaceDetailsView, extra: place);
+                  },
+
                 ),
               );
             }).toList(),

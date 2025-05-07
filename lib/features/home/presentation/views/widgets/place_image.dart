@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PlaceImage extends StatelessWidget {
@@ -14,11 +15,20 @@ class PlaceImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child:
             imageUrl != null && imageUrl!.isNotEmpty
-                ? FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/plane.jpg',
-                  image: imageUrl!,
+                ? CachedNetworkImage(
+                  imageUrl: imageUrl!,
                   width: double.infinity,
                   fit: BoxFit.cover,
+                  placeholder:
+                      (context, url) => Image.asset(
+                        'assets/images/plane.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                  errorWidget:
+                      (context, url, error) => Image.asset(
+                        'assets/images/plane.png',
+                        fit: BoxFit.cover,
+                      ),
                 )
                 : Image.asset(
                   'assets/images/plane.png',

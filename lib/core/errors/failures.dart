@@ -28,7 +28,9 @@ class ServerFailure extends Failure {
         return const ServerFailure('Unexpected Error, Please try again!');
       case DioExceptionType.unknown:
         return const ServerFailure('Oops There was an Error, Please try again');
+
     }
+
   }
 
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {

@@ -60,16 +60,15 @@ class HomeRepoImp implements HomeRepo {
   }
 
   @override
+  @override
   Future<Either<Failure, List<ReviewModel>>> getPlaceReviews(
     String placeId,
   ) async {
     try {
-      var data = await coreApiService.get(endpoint: 'review/$placeId');
+      final data = await coreApiService.get(endpoint: 'review/$placeId');
       if (data['data'] == null) {
         return left(ServerFailure('No reviews data found'));
       }
-      print('Raw API Data: $data');
-      print('Type of data: ${data.runtimeType}');
 
       final reviews =
           (data['data'] as List<dynamic>?)
@@ -87,37 +86,20 @@ class HomeRepoImp implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, String>> addPlaceToFavorites(String placeId) async {
+  Future<Either<Failure, String>> addInteractions(
+    String placeId,
+    String interactionType,
+  ) async {
     try {
       await coreApiService.post(
         endpoint: 'interaction/add',
         body: {
           'user_id': 'user014',
           'place_id': placeId,
-          'interaction_type': 'save',
+          'interaction_type': interactionType,
         },
       );
-      return right('Place added to favorites');
-    } catch (e) {
-      if (e is DioException) {
-        return left(ServerFailure.fromDioError(e));
-      }
-      return left(ServerFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, String>> addLikeToPlace(String placeId) async {
-    try {
-      await coreApiService.post(
-        endpoint: 'interaction/add',
-        body: {
-          'user_id': 'user014',
-          'place_id': placeId,
-          'interaction_type': 'like',
-        },
-      );
-      return right('Place liked');
+      return right('added interaction for place');
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

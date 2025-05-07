@@ -10,7 +10,7 @@ import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/favorites/presentation/views/favorite_view.dart';
-import '../../features/home/presentation/view_model/add_like/add_like_to_place_cubit.dart';
+import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import '../../features/home/presentation/view_model/home/home_cubit.dart';
 import '../../features/home/presentation/view_model/reviews/place_reviews_cubit.dart';
 import '../../features/home/presentation/views/group_view.dart';
@@ -80,9 +80,19 @@ abstract class AppRouter {
       GoRoute(
         path: kHomeView,
         builder: (context, state) {
-          return BlocProvider(
-            create:
-                (context) => HomeCubit(getIt<HomeRepoImp>()..getAllPlaces()),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) {
+                  final cubit = HomeCubit(getIt<HomeRepoImp>());
+                  cubit.fetchAllPlaces();
+                  return cubit;
+                },
+              ),
+              BlocProvider(
+                create: (context) => AddInteractionsCubit(getIt<HomeRepoImp>()),
+              ),
+            ],
             child: const HomeView(),
           );
         },
@@ -100,20 +110,18 @@ abstract class AppRouter {
         path: kPlaceDetailsView,
         builder: (context, state) {
           final place = state.extra as PlaceModel;
-          final placeId = place.id ?? '';
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                create:
-                    (context) => PlaceReviewsCubit(
-                      getIt<HomeRepoImp>()..getPlaceReviews(placeId),
-                    ),
+                create: (context) {
+                  final cubit = PlaceReviewsCubit(getIt<HomeRepoImp>());
+                  cubit.getPlaceReviews(place.id ?? '');
+                  return cubit;
+                },
               ),
+
               BlocProvider(
-                create:
-                    (context) => LikePlaceCubit(
-                      getIt<HomeRepoImp>()..addLikeToPlace(placeId),
-                    ),
+                create: (context) => AddInteractionsCubit(getIt<HomeRepoImp>()),
               ),
             ],
             child: PlaceDetailsView(place: place),
