@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:greendo/core/utils/constants.dart';
-
+import 'package:greendo/core/helpers/auth_helper.dart';
 import '../../../../../core/utils/app_router.dart';
+import '../../../../../core/utils/assets.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -37,12 +37,18 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
     
     _controller.forward();
   }
-  
-  void navigateToNextView(){
-    Future.delayed(const Duration(seconds: 3), () {
-      context.go(AppRouter.kOnboardingView);
+
+  void navigateToNextView() {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return; // <- Make sure widget still exists
+      if (AuthHelper.isUserLoggedIn()) {
+        context.go(AppRouter.kHomeView);
+      }else{
+        context.go(AppRouter.kOnboardingView);
+      }
     });
   }
+
 
   @override
   void dispose() {
@@ -65,26 +71,10 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
               ),
             );
           },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Your logo or app icon
-              Image.asset(
-                'assets/images/plane.png', // replace with your logo
-                width: 120,
-                height: 120,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                AppConstants.appName,
-                style: TextStyle(
-                  color: kTextColor,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
-                ),
-              ),
-            ],
+          child: Image.asset(
+            kAppLogo,
+            width: 250,
+            height: 250,
           ),
         ),
       ),
