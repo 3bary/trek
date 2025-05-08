@@ -58,8 +58,6 @@ class HomeRepoImp implements HomeRepo {
       return left(ServerFailure(e.toString()));
     }
   }
-
-  @override
   @override
   Future<Either<Failure, List<ReviewModel>>> getPlaceReviews(
     String placeId,
@@ -86,7 +84,7 @@ class HomeRepoImp implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, String>> addInteractions(
+  Future<Either<Failure, String>> addInteractionsPlace(
     String placeId,
     String interactionType,
   ) async {
@@ -100,6 +98,30 @@ class HomeRepoImp implements HomeRepo {
         },
       );
       return right('added interaction for place');
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> addInteractionsReview(
+    String interactionType,
+     String reviewId
+
+  ) async {
+    try {
+      await coreApiService.post(
+        endpoint: 'review_interaction/add_interaction',
+        body: {
+          'user_id': 'user074',
+          'review_id':reviewId,
+          'interaction_type': interactionType,
+        },
+      );
+      return right('added interaction for review');
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

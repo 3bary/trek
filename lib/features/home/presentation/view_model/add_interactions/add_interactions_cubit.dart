@@ -13,7 +13,7 @@ class AddInteractionsCubit extends Cubit<AddInteractionsState> {
   Future<void> savePlace(String placeId, String interactionType) async {
     emit(AddInteractionsLoading());
 
-    final result = await homeRepoImp.addInteractions(placeId, interactionType);
+    final result = await homeRepoImp.addInteractionsPlace(placeId, interactionType);
 
     result.fold(
       (failure) => emit(AddInteractionsFailure(failure.errorMessage)),
@@ -24,7 +24,7 @@ class AddInteractionsCubit extends Cubit<AddInteractionsState> {
   Future<void> likePlace(String placeId, String interactionType) async {
     emit(AddInteractionsLoading());
 
-    final result = await homeRepoImp.addInteractions(placeId, interactionType);
+    final result = await homeRepoImp.addInteractionsPlace(placeId, interactionType);
 
     result.fold(
       (failure) => emit(AddInteractionsFailure(failure.errorMessage)),
@@ -35,7 +35,7 @@ class AddInteractionsCubit extends Cubit<AddInteractionsState> {
   Future<void> viewPlace(String placeId, String interactionType) async {
     try {
       emit(AddInteractionsLoading());
-      final result = await homeRepoImp.addInteractions(
+      final result = await homeRepoImp.addInteractionsPlace(
         placeId,
         interactionType,
       );

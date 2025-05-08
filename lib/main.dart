@@ -7,7 +7,6 @@ import 'core/utils/constants.dart';
 import 'core/utils/service_locator.dart';
 import 'core/utils/simple_bloc_observer.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // initialize before runApp
   Bloc.observer = SimpleBlocObserver();

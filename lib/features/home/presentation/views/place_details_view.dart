@@ -5,8 +5,8 @@ import 'package:greendo/features/home/data/models/review_model.dart';
 import 'package:greendo/features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
-
 import '../../../../core/models/place_model.dart';
+import '../view_model/add_review_interactions/add_review_interactions_cubit.dart';
 import '../view_model/reviews/place_reviews_cubit.dart';
 
 class PlaceDetailsView extends StatefulWidget {
@@ -51,6 +51,8 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
         }
       }
     });
+    final reviewId = reviews[index].id ?? '';
+    context.read<AddReviewInteractionsCubit>().likeReview('like', reviewId);
   }
 
   void toggleDislike(int index, List<ReviewModel> reviews) {
@@ -70,6 +72,8 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
         }
       }
     });
+    final reviewId = reviews[index].id ?? '';
+    context.read<AddReviewInteractionsCubit>().likeReview('dislike', reviewId);
   }
 
   @override
@@ -81,18 +85,52 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     final description = place.description ?? "No description available.";
 
     return SafeArea(
-      child: BlocListener<AddInteractionsCubit, AddInteractionsState>(
-        listener: (context, state) {
-          if (state is AddInteractionsFailure) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
-          } else if (state is AddInteractionsSuccess) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));
-          }
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<AddInteractionsCubit, AddInteractionsState>(
+            listener: (context, state) {
+              if (state is AddInteractionsFailure) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
+              } else if (state is AddInteractionsSuccess) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));
+              }
+            },
+          ),
+          BlocListener<AddReviewInteractionsCubit, AddReviewInteractionsState>(
+            listener: (context, state) {
+              if (state is AddReviewInteractionsFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("❌ ${state.errorMessage}"),
+                    backgroundColor: Colors.red,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    duration: const Duration(seconds: 3),
+                  ),
+                );
+              } else if (state is AddReviewInteractionsSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("✅ ${state.message}"),
+                    backgroundColor: Colors.green,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              }
+            },
+          ),
+
+        ],
         child: Scaffold(
           body: Column(
             children: [

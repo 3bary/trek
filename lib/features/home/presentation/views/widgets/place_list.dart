@@ -47,7 +47,7 @@ class PlaceList extends StatelessWidget {
     return BlocProvider(
       create:
           (context) => AddInteractionsCubit(
-            getIt<HomeRepoImp>()..addInteractions(placeId, 'save'),
+            getIt<HomeRepoImp>()..addInteractionsPlace(placeId, 'save'),
           ),
       child: ListView(
         children:
