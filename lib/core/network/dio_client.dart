@@ -5,6 +5,7 @@ class DioClient {
     receiveDataWhenStatusError: true,
     receiveTimeout: const Duration(seconds: 100),
     connectTimeout: const Duration(seconds: 30),
+    responseType: ResponseType.json,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
