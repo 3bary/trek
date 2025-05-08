@@ -3,16 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/service_locator.dart';
 import 'package:greendo/features/home/data/repos/home/home_repo_imp.dart';
 import 'package:greendo/features/home/presentation/views/home_view.dart';
-
 import 'package:greendo/features/user_preferences/presentation/view_model/user_prefs_cubit.dart';
+
 import '../../features/auth/data/repos/auth_repo.dart';
 import '../../features/auth/presentation/view_model/auth_bloc/auth_bloc.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
-import '../../features/recommendation/presentation/views/recommendation_view.dart';
-import '../../features/home/presentation/view_model/home/home_cubit.dart';
-import '../../features/home/presentation/views/detail_view.dart';
 import '../../features/favorites/presentation/views/favorite_view.dart';
 import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import '../../features/home/presentation/view_model/add_review_interactions/add_review_interactions_cubit.dart';
@@ -72,10 +69,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kPreferencesView,
-        builder: (context, state) => BlocProvider(
-            create: (context) => UserPrefsCubit(getIt<UserPreferencesRepo>()),
-            child: const PreferencesView()
-        ),
+        builder:
+            (context, state) => BlocProvider(
+              create: (context) => UserPrefsCubit(getIt<UserPreferencesRepo>()),
+              child: const PreferencesView(),
+            ),
       ),
       GoRoute(
         path: kHomeView,

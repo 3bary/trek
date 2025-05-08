@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:greendo/core/errors/failures.dart';
 import 'package:greendo/features/home/data/repos/home/home_repo.dart';
 
+import '../../../../../core/helpers/cash_helper.dart';
 import '../../../../../core/models/place_model.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../models/review_model.dart';
@@ -20,7 +21,7 @@ class HomeRepoImp implements HomeRepo {
   Future<Either<Failure, List<PlaceModel>>> getAllPlaces() async {
     try {
       var data = await recommendationApiService.get(
-        endpoint: 'recommendations/user001',
+        endpoint: 'recommendations/${CashHelper.getCachedUser()!.id}',
       );
       final places =
           (data['data'] as List<dynamic>?)
@@ -42,7 +43,7 @@ class HomeRepoImp implements HomeRepo {
   ) async {
     try {
       var data = await recommendationApiService.get(
-        endpoint: 'search/user001?query=$query',
+        endpoint: 'search/${CashHelper.getCachedUser()!.id}?query=$query',
       );
       final places =
           (data['data'] as List<dynamic>?)
@@ -58,6 +59,7 @@ class HomeRepoImp implements HomeRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, List<ReviewModel>>> getPlaceReviews(
     String placeId,
@@ -92,11 +94,21 @@ class HomeRepoImp implements HomeRepo {
       await coreApiService.post(
         endpoint: 'interaction/add',
         body: {
-          'user_id': 'user014',
+          'user_id': CashHelper.getCachedUser()!.id,
           'place_id': placeId,
           'interaction_type': interactionType,
         },
       );
+      print('user_id: ${CashHelper.getCachedUser()?.id}');
+      print('place_id: $placeId');
+      print('interaction_type: $interactionType');
+      print(CashHelper.getCachedUser()!.savedPlaces);
+      CashHelper.updateCashedUser((user) {
+        var savedPlaces = user.savedPlaces ?? [];
+        savedPlaces.add(placeId);
+        user.savedPlaces = savedPlaces;
+      });
+      print(CashHelper.getCachedUser()!.savedPlaces);
       return right('added interaction for place');
     } catch (e) {
       if (e is DioException) {
@@ -109,15 +121,14 @@ class HomeRepoImp implements HomeRepo {
   @override
   Future<Either<Failure, String>> addInteractionsReview(
     String interactionType,
-     String reviewId
-
+    String reviewId,
   ) async {
     try {
       await coreApiService.post(
         endpoint: 'review_interaction/add_interaction',
         body: {
-          'user_id': 'user074',
-          'review_id':reviewId,
+          'user_id': CashHelper.getCachedUser()!.id,
+          'review_id': reviewId,
           'interaction_type': interactionType,
         },
       );

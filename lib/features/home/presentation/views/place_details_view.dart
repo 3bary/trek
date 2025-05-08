@@ -5,6 +5,7 @@ import 'package:greendo/features/home/data/models/review_model.dart';
 import 'package:greendo/features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import 'package:greendo/features/home/presentation/views/widgets/place_image.dart';
 import 'package:greendo/features/home/presentation/views/widgets/review_card.dart';
+
 import '../../../../core/models/place_model.dart';
 import '../view_model/add_review_interactions/add_review_interactions_cubit.dart';
 import '../view_model/reviews/place_reviews_cubit.dart';
@@ -83,223 +84,162 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     final city = place.location?.city ?? "Unknown City";
     final rating = place.averageRating?.toString() ?? "No Rating";
     final description = place.description ?? "No description available.";
-
     return SafeArea(
-      child: MultiBlocListener(
-        listeners: [
-          BlocListener<AddInteractionsCubit, AddInteractionsState>(
-            listener: (context, state) {
-              if (state is AddInteractionsFailure) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
-              } else if (state is AddInteractionsSuccess) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));
-              }
-            },
-          ),
-          BlocListener<AddReviewInteractionsCubit, AddReviewInteractionsState>(
-            listener: (context, state) {
-              if (state is AddReviewInteractionsFailure) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("❌ ${state.errorMessage}"),
-                    backgroundColor: Colors.red,
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+      child: Scaffold(
+        body: Column(
+          children: [
+            Hero(
+              tag: place.id!,
+              child: PlaceImage(imageUrl: place.imageUrl ?? ''),
+            ),
+            Container(
+              width: double.infinity,
+              color: kPrimaryColor,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: kTextColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    duration: const Duration(seconds: 3),
                   ),
-                );
-              } else if (state is AddReviewInteractionsSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("✅ ${state.message}"),
-                    backgroundColor: Colors.green,
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    duration: const Duration(seconds: 2),
-                  ),
-                );
-              }
-            },
-          ),
-
-        ],
-        child: Scaffold(
-          body: Column(
-            children: [
-              Hero(
-                tag: place.id ?? place.name ?? 'defaultTag',
-                child: PlaceImage(imageUrl: place.imageUrl ?? ''),
+                ],
               ),
-              Container(
-                width: double.infinity,
-                color: kPrimaryColor,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        city,
                         style: const TextStyle(
-                          fontSize: 20,
-                          color: kTextColor,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.grey,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : Colors.black,
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(rating),
+                          const SizedBox(width: 4),
+                          const Icon(Icons.star, color: Colors.amber),
+                        ],
                       ),
-                      onPressed: toggleFavorite,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          city,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text(rating),
-                            const SizedBox(width: 4),
-                            const Icon(Icons.star, color: Colors.amber),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isLiked = !isLiked;
-                              if (isLiked) {
-                                widget.place.likes =
-                                    (widget.place.likes ?? 0) + 1;
-                                context.read<AddInteractionsCubit>().likePlace(
-                                  widget.place.id ?? '',
-                                  'like',
-                                );
-                              } else {
-                                widget.place.likes =
-                                    (widget.place.likes ?? 1) - 1;
-                              }
-                            });
-                          },
-                          child: Row(
-                            children: [
-                              Text(widget.place.likes?.toString() ?? '0'),
-                              const SizedBox(width: 4),
-                              Icon(
-                                Icons.thumb_up,
-                                color: isLiked ? Colors.blue : Colors.grey,
-                                size: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          "Description : ",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(description),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Reviews:",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        BlocBuilder<PlaceReviewsCubit, PlaceReviewsState>(
-                          builder: (context, state) {
-                            if (state is PlaceReviewsLoading) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else if (state is PlaceReviewsFailure) {
-                              return Center(
-                                child: Text("Error: ${state.error}"),
-                              );
-                            } else if (state is PlaceReviewsSuccess) {
-                              final reviews = state.reviews;
-                              if (reviews.isEmpty) {
-                                return Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Text(
-                                      'No reviews found for this place.',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              return Column(
-                                children:
-                                    reviews.asMap().entries.map((entry) {
-                                      final index = entry.key;
-                                      final review = entry.value;
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 6,
-                                        ),
-                                        child: ReviewCard(
-                                          review: review,
-                                          onLike:
-                                              () => toggleLike(index, reviews),
-                                          onDislike:
-                                              () =>
-                                                  toggleDislike(index, reviews),
-                                        ),
-                                      );
-                                    }).toList(),
+                      const SizedBox(height: 6),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isLiked = !isLiked;
+                            if (isLiked) {
+                              widget.place.likes =
+                                  (widget.place.likes ?? 0) + 1;
+                              context.read<AddInteractionsCubit>().likePlace(
+                                widget.place.id ?? '',
+                                'like',
                               );
                             } else {
-                              return const SizedBox.shrink();
+                              widget.place.likes =
+                                  (widget.place.likes ?? 1) - 1;
                             }
-                          },
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            Text(widget.place.likes?.toString() ?? '0'),
+                            const SizedBox(width: 4),
+                            Icon(
+                              Icons.thumb_up,
+                              color: isLiked ? Colors.blue : Colors.grey,
+                              size: 20,
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 20),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Description : ",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(description),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Reviews:",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      BlocBuilder<PlaceReviewsCubit, PlaceReviewsState>(
+                        builder: (context, state) {
+                          if (state is PlaceReviewsLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (state is PlaceReviewsFailure) {
+                            return Center(child: Text("Error: ${state.error}"));
+                          } else if (state is PlaceReviewsSuccess) {
+                            final reviews = state.reviews;
+                            if (reviews.isEmpty) {
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text(
+                                    'No reviews found for this place.',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            return Column(
+                              children:
+                                  reviews.asMap().entries.map((entry) {
+                                    final index = entry.key;
+                                    final review = entry.value;
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 6,
+                                      ),
+                                      child: ReviewCard(
+                                        review: review,
+                                        onLike:
+                                            () => toggleLike(index, reviews),
+                                        onDislike:
+                                            () => toggleDislike(index, reviews),
+                                      ),
+                                    );
+                                  }).toList(),
+                            );
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

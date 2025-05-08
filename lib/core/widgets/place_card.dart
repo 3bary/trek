@@ -1,31 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
+import '../helpers/cash_helper.dart';
+import '../models/place_model.dart';
+import '../utils/app_router.dart';
 
 class PlaceCard extends StatefulWidget {
-  final String title;
-  final String? imageUrl;
-  final String city;
-  final double rating;
-  final String description;
-  final int likes;
-  final VoidCallback onDetailsPressed;
-  final String placeId;
+  final PlaceModel place;
 
-
-  const PlaceCard({
-    super.key,
-    this.imageUrl,
-    required this.title,
-    required this.city,
-    required this.rating,
-    required this.description,
-    required this.onDetailsPressed,
-    required this.likes,
-    required this.placeId,
-
-  });
+  const PlaceCard({super.key, required this.place});
 
   @override
   State<PlaceCard> createState() => _PlaceCardState();
@@ -35,97 +20,97 @@ class _PlaceCardState extends State<PlaceCard> {
   bool isFavorite = false;
 
   void toggleFavorite() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
+    final user = CashHelper.getCachedUser();
+    final placeId = widget.place.id;
 
-    context.read<AddInteractionsCubit>().savePlace(widget.placeId, 'save');
+    if (user != null && placeId != null) {
+      setState(() {
+        isFavorite = !isFavorite;
+      });
+      context.read<AddInteractionsCubit>().savePlace(placeId, 'save');
+    } else {
+      print("❌ User or Place ID is null");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Something went wrong. Please try again.")),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddInteractionsCubit, AddInteractionsState>(
-      listener: (context, state) {
-        if (state is AddInteractionsFailure) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
-          setState(() {
-            isFavorite = !isFavorite;
-          });
-        } else if (state is AddInteractionsSuccess) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(top: 4, left: 5, right: 5),
-        child: Card(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : Colors.grey,
-                      ),
-                      onPressed: toggleFavorite,
-                    ),
-                  ],
-                ),
-                Text(widget.city, style: TextStyle(color: Colors.grey)),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Text(widget.rating.toString()),
-                    SizedBox(width: 4),
-                    Icon(Icons.star, color: Colors.amber, size: 18),
-                  ],
-                ),
-                SizedBox(width: 15),
-
-                Text(
-                  widget.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: widget.onDetailsPressed,
+    return Padding(
+      padding: const EdgeInsets.only(top: 4, left: 5, right: 5),
+      child: Card(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
                     child: Text(
-                      "Details",
+                      widget.place.name!,
                       style: TextStyle(
-                        color: Colors.blueGrey,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
+                  IconButton(
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.red : Colors.grey,
+                    ),
+                    onPressed: toggleFavorite,
+                  ),
+                ],
+              ),
+              Text(
+                widget.place.location!.city!,
+                style: TextStyle(color: Colors.grey),
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Text(widget.place.averageRating.toString()),
+                  SizedBox(width: 4),
+                  Icon(Icons.star, color: Colors.amber, size: 18),
+                ],
+              ),
+              SizedBox(width: 15),
+
+              Text(
+                widget.place.description!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    GoRouter.of(
+                      context,
+                    ).push(AppRouter.kPlaceDetailsView, extra: widget.place);
+                    context.read<AddInteractionsCubit>().viewPlace(
+                      widget.place.id ?? '',
+                      'view',
+                    );
+                  },
+                  child: Text(
+                    "Details",
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

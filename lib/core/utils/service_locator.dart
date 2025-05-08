@@ -19,7 +19,7 @@ void setupServiceLocator() {
     ),
   );
   // inject AuthRepo
-  getIt.registerLazySingleton<AuthRepo>(() => AuthRepo(CoreApiService(dio)));
+  // getIt.registerLazySingleton<AuthRepo>(() => AuthRepo(CoreApiService(dio)));
   getIt.registerLazySingleton<AuthRepo>(
     () => AuthRepo(
       CoreApiService(
