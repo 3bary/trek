@@ -58,24 +58,22 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            return Transform.scale(
-              scale: _scaleAnimation.value,
-              child: Opacity(
-                opacity: _fadeAnimation.value,
-                child: child,
-              ),
-            );
-          },
-          child: Image.asset(
-            kAppLogo,
-            width: 250,
-            height: 250,
-          ),
+    return Center(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Opacity(
+              opacity: _fadeAnimation.value,
+              child: child,
+            ),
+          );
+        },
+        child: Image.asset(
+          kAppLogo,
+          width: 250,
+          height: 250,
         ),
       ),
     );
