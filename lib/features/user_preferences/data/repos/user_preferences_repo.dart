@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:greendo/features/user_preferences/data/models/user_prefs_model.dart';
-import '../../../../core/cash/cash_helper.dart';
 import '../../../../core/errors/failures.dart';
+import '../../../../core/helpers/cash_helper.dart';
 import '../../../../core/network/api_service.dart';
 
 class UserPreferencesRepo {

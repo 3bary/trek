@@ -23,6 +23,7 @@ import '../../features/home/presentation/views/place_details_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/recommendation/presentation/views/recommendation_view.dart';
 import '../../features/recommendation/presentation/views/road_map_view.dart';
+import '../../features/splash/presentation/views/splash_view.dart';
 import '../../features/user_preferences/data/repos/user_preferences_repo.dart';
 import '../../features/user_preferences/presentation/views/preferences_view.dart';
 import '../models/place_model.dart';
@@ -38,10 +39,15 @@ abstract class AppRouter {
   static const String kRecommendationView = '/recommendationView';
   static const String kPlaceDetailsView = '/placeDetailsView';
   static const String kRoadMapView = '/roadMapView';
-
+  static const String kOnboardingView = '/onboardingView';
+  static const String kSplashView = '/';
   static final router = GoRouter(
     initialLocation: '/',
     routes: [
+      GoRoute(
+        path: kSplashView,
+        builder: (context, state) => const SplashView(),
+      ),
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
@@ -51,7 +57,7 @@ abstract class AppRouter {
         },
         routes: [
           GoRoute(
-            path: '/',
+            path: kOnboardingView,
             builder: (context, state) => const OnboardingView(),
           ),
           GoRoute(
@@ -64,7 +70,6 @@ abstract class AppRouter {
           ),
         ],
       ),
-
       GoRoute(
         path: kPreferencesView,
         builder: (context, state) => BlocProvider(
