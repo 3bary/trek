@@ -36,7 +36,7 @@ class _PlaceCardState extends State<PlaceCard> {
 
   void toggleFavorite() {
     setState(() {
-      isFavorite =!isFavorite;
+      isFavorite = !isFavorite;
     });
 
     context.read<AddInteractionsCubit>().savePlace(widget.placeId, 'save');
@@ -47,6 +47,7 @@ class _PlaceCardState extends State<PlaceCard> {
     return BlocListener<AddInteractionsCubit, AddInteractionsState>(
       listener: (context, state) {
         if (state is AddInteractionsFailure) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text("❌ ${state.error}")));
@@ -54,6 +55,7 @@ class _PlaceCardState extends State<PlaceCard> {
             isFavorite = !isFavorite;
           });
         } else if (state is AddInteractionsSuccess) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text("✅ ${state.message}")));
