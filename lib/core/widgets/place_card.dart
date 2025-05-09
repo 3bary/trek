@@ -77,7 +77,7 @@ class _PlaceCardState extends State<PlaceCard> {
               SizedBox(height: 5),
               Row(
                 children: [
-                  Text(widget.place.averageRating.toString()),
+                  Text(widget.place.averageRating!.toString()),
                   SizedBox(width: 4),
                   Icon(Icons.star, color: Colors.amber, size: 18),
                 ],

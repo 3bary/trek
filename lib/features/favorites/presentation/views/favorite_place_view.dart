@@ -56,7 +56,7 @@ class _FavoritePlaceViewState extends State<FavoritePlaceView> {
                 return PlaceList(
                   searchTextController: TextEditingController(),
                   allPlaces: savedPlaces,
-                  searchedPlaces: savedPlaces,
+                  searchedPlaces: savedPlaces, placeId: '',
                 );
               } else if (state is FavoritePlacesError) {
                 return Center(child: Text('Error: ${state.message}'));

@@ -13,11 +13,10 @@ import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/favorites/presentation/views/favorite_place_view.dart';
 import '../../features/home/presentation/view_model/home/home_cubit.dart';
-import '../../features/home/presentation/views/detail_view.dart';
-import '../../features/favorites/presentation/views/favorite_view.dart';
+
 import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import '../../features/home/presentation/view_model/add_review_interactions/add_review_interactions_cubit.dart';
-import '../../features/home/presentation/view_model/home/home_cubit.dart';
+
 import '../../features/home/presentation/view_model/reviews/place_reviews_cubit.dart';
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/place_details_view.dart';
