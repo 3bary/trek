@@ -54,7 +54,8 @@ class _SignupFormState extends State<SignupForm> {
               content: Text('Register Success'),
             ),
           );
-          GoRouter.of(context).pushReplacement(AppRouter.kPreferencesView);
+
+          GoRouter.of(context).go(AppRouter.kPreferencesView);
         } else if (state is AuthFailure) {
           setState(() {
             isLoading = false;
@@ -154,13 +155,14 @@ class _SignupFormState extends State<SignupForm> {
               backgroundColor: kSecondaryColor,
               onPressed: () {
                 if (formKey.currentState!.validate()) {
+                  RegisterRequestBody registerRequestBody = RegisterRequestBody(
+                    name: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
                   context.read<AuthBloc>().add(
                     RegisterEvent(
-                      RegisterRequestBody(
-                        name: nameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
-                      ),
+                     registerRequestBody,
                     ),
                   );
                 }

@@ -21,4 +21,10 @@ class RecommendationApiService implements IApiService{
     return response.data;
   }
 
+  @override
+  Future<Map<String, dynamic>> put({required String endpoint, required Map<String, dynamic> body}) {
+    // TODO: implement put
+    throw UnimplementedError();
+  }
+
 }

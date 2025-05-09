@@ -24,6 +24,8 @@ class PlaceModel {
     location =
         json['location'] != null ? Location.fromJson(json['location']) : null;
     id = json['_id'];
+    location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    id = json['place_id'];
     name = json['name'];
     category = json['category'];
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
@@ -32,6 +34,8 @@ class PlaceModel {
         json['accessibility'] != null
             ? json['accessibility'].cast<String>()
             : [];
+    averageRating = json['average_rating'].toDouble();
+    accessibility = json['accessibility'] != null ? json['accessibility'].cast<String>() : [];
     averageRating = json['average_rating'].toDouble();
     likes = json['likes'];
     reviewsCount = json['reviews_count'];
@@ -56,7 +60,7 @@ class PlaceModel {
   List<String>? tags;
   String? description;
   List<String>? accessibility;
-  double? averageRating;
+  num? averageRating;
   int? likes;
   int? reviewsCount;
   List<String>? appropriateTime;
