@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:greendo/features/home/presentation/views/widgets/category_list.dart';
+import 'package:lottie/lottie.dart';
+
 import '../../../../core/models/place_model.dart';
 import '../../../../core/utils/assets.dart';
 import '../view_model/home/home_cubit.dart';
 import 'widgets/discover_app_bar.dart';
 import 'widgets/place_list.dart';
-import 'package:lottie/lottie.dart';
 
 class DiscoverView extends StatefulWidget {
   const DiscoverView({super.key});
@@ -16,30 +18,41 @@ class DiscoverView extends StatefulWidget {
 }
 
 class _DiscoverViewState extends State<DiscoverView> {
-  late List<PlaceModel> searchedPlaces;
-  late List<PlaceModel> allPlaces;
   bool _isSearching = false;
   final _searchTextController = TextEditingController();
+  List<PlaceModel> _searchedPlaces = [];
+  Timer? _debounceTimer;
+  String _lastSearchQuery = '';
+  String placeId = '';
 
   @override
   void initState() {
     super.initState();
-    searchedPlaces = [];
     context.read<HomeCubit>().fetchAllPlaces();
   }
 
-  void addSearchedPlacesToSearchedList(String searchPlaces) {
-    setState(() {
-      searchedPlaces =
-          allPlaces
-              .where(
-                (place) =>
-                    place.name?.toLowerCase().startsWith(
-                      searchPlaces.toLowerCase(),
-                    ) ??
-                    false,
-              )
-              .toList();
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    _searchTextController.dispose();
+    super.dispose();
+  }
+
+  void _handleSearch(String query) {
+    _debounceTimer?.cancel();
+
+    if (query.isEmpty) {
+      setState(() => _searchedPlaces = []);
+      context.read<HomeCubit>().fetchAllPlaces();
+      _lastSearchQuery = '';
+      return;
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      if (query != _lastSearchQuery) {
+        _lastSearchQuery = query;
+        context.read<HomeCubit>().getPlacesBySearch(query);
+      }
     });
   }
 
@@ -51,10 +64,13 @@ class _DiscoverViewState extends State<DiscoverView> {
   }
 
   void _stopSearching() {
+    _debounceTimer?.cancel();
     setState(() {
       _isSearching = false;
       _searchTextController.clear();
+      _lastSearchQuery = '';
     });
+    context.read<HomeCubit>().fetchAllPlaces();
   }
 
   @override
@@ -63,7 +79,7 @@ class _DiscoverViewState extends State<DiscoverView> {
       appBar: DiscoverAppBar(
         isSearching: _isSearching,
         searchTextController: _searchTextController,
-        onChanged: addSearchedPlacesToSearchedList,
+        onChanged: _handleSearch,
         onStartSearch: _startSearch,
         onStopSearch: _stopSearching,
       ),
@@ -72,40 +88,26 @@ class _DiscoverViewState extends State<DiscoverView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CategoryNamesList(
-              onCategorySelected: (categoryName) {
-                context.read<HomeCubit>().fetchPlacesByCategory(categoryName);
-              },
-            ),
             const SizedBox(height: 5),
             Expanded(
-              child: BlocBuilder<HomeCubit, HomeState>(
+              child: BlocConsumer<HomeCubit, HomeState>(
+                listener: (context, state) {
+                  if (state is HomeLoaded && _isSearching) {
+                    _searchedPlaces = state.places;
+                  }
+                },
                 builder: (context, state) {
                   if (state is HomeLoading) {
                     return Center(
-                      child: Lottie.asset(loading, height: 250, width: 250),
+                      child: Lottie.asset(loading, height: 200, width: 200),
                     );
                   } else if (state is HomeLoaded) {
-                    allPlaces = state.places;
-                    print('Loaded places: ${allPlaces.length}');
-                    searchedPlaces =
-                        _searchTextController.text.isEmpty
-                            ? allPlaces
-                            : allPlaces
-                                .where(
-                                  (place) =>
-                                      place.name?.toLowerCase().startsWith(
-                                        _searchTextController.text
-                                            .toLowerCase(),
-                                      ) ??
-                                      false,
-                                )
-                                .toList();
-
                     return PlaceList(
                       searchTextController: _searchTextController,
-                      allPlaces: allPlaces,
-                      searchedPlaces: searchedPlaces,
+                      allPlaces: state.places,
+                      searchedPlaces:
+                          _isSearching ? _searchedPlaces : state.places,
+                      placeId: placeId,
                     );
                   } else if (state is HomeError) {
                     return Center(child: Text('Error: ${state.message}'));

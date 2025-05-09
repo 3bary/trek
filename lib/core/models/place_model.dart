@@ -21,13 +21,13 @@ class PlaceModel {
 
   PlaceModel.fromJson(dynamic json) {
     location = json['location'] != null ? Location.fromJson(json['location']) : null;
-    id = json['_id'];
+    id = json['place_id'];
     name = json['name'];
     category = json['category'];
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
     description = json['description'];
     accessibility = json['accessibility'] != null ? json['accessibility'].cast<String>() : [];
-    averageRating = json['average_rating'];
+    averageRating = json['average_rating'].toDouble();
     likes = json['likes'];
     reviewsCount = json['reviews_count'];
     appropriateTime = json['appropriate_time'] != null ? json['appropriate_time'].cast<String>() : [];

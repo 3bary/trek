@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/models/place_model.dart';
+import '../../../../../core/utils/constants.dart';
 
 mixin PlaceSearch<T extends StatefulWidget> on State<T> {
   late List<PlaceModel> searchedPlaces;
@@ -9,10 +11,7 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
 
   bool get isSearching => _isSearching;
 
-  void initializeSearch(
-    StateSetter setStateCallback,
-    List<PlaceModel> places,
-  ) {
+  void initializeSearch(StateSetter setStateCallback, List<PlaceModel> places) {
     allPlaces = places;
     searchedPlaces = allPlaces;
   }
@@ -29,6 +28,12 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
     setState(() {});
   }
 
+  @override
+  void dispose() {
+    searchTextController.dispose();
+    super.dispose();
+  }
+
   Widget buildSearchField() {
     return TextField(
       controller: searchTextController,
@@ -37,13 +42,13 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
         hintText: "Search for a place",
         border: InputBorder.none,
         hintStyle: TextStyle(
-          color: Colors.grey,
+          color: Colors.black54,
           fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
       ),
-      style: const TextStyle(
-        color: Colors.grey,
+      style: TextStyle(
+        color: Colors.black54,
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
@@ -72,14 +77,14 @@ mixin PlaceSearch<T extends StatefulWidget> on State<T> {
       return [
         IconButton(
           onPressed: _stopSearching,
-          icon: const Icon(Icons.clear, color: Colors.black54),
+          icon: const Icon(Icons.clear, color: kTextColor),
         ),
       ];
     } else {
       return [
         IconButton(
           onPressed: () => _startSearch(context),
-          icon: const Icon(Icons.search, color: Colors.black54),
+          icon: const Icon(Icons.search, color: kTextColor),
         ),
       ];
     }

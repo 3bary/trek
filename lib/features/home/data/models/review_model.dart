@@ -1,16 +1,24 @@
 class ReviewModel {
   String? id;
-  String? name; // هنا المفروض user name مش place_id
+
+  String? placeId;
+
+  String? userId;
+
   String? comment;
+
   int? likes;
+
   int? disLikes;
 
-  bool isLiked; // محلية (مش جاية من API)
-  bool isDisliked; // محلية
+  bool isLiked;
+
+  bool isDisliked;
 
   ReviewModel({
     this.id,
-    this.name,
+    this.placeId,
+    this.userId,
     this.comment,
     this.likes,
     this.disLikes,
@@ -20,8 +28,9 @@ class ReviewModel {
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     return ReviewModel(
-      id: json['place_id'],
-      name: json['user_id'],
+      id: json['_id'],
+      placeId: json['place_id'],
+      userId: json['user_id'],
       comment: json['review_text'],
       likes: json['likes'],
       disLikes: json['dislikes'],
