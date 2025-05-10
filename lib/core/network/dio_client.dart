@@ -4,7 +4,7 @@ class DioClient {
   static BaseOptions baseOptions = BaseOptions(
     receiveDataWhenStatusError: true,
     receiveTimeout: const Duration(seconds: 100),
-    connectTimeout: const Duration(seconds: 30),
+    connectTimeout: const Duration(seconds: 50),
     responseType: ResponseType.json,
     headers: {
       'Content-Type': 'application/json',

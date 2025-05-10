@@ -8,7 +8,7 @@ import '../../../../core/models/place_model.dart';
 import '../../../../core/utils/assets.dart';
 import '../view_model/home/home_cubit.dart';
 import 'widgets/discover_app_bar.dart';
-import 'widgets/place_list.dart';
+import '../../../../core/widgets/place_list.dart';
 
 class DiscoverView extends StatefulWidget {
   const DiscoverView({super.key});

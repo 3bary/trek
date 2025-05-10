@@ -5,8 +5,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/service_locator.dart';
-import '../../../home/presentation/views/widgets/place_list.dart';
-import '../../data/repos/place_favorite_repo_imp.dart';
+import '../../../../core/widgets/place_list.dart';
 import '../view_model/favorite_places_cubit.dart';
 
 class FavoritePlaceView extends StatefulWidget {
@@ -17,21 +16,13 @@ class FavoritePlaceView extends StatefulWidget {
 }
 
 class _FavoritePlaceViewState extends State<FavoritePlaceView> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<FavoritePlacesCubit>().getSavedPlaces();
-    });
-  }
+  String placeId = '';
+
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) =>
-              FavoritePlacesCubit(getIt<FavoritePlaceRepoImp>())
-                ..getSavedPlaces(),
+      create: (context) => FavoritePlacesCubit(getIt())..getSavedPlaces(),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -56,7 +47,8 @@ class _FavoritePlaceViewState extends State<FavoritePlaceView> {
                 return PlaceList(
                   searchTextController: TextEditingController(),
                   allPlaces: savedPlaces,
-                  searchedPlaces: savedPlaces, placeId: '',
+                  searchedPlaces: savedPlaces,
+                  placeId: placeId,
                 );
               } else if (state is FavoritePlacesError) {
                 return Center(child: Text('Error: ${state.message}'));

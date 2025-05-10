@@ -22,7 +22,6 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepo(CoreApiService(dio)));
   getIt.registerLazySingleton<FavoritePlaceRepoImp>(
     () => FavoritePlaceRepoImp(CoreApiService(dio)),
-    // getIt.registerLazySingleton<AuthRepo>(() => AuthRepo(CoreApiService(dio)));
   );
   getIt.registerLazySingleton<UserPreferencesRepo>(
     () => UserPreferencesRepo(CoreApiService(dio)),

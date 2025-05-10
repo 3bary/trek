@@ -4,6 +4,7 @@ import 'package:greendo/core/errors/failures.dart';
 import 'package:greendo/core/models/place_model.dart';
 import 'package:greendo/features/favorites/data/repos/place_favorite_repo.dart';
 
+import '../../../../core/helpers/cash_helper.dart';
 import '../../../../core/network/api_service.dart';
 
 class FavoritePlaceRepoImp extends FavoritePlaceRepo {
@@ -14,7 +15,9 @@ class FavoritePlaceRepoImp extends FavoritePlaceRepo {
   @override
   Future<Either<Failure, List<PlaceModel>>> getSavedPlaces() async {
     try {
-      var data = await apiService.get(endpoint: 'user/saved-places/user002');
+      var data = await apiService.get(
+        endpoint: 'user/saved-places/${CashHelper.getCachedUser()!.id}',
+      );
       print('Raw API Data: $data');
       print('Type of data: ${data.runtimeType}');
       final savedPlaces =

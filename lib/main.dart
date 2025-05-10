@@ -7,15 +7,13 @@ import 'core/utils/constants.dart';
 import 'core/utils/service_locator.dart';
 import 'core/utils/simple_bloc_observer.dart';
 
-
 void main() {
-  WidgetsFlutterBinding.ensureInitialized(); // initialize before runApp
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   CashHelper.init();
   setupServiceLocator();
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

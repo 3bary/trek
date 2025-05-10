@@ -28,8 +28,11 @@ class PlaceModel {
     category = json['category'];
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
     description = json['description'];
-    averageRating = json['average_rating'].toDouble();
-    accessibility = json['accessibility'] != null ? json['accessibility'].cast<String>() : [];
+    averageRating = (json['average_rating'] ?? 0).toDouble();
+    accessibility =
+        json['accessibility'] != null
+            ? json['accessibility'].cast<String>()
+            : [];
     likes = json['likes'];
     reviewsCount = json['reviews_count'];
     appropriateTime =
@@ -76,7 +79,7 @@ class PlaceModel {
     map['tags'] = tags;
     map['description'] = description;
     map['accessibility'] = accessibility;
-    map['average_rating'] = averageRating?.toDouble();
+    map['average_rating'] = averageRating;
     map['likes'] = likes;
     map['reviews_count'] = reviewsCount;
     map['appropriate_time'] = appropriateTime;
@@ -97,8 +100,8 @@ class Location {
   Location.fromJson(dynamic json) {
     city = json['city'];
     country = json['country'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    latitude = (json['latitude'] ?? 0).toDouble();
+    longitude = (json['longitude'] ?? 0).toDouble();
   }
 
   String? city;

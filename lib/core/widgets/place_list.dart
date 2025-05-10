@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/models/place_model.dart';
-import '../../../../../core/utils/service_locator.dart';
-import '../../../../../core/widgets/place_card.dart';
-import '../../../data/repos/home/home_repo_imp.dart';
-import '../../view_model/add_interactions/add_interactions_cubit.dart';
+import '../models/place_model.dart';
+import '../utils/service_locator.dart';
+import 'place_card.dart';
+import '../../features/home/data/repos/home/home_repo_imp.dart';
+import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 
 class PlaceList extends StatelessWidget {
   final TextEditingController searchTextController;
