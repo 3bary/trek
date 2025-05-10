@@ -18,8 +18,6 @@ class FavoritePlaceRepoImp extends FavoritePlaceRepo {
       var data = await apiService.get(
         endpoint: 'user/saved-places/${CashHelper.getCachedUser()!.id}',
       );
-      print('Raw API Data: $data');
-      print('Type of data: ${data.runtimeType}');
       final savedPlaces =
           (data['data'] as List<dynamic>?)
               ?.map((item) => PlaceModel.fromJson(item))

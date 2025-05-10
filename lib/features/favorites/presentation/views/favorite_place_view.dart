@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/core/utils/assets.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../../core/utils/constants.dart';
+
 import '../../../../core/utils/service_locator.dart';
 import '../../../../core/widgets/place_list.dart';
 import '../view_model/favorite_places_cubit.dart';
@@ -18,11 +18,10 @@ class FavoritePlaceView extends StatefulWidget {
 class _FavoritePlaceViewState extends State<FavoritePlaceView> {
   String placeId = '';
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FavoritePlacesCubit(getIt())..getSavedPlaces(),
+      create: (context) => getIt<FavoritePlacesCubit>()..getSavedPlaces(),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
