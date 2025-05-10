@@ -23,17 +23,19 @@ class _PlaceCardState extends State<PlaceCard> {
     final user = CashHelper.getCachedUser();
     final placeId = widget.place.id;
 
-    if (user != null && placeId != null) {
-      setState(() {
-        isFavorite = !isFavorite;
-      });
-      context.read<AddInteractionsCubit>().savePlace(placeId, 'save');
-    } else {
-      print("❌ User or Place ID is null");
+    if (user == null || placeId == null || placeId.isEmpty) {
+      print("❌ User or Place ID is null or empty");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Something went wrong. Please try again.")),
       );
+      return;
     }
+
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+
+    context.read<AddInteractionsCubit>().savePlace(placeId, 'save');
   }
 
   @override

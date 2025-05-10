@@ -23,7 +23,7 @@ class PlaceModel {
   PlaceModel.fromJson(dynamic json) {
     location =
         json['location'] != null ? Location.fromJson(json['location']) : null;
-    id = json['place_id'];
+    id = json['_id'] ?? json['place_id'];
     name = json['name'];
     category = json['category'];
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
