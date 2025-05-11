@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greendo/features/home/presentation/views/widgets/discover_app_bar.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/helpers/cash_helper.dart';
 import '../../../../core/models/place_model.dart';
 import '../../../../core/utils/assets.dart';
-import '../view_model/home/home_cubit.dart';
-import 'widgets/discover_app_bar.dart';
 import '../../../../core/widgets/place_list.dart';
+import '../view_model/home/home_cubit.dart';
 
 class DiscoverView extends StatefulWidget {
   const DiscoverView({super.key});
@@ -24,11 +25,13 @@ class _DiscoverViewState extends State<DiscoverView> {
   Timer? _debounceTimer;
   String _lastSearchQuery = '';
   String placeId = '';
+  Set<String> savedPlaceIds = {};
 
   @override
   void initState() {
     super.initState();
     context.read<HomeCubit>().fetchAllPlaces();
+    _loadSavedPlaces();
   }
 
   @override
@@ -36,6 +39,13 @@ class _DiscoverViewState extends State<DiscoverView> {
     _debounceTimer?.cancel();
     _searchTextController.dispose();
     super.dispose();
+  }
+
+  void _loadSavedPlaces() {
+    final user = CashHelper.getCachedUser();
+    setState(() {
+      savedPlaceIds = user?.savedPlaces?.toSet() ?? {};
+    });
   }
 
   void _handleSearch(String query) {
@@ -99,7 +109,7 @@ class _DiscoverViewState extends State<DiscoverView> {
                 builder: (context, state) {
                   if (state is HomeLoading) {
                     return Center(
-                      child: Lottie.asset(loading, height: 200, width: 200),
+                      child: Lottie.asset(loading, height: 150, width: 200),
                     );
                   } else if (state is HomeLoaded) {
                     return PlaceList(
@@ -108,6 +118,7 @@ class _DiscoverViewState extends State<DiscoverView> {
                       searchedPlaces:
                           _isSearching ? _searchedPlaces : state.places,
                       placeId: placeId,
+                      savedPlaceIds: savedPlaceIds,
                     );
                   } else if (state is HomeError) {
                     return Center(child: Text('Error: ${state.message}'));
