@@ -144,10 +144,12 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                             if (isLiked) {
                               widget.place.likes =
                                   (widget.place.likes ?? 0) + 1;
-                              context.read<AddInteractionsCubit>().likePlace(
-                                widget.place.id ?? '',
-                                'like',
-                              );
+                              context
+                                  .read<AddInteractionsCubit>()
+                                  .handleInteraction(
+                                    widget.place.id ?? '',
+                                    'like',
+                                  );
                             } else {
                               widget.place.likes =
                                   (widget.place.likes ?? 1) - 1;

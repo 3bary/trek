@@ -12,6 +12,8 @@ class PlaceList extends StatelessWidget {
   final List<PlaceModel> allPlaces;
   final List<PlaceModel> searchedPlaces;
   final String placeId;
+  final Set<String> savedPlaceIds;
+  final void Function(String placeId)? onRemove;
 
   const PlaceList({
     super.key,
@@ -19,6 +21,8 @@ class PlaceList extends StatelessWidget {
     required this.allPlaces,
     required this.searchedPlaces,
     required this.placeId,
+    required this.savedPlaceIds,
+    this.onRemove,
   });
 
   @override
@@ -49,7 +53,12 @@ class PlaceList extends StatelessWidget {
             listToShow.map((place) {
               return SizedBox(
                 width: double.infinity,
-                child: PlaceCard(place: place),
+                child: PlaceCard(
+                  key: ValueKey(place.id),
+                  place: place,
+                  savedPlaceIds: savedPlaceIds,
+                  onRemove: onRemove,
+                ),
               );
             }).toList(),
       ),
