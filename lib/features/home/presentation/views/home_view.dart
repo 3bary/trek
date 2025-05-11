@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/constants.dart';
 import '../../../../core/utils/app_router.dart';
-import '../../../favorites/presentation/views/favorite_view.dart';
+import '../../../favorites/presentation/views/favorite_place_view.dart';
 import '../../../profile/presentation/views/profile_view.dart';
 import 'package:greendo/features/home/presentation/views/widgets/bottom_naviagation_bar.dart';
 import 'discover_view.dart';
@@ -21,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> pages = [
     DiscoverView(),
     GroupsView(),
-    FavoriteView(),
+    FavoritePlaceView(),
     ProfileView(),
   ];
 

@@ -9,8 +9,15 @@ import '../utils/app_router.dart';
 
 class PlaceCard extends StatefulWidget {
   final PlaceModel place;
+  final Set<String> savedPlaceIds;
+  final void Function(String placeId)? onRemove;
 
-  const PlaceCard({super.key, required this.place});
+  const PlaceCard({
+    super.key,
+    required this.place,
+    required this.savedPlaceIds,
+    this.onRemove,
+  });
 
   @override
   State<PlaceCard> createState() => _PlaceCardState();
@@ -19,21 +26,39 @@ class PlaceCard extends StatefulWidget {
 class _PlaceCardState extends State<PlaceCard> {
   bool isFavorite = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    isFavorite = widget.savedPlaceIds.contains(widget.place.id);
+  }
+
   void toggleFavorite() {
     final user = CashHelper.getCachedUser();
     final placeId = widget.place.id;
 
-    if (user != null && placeId != null) {
-      setState(() {
-        isFavorite = !isFavorite;
-      });
-      context.read<AddInteractionsCubit>().savePlace(placeId, 'save');
-    } else {
-      print("❌ User or Place ID is null");
+    if (user == null || placeId == null || placeId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Something went wrong. Please try again.")),
       );
+      return;
     }
+
+    setState(() {
+      if (widget.savedPlaceIds.contains(placeId)) {
+        widget.savedPlaceIds.remove(placeId);
+        isFavorite = false;
+        widget.onRemove?.call(placeId);
+      } else {
+        widget.savedPlaceIds.add(placeId);
+        isFavorite = true;
+      }
+    });
+
+    context.read<AddInteractionsCubit>().handleInteraction(
+      placeId,
+      isFavorite ? 'save' : 'save',
+    );
   }
 
   @override
@@ -77,13 +102,12 @@ class _PlaceCardState extends State<PlaceCard> {
               SizedBox(height: 5),
               Row(
                 children: [
-                  Text(widget.place.averageRating.toString()),
+                  Text(widget.place.averageRating!.toString()),
                   SizedBox(width: 4),
                   Icon(Icons.star, color: Colors.amber, size: 18),
                 ],
               ),
               SizedBox(width: 15),
-
               Text(
                 widget.place.description!,
                 maxLines: 2,
@@ -96,7 +120,7 @@ class _PlaceCardState extends State<PlaceCard> {
                     GoRouter.of(
                       context,
                     ).push(AppRouter.kPlaceDetailsView, extra: widget.place);
-                    context.read<AddInteractionsCubit>().viewPlace(
+                    context.read<AddInteractionsCubit>().handleInteraction(
                       widget.place.id ?? '',
                       'view',
                     );

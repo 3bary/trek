@@ -1,44 +1,54 @@
 class PlaceModel {
   PlaceModel({
-      this.location, 
-      this.id, 
-      this.name, 
-      this.category, 
-      this.tags, 
-      this.description, 
-      this.accessibility, 
-      this.averageRating, 
-      this.likes, 
-      this.reviewsCount, 
-      this.appropriateTime, 
-      this.budget, 
-      this.groupType, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v, 
-      this.image, 
-      this.imageUrl,});
+    this.location,
+    this.id,
+    this.name,
+    this.category,
+    this.tags,
+    this.description,
+    this.accessibility,
+    this.averageRating,
+    this.likes,
+    this.reviewsCount,
+    this.appropriateTime,
+    this.budget,
+    this.groupType,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.image,
+    this.imageUrl,
+  });
 
   PlaceModel.fromJson(dynamic json) {
-    location = json['location'] != null ? Location.fromJson(json['location']) : null;
-    id = json['place_id'];
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
+    id = json['_id'] ?? json['place_id'];
     name = json['name'];
     category = json['category'];
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
     description = json['description'];
-    accessibility = json['accessibility'] != null ? json['accessibility'].cast<String>() : [];
-    averageRating = json['average_rating'].toDouble();
+    averageRating = (json['average_rating'] ?? 0).toDouble();
+    accessibility =
+        json['accessibility'] != null
+            ? json['accessibility'].cast<String>()
+            : [];
     likes = json['likes'];
     reviewsCount = json['reviews_count'];
-    appropriateTime = json['appropriate_time'] != null ? json['appropriate_time'].cast<String>() : [];
+    appropriateTime =
+        json['appropriate_time'] != null
+            ? json['appropriate_time'].cast<String>()
+            : [];
     budget = json['budget'];
-    groupType = json['group_type'] != null ? json['group_type'].cast<String>() : [];
+    groupType =
+        json['group_type'] != null ? json['group_type'].cast<String>() : [];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     v = json['__v'];
     image = json['image'];
     imageUrl = json['image_url'];
   }
+
   Location? location;
   String? id;
   String? name;
@@ -82,26 +92,22 @@ class PlaceModel {
     map['image_url'] = imageUrl;
     return map;
   }
-
 }
 
 class Location {
-  Location({
-      this.city, 
-      this.country, 
-      this.latitude, 
-      this.longitude,});
+  Location({this.city, this.country, this.latitude, this.longitude});
 
   Location.fromJson(dynamic json) {
     city = json['city'];
     country = json['country'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    latitude = (json['latitude'] ?? 0).toDouble();
+    longitude = (json['longitude'] ?? 0).toDouble();
   }
+
   String? city;
   String? country;
-  num? latitude;
-  num? longitude;
+  double? latitude;
+  double? longitude;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -111,5 +117,4 @@ class Location {
     map['longitude'] = longitude;
     return map;
   }
-
 }

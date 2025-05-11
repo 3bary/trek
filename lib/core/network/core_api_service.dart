@@ -20,7 +20,7 @@ class CoreApiService implements IApiService {
     required Map<String, dynamic> body,
   }) async {
     var response = await _dio.post('$_baseUrl$endpoint', data: body);
-    print('✅ Response Data (Review): ${response.data}');
+    print('✅ Response Data (auth): ${response.data}');
     return response.data;
   }
 
