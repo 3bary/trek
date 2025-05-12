@@ -24,10 +24,26 @@ class CustomBottomNavigationBar extends StatelessWidget {
         animationDuration: Duration(milliseconds: 250),
         backgroundColor: Colors.transparent,
         items: [
-          Icon(Icons.search, size: 30, color: Colors.white),
-          Icon(Icons.groups_2, size: 30, color: Colors.white),
-          Icon(Icons.favorite, size: 30, color: Colors.white),
-          Icon(Icons.person, size: 30, color: Colors.white),
+          Icon(
+            Icons.search,
+            size: 30,
+            color: currentIndex == 0 ? Colors.white : Colors.white54,
+          ),
+          Icon(
+            Icons.groups_2,
+            size: 30,
+            color: currentIndex == 1 ? Colors.white : Colors.white54,
+          ),
+          Icon(
+            Icons.favorite,
+            size: 30,
+            color: currentIndex == 2 ? Colors.white : Colors.white54,
+          ),
+          Icon(
+            Icons.person,
+            size: 30,
+            color: currentIndex == 3 ? Colors.white : Colors.white54,
+          ),
         ],
       ),
     );

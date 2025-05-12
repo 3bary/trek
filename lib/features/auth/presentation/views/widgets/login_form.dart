@@ -43,10 +43,7 @@ class _LoginFormState extends State<LoginForm> {
             isLoading = false;// close loading
           }
           );
-          final token = state.token;
-          // implement cashing
-
-          context.go(AppRouter.kDiscoverView);
+          context.go(AppRouter.kHomeView);
         } else if (state is AuthFailure) {
           setState(() {
             isLoading = false;// close loading
@@ -57,7 +54,8 @@ class _LoginFormState extends State<LoginForm> {
               content: Text(state.message),
             ),
           );
-        }      },
+        }
+        },
       child: Form(
         key: formKey,
         child: Column(

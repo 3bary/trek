@@ -3,11 +3,13 @@ import '../../features/user_preferences/data/models/category_model.dart';
 import '../../features/user_preferences/data/models/tag_model.dart';
 
 const Color kPrimaryColor = Color(0xffE3F2FD);
-const Color kSecondaryColor = Color(0xff2e3532);
-const Color kTertiaryColor = Color(0xffF5E6CA);
+const Color kSecondaryColor = Color(0xff188B76);
+const Color kTertiaryColor = Color(0xffF5F4E2);
 const Color kTextColor = Colors.black87;
 
 abstract class AppConstants {
+  static String appName = "TREK";
+
   static List<TagModel> tags = [
     TagModel(name: "Castles", emoji: '🏰'),
     TagModel(name: "Hiking", emoji: '🥾'),

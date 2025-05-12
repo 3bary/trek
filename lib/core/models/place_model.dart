@@ -23,16 +23,16 @@ class PlaceModel {
   PlaceModel.fromJson(dynamic json) {
     location =
         json['location'] != null ? Location.fromJson(json['location']) : null;
-    id = json['_id'];
+    id = json['_id'] ?? json['place_id'];
     name = json['name'];
     category = json['category'];
     tags = json['tags'] != null ? json['tags'].cast<String>() : [];
     description = json['description'];
+    averageRating = (json['average_rating'] ?? 0).toDouble();
     accessibility =
         json['accessibility'] != null
             ? json['accessibility'].cast<String>()
             : [];
-    averageRating = json['average_rating'].toDouble();
     likes = json['likes'];
     reviewsCount = json['reviews_count'];
     appropriateTime =
@@ -48,7 +48,6 @@ class PlaceModel {
     image = json['image'];
     imageUrl = json['image_url'];
   }
-
   Location? location;
   String? id;
   String? name;
@@ -56,7 +55,7 @@ class PlaceModel {
   List<String>? tags;
   String? description;
   List<String>? accessibility;
-  double? averageRating;
+  num? averageRating;
   int? likes;
   int? reviewsCount;
   List<String>? appropriateTime;
@@ -92,6 +91,7 @@ class PlaceModel {
     map['image_url'] = imageUrl;
     return map;
   }
+
 }
 
 class Location {
@@ -100,10 +100,9 @@ class Location {
   Location.fromJson(dynamic json) {
     city = json['city'];
     country = json['country'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    latitude = (json['latitude'] ?? 0).toDouble();
+    longitude = (json['longitude'] ?? 0).toDouble();
   }
-
   String? city;
   String? country;
   double? latitude;
@@ -117,4 +116,5 @@ class Location {
     map['longitude'] = longitude;
     return map;
   }
+
 }

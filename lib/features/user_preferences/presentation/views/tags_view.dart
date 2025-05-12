@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/constants.dart';
 import 'widgets/tags_view_body.dart';
 
-class TagsView extends StatefulWidget {
-  const TagsView({super.key, required this.onNext});
+class TagsView extends StatelessWidget {
+  const TagsView({
+    super.key,
+    required this.onNext,
+    required this.selectedTags,
+    required this.onTagsChanged,
+  });
 
   final Function() onNext;
-
-  @override
-  _TagsViewState createState() => _TagsViewState();
-}
-
-class _TagsViewState extends State<TagsView> {
-  List<String> selectedTags = [];
+  final List<String> selectedTags;
+  final Function(List<String>) onTagsChanged;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Select Tags"),
+        title: const Text("Select Tags"),
         automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,
       ),
-      body: TagsViewBody(onNext: widget.onNext),
+      body: TagsViewBody(
+        onNext: onNext,
+        selectedTags: selectedTags,
+        onTagsChanged: onTagsChanged,
+      ),
     );
   }
 }
