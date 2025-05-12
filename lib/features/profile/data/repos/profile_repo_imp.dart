@@ -2,8 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:greendo/features/profile/data/repos/profile_repo.dart';
 
 import '../../../../core/errors/failures.dart';
+import '../../../../core/helpers/cash_helper.dart';
+import '../../../../core/models/user_model.dart';
 import '../../../../core/network/api_service.dart';
-import '../../../auth/data/models/user_model.dart';
 
 class ProfileRepoImp extends ProfileRepo {
   final IApiService apiService;
@@ -11,19 +12,17 @@ class ProfileRepoImp extends ProfileRepo {
   ProfileRepoImp(this.apiService);
 
   @override
-  Future<Either<Failure, List<UserModel>>> getUserById() async {
+  Future<Either<Failure, UserModel>> getUserById() async {
     try {
-      var data = await apiService.get(endpoint: 'user/user001');
-      print('Raw API Data: $data');
-      print('Type of data: ${data.runtimeType}');
-      final users =
-          (data['data'] as List<dynamic>?)
-              ?.map((item) => UserModel.fromJson(item))
-              .toList() ??
-          [];
-      return Future.value(right(users));
+      var data = await apiService.get(
+        endpoint: 'user/${CashHelper.getCachedUser()!.id}',
+      );
+      final user = UserModel.fromJson(data['user']);
+      return Future.value(right(user));
     } catch (e) {
       return Future.value(left(ServerFailure(e.toString())));
     }
   }
+
+
 }

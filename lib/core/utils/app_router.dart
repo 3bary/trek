@@ -2,21 +2,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/service_locator.dart';
 import 'package:greendo/features/home/data/repos/home/home_repo_imp.dart';
-
 import 'package:greendo/features/home/presentation/views/home_view.dart';
 import 'package:greendo/features/user_preferences/presentation/view_model/user_prefs_cubit.dart';
-
 import '../../features/auth/data/repos/auth_repo.dart';
 import '../../features/auth/presentation/view_model/auth_bloc/auth_bloc.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/favorites/presentation/views/favorite_place_view.dart';
-import '../../features/home/presentation/view_model/home/home_cubit.dart';
-
 import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import '../../features/home/presentation/view_model/add_review_interactions/add_review_interactions_cubit.dart';
-
+import '../../features/home/presentation/view_model/home/home_cubit.dart';
 import '../../features/home/presentation/view_model/reviews/place_reviews_cubit.dart';
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/place_details_view.dart';
@@ -39,7 +35,7 @@ abstract class AppRouter {
   static const String kRecommendationView = '/recommendationView';
   static const String kPlaceDetailsView = '/placeDetailsView';
   static const String kRoadMapView = '/roadMapView';
-  static const String kSettingsView='/settingsView';
+  static const String kSettingsView = '/settingsView';
 
   static const String kOnboardingView = '/onboardingView';
   static const String kSplashView = '/';
@@ -147,11 +143,7 @@ abstract class AppRouter {
         path: kRecommendationView,
         builder: (context, state) => const RecommendationView(),
       ),
-      GoRoute(
-        path: kRoadMapView,
-        builder: (context, state) => RoadMapView(),
-      ),
-
+      GoRoute(path: kRoadMapView, builder: (context, state) => RoadMapView()),
     ],
   );
 }

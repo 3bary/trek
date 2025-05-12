@@ -1,4 +1,4 @@
-import '../../../user_preferences/data/models/user_prefs_model.dart';
+import '../../features/user_preferences/data/models/user_prefs_model.dart';
 
 class UserModel {
   UserModel({

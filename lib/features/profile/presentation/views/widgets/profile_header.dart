@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:greendo/core/models/user_model.dart';
 import 'package:greendo/features/profile/presentation/views/widgets/settings_menu.dart';
+
 import '../../../../../core/utils/constants.dart';
+
 
 class ProfileHeader extends StatefulWidget {
   final bool showCategories;
   final VoidCallback onTapTags;
   final VoidCallback onTapCategories;
+  final UserModel user;
 
   const ProfileHeader({
     super.key,
     required this.showCategories,
     required this.onTapTags,
     required this.onTapCategories,
+    required this.user,
   });
 
   @override
@@ -34,7 +39,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withValues(blue: 0.7),
+                color: Colors.grey.withOpacity(0.7),
                 spreadRadius: 4,
                 blurRadius: 10,
               ),
@@ -43,12 +48,12 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           child: Column(
             children: [
               const SizedBox(height: 100),
-              const Text(
-                "Ahlam gomaa",
+              Text(
+                widget.user.name ?? "No Name Available",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white54,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 25),
