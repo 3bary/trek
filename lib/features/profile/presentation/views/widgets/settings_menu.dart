@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../../../core/utils/constants.dart';
+import '../../../../../core/helpers/cash_helper.dart';
+import '../../view_model/profile_cubit.dart';
 
 class SettingsMenu {
   static void show(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => _SettingsDialog(),
-    );
+    showDialog(context: context, builder: (context) => _SettingsDialog());
   }
 }
 
@@ -34,21 +35,21 @@ class _SettingsDialog extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.room_preferences),
             title: const Text('Edit Preferences'),
+
             onTap: () {
-              Navigator.pop(context);
               GoRouter.of(context).go('/preferencesView');
+              context.read<ProfileCubit>().getUserById();
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout, color: Colors.red),
+            leading: const Icon(Icons.logout_rounded, color: Colors.red),
             title: const Text(
               'Logout',
-              style: TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
             ),
-            onTap: () {
+            onTap: () async {
+              await CashHelper.clearCachedUser();
+
               Navigator.pop(context);
               GoRouter.of(context).go('/');
             },
