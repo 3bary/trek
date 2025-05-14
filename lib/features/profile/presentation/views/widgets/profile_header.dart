@@ -103,7 +103,8 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             child: ClipOval(
               child: CachedNetworkImage(
                 imageUrl:
-                    'https://final-project-production-5d66.up.railway.app/user/image/${widget.user.id}',
+                    'https://final-project-production-5d66.up.railway.app/user/image/${widget.user.id}?v=${DateTime.now().millisecondsSinceEpoch}',
+
                 fit: BoxFit.cover,
                 width: 140,
                 height: 140,
@@ -131,7 +132,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           left: 105,
           child: CircleAvatar(
             radius: 20,
-            backgroundColor: Colors.white54,
+            backgroundColor: Colors.white,
             child: IconButton(
               icon: const Icon(Icons.settings, color: Colors.black, size: 18),
               onPressed: () => SettingsMenu.show(context),

@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../../../../../../core/utils/constants.dart';
 import '../../../../../core/helpers/cash_helper.dart';
 import '../../view_model/profile_cubit.dart';
@@ -17,7 +21,7 @@ class SettingsMenu {
 class _SettingsDialog extends StatelessWidget {
   final BuildContext parentContext;
 
-  const _SettingsDialog({super.key, required this.parentContext});
+  const _SettingsDialog({required this.parentContext});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +37,22 @@ class _SettingsDialog extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.image),
-            title: const Text('Edit Image'),
-            onTap: () {
+            title: const Text('Upload Image'),
+            onTap: () async {
               Navigator.pop(context);
+
+              final picker = ImagePicker();
+              final pickedFile = await picker.pickImage(
+                source: ImageSource.gallery,
+              );
+
+              if (pickedFile != null) {
+                final imageFile = File(pickedFile.path);
+
+                final cubit = parentContext.read<ProfileCubit>();
+                await cubit.updateUserImage(imageFile);
+                await cubit.getUserById();
+              }
             },
           ),
           ListTile(
