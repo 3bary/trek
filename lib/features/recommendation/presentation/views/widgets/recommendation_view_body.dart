@@ -7,6 +7,53 @@ import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_filter_chip.dart';
 import 'custom_choice_chip.dart';
 
+enum TravelGroup { solo, family, friends, couple }
+
+extension TravelGroupLabel on TravelGroup {
+  String get label {
+    switch (this) {
+      case TravelGroup.solo:
+        return 'Solo';
+      case TravelGroup.family:
+        return 'Family';
+      case TravelGroup.friends:
+        return 'Friends';
+      case TravelGroup.couple:
+        return 'Couple';
+    }
+  }
+}
+
+enum BudgetLevel { low, medium, high }
+
+extension BudgetLevelLabel on BudgetLevel {
+  String get label {
+    switch (this) {
+      case BudgetLevel.low:
+        return 'Low';
+      case BudgetLevel.medium:
+        return 'Medium';
+      case BudgetLevel.high:
+        return 'High';
+    }
+  }
+}
+
+enum AccessibilityOption { seniorFriendly, petFriendly, wheelchairFriendly }
+
+extension AccessibilityOptionLabel on AccessibilityOption {
+  String get label {
+    switch (this) {
+      case AccessibilityOption.seniorFriendly:
+        return 'Senior-friendly';
+      case AccessibilityOption.petFriendly:
+        return 'Pet-friendly';
+      case AccessibilityOption.wheelchairFriendly:
+        return 'Wheelchair-friendly';
+    }
+  }
+}
+
 class RecommendationViewBody extends StatefulWidget {
   const RecommendationViewBody({super.key});
 
@@ -15,81 +62,73 @@ class RecommendationViewBody extends StatefulWidget {
 }
 
 class _RecommendationViewBodyState extends State<RecommendationViewBody> {
-
   final List<String> destinations = [
-    "Nice",
-    "Ajaccio",
-    "Fontainebleau",
-    "Arles",
-    "Lyon",
-    "Reims",
-    "Marseille",
-    "Rouen",
-    "Chenonceaux",
-    "Marne-la-Vallée",
-    "Saumur",
-    "Carcassonne",
-    "Toulouse",
-    "Orschwiller",
-    "Les Epesses",
-    "Biarritz",
-    "Normandy",
-    "Strasbourg",
-    "Bordeaux",
-    "Alsace",
-    "Vers-Pont-du-Gard",
-    "Étretat",
-    "Loir-et-Cher",
-    "Provence",
-    "Paris",
-    "Versailles",
-    "Saint-Malo",
+    "Cairo",
+    "Giza",
+    "Alexandria",
+    "Qalyubia",
+    "Dakahlia",
+    "Beheira",
+    "Gharbia",
+    "Sharqia",
+    "Monufia",
+    "Kafr El Sheikh",
+    "Damietta",
+    "Port Said",
+    "Ismailia",
+    "Suez",
+    "North Sinai",
+    "South Sinai",
+    "Beni Suef",
+    "Faiyum",
+    "Minya",
+    "Asyut",
+    "Sohag",
+    "Qena",
+    "Luxor",
+    "Aswan",
+    "Red Sea",
+    "New Valley",
+    "Matrouh",
   ];
 
   final List<String> months = [
-    "Now",
-    "January 2025",
-    "February 2025",
-    "March 2025",
-    "April 2025",
-    "May 2025",
-    "June 2025",
-    "July 2025",
-    "August 2025",
-    "September 2025",
-    "October 2025",
-    "November 2025",
-    "December 2025",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
-
-  final List<String> groups = ["Solo", "Family", "Friends", "Couple"];
-
-  final List<String> accessibilityOptions = [
-    "Senior-friendly",
-    "Pet-friendly",
-    "Wheelchair-friendly",
-  ];
-
-  final List<String> budgets = ["Low", "Medium", "High"];
 
   List<String> selectedDestinations = [];
-
   String? selectedMonth;
+  TravelGroup? selectedGroup;
+  List<AccessibilityOption> selectedAccessibility = [];
+  BudgetLevel? selectedBudget;
 
-  String? selectedGroup;
-
-  List<String> selectedAccessibility = [];
-
-  String? selectedBudget;
+  bool get isFormValid {
+    return selectedDestinations.isNotEmpty &&
+        selectedDestinations.length <= 3 &&
+        selectedMonth != null &&
+        selectedGroup != null &&
+        selectedBudget != null;
+  }
 
   void generateRecommendation() {
-    // You can handle recommendation logic here based on the selections
     print("Destinations: $selectedDestinations");
     print("Month: $selectedMonth");
-    print("Group: $selectedGroup");
-    print("Accessibility: $selectedAccessibility");
-    print("Budget: $selectedBudget");
-    GoRouter.of(context).push( AppRouter.kRoadMapView);
+    print("Group: ${selectedGroup?.label}");
+    print("Accessibility: ${selectedAccessibility.map((e) => e.label)}");
+    print("Budget: ${selectedBudget?.label}");
+
+    GoRouter.of(context).push(AppRouter.kRoadMapView);
   }
 
   @override
@@ -106,24 +145,23 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
-            children:
-            destinations.map((destination) {
-              bool isSelected = selectedDestinations.contains(destination);
+            children: destinations.map((destination) {
+              final isSelected = selectedDestinations.contains(destination);
               return CustomFilterChip(
                 label: Text(destination),
                 isSelected: isSelected,
                 onChipSelected: () {
                   setState(() {
-                      if (selectedDestinations.length < 3) {
-                        selectedDestinations.add(destination);
-                      }
+                    if (!isSelected && selectedDestinations.length < 3) {
+                      selectedDestinations.add(destination);
                     }
-                  );
-                }, onChipDeselected: () {
+                  });
+                },
+                onChipDeselected: () {
                   setState(() {
                     selectedDestinations.remove(destination);
                   });
-              },
+                },
               );
             }).toList(),
           ),
@@ -138,12 +176,8 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
             hint: const Text("Select Month"),
             value: selectedMonth,
             onChanged: (value) => setState(() => selectedMonth = value),
-            items:
-            months
-                .map(
-                  (month) =>
-                  DropdownMenuItem(value: month, child: Text(month)),
-            )
+            items: months
+                .map((month) => DropdownMenuItem(value: month, child: Text(month)))
                 .toList(),
           ),
           const SizedBox(height: 24),
@@ -154,17 +188,12 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
-            children:
-            groups.map((group) {
-              bool isSelected = selectedGroup == group;
+            children: TravelGroup.values.map((group) {
+              final isSelected = selectedGroup == group;
               return CustomChoiceChip(
-                label: Text(group),
+                label: Text(group.label),
                 isSelected: isSelected,
-                onSelected: (_) {
-                  setState(() {
-                    selectedGroup = group;
-                  });
-                },
+                onSelected: (_) => setState(() => selectedGroup = group),
               );
             }).toList(),
           ),
@@ -176,22 +205,14 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
-            children:
-            accessibilityOptions.map((option) {
-              bool isSelected = selectedAccessibility.contains(option);
+            children: AccessibilityOption.values.map((option) {
+              final isSelected = selectedAccessibility.contains(option);
               return CustomFilterChip(
-                  isSelected: isSelected,
-                  label:  Text(option),
-                  onChipSelected: () {
-                    setState(() {
-                      selectedAccessibility.add(option);
-                    });
-                  },
-                  onChipDeselected: () {
-                    setState(() {
-                      selectedAccessibility.remove(option);
-                    });
-                  });
+                isSelected: isSelected,
+                label: Text(option.label),
+                onChipSelected: () => setState(() => selectedAccessibility.add(option)),
+                onChipDeselected: () => setState(() => selectedAccessibility.remove(option)),
+              );
             }).toList(),
           ),
           const SizedBox(height: 24),
@@ -202,17 +223,12 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
-            children:
-            budgets.map((budget) {
-              bool isSelected = selectedBudget == budget;
+            children: BudgetLevel.values.map((budget) {
+              final isSelected = selectedBudget == budget;
               return CustomChoiceChip(
-                label: Text(budget),
+                label: Text(budget.label),
                 isSelected: isSelected,
-                onSelected: (_) {
-                  setState(() {
-                    selectedBudget = budget;
-                  });
-                },
+                onSelected: (_) => setState(() => selectedBudget = budget),
               );
             }).toList(),
           ),
@@ -221,9 +237,9 @@ class _RecommendationViewBodyState extends State<RecommendationViewBody> {
             width: double.infinity,
             height: 50,
             child: CustomButton(
-              onPressed: generateRecommendation,
+              onPressed: isFormValid ? generateRecommendation : null,
               text: "Generate Recommendation",
-              backgroundColor: kSecondaryColor,
+              backgroundColor: isFormValid ? kSecondaryColor : Colors.grey.shade400,
               textColor: Colors.white,
             ),
           ),

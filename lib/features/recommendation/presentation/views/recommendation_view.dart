@@ -11,7 +11,7 @@ class RecommendationView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Travel Questionnaire"),
+          title: const Text("Travel Preferences"),
           backgroundColor: kPrimaryColor,
         ),
         body: RecommendationViewBody(),
