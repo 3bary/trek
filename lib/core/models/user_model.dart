@@ -6,7 +6,9 @@ class UserModel {
       this.id, 
       this.name, 
       this.role, 
-      this.savedPlaces,});
+      this.savedPlaces,
+      this.profileImage,
+  });
 
   UserModel.fromJson(dynamic json) {
     preferences = json['preferences'] != null ? UserPrefsModel.fromJson(json['preferences']) : null;
@@ -14,12 +16,14 @@ class UserModel {
     name = json['name'];
     role = json['role'];
     savedPlaces = json['saved_places'] != null ? json['saved_places'].cast<String>() : [];
+    profileImage = json['profile_image'];
   }
   UserPrefsModel? preferences;
   String? id;
   String? name;
   String? role;
   List<String>? savedPlaces;
+  String? profileImage;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -30,6 +34,7 @@ class UserModel {
     map['name'] = name;
     map['role'] = role;
     map['saved_places'] = savedPlaces;
+    map['profile_image'] = profileImage;
     return map;
   }
 

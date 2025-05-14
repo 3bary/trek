@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../../core/utils/constants.dart';
 import '../../../../../core/helpers/cash_helper.dart';
 import '../../view_model/profile_cubit.dart';
 
 class SettingsMenu {
   static void show(BuildContext context) {
-    showDialog(context: context, builder: (context) => _SettingsDialog());
+    showDialog(
+      context: context,
+      builder: (context) => _SettingsDialog(parentContext: context),
+    );
   }
 }
 
 class _SettingsDialog extends StatelessWidget {
+  final BuildContext parentContext;
+
+  const _SettingsDialog({super.key, required this.parentContext});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -35,10 +41,10 @@ class _SettingsDialog extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.room_preferences),
             title: const Text('Edit Preferences'),
-
-            onTap: () {
-              GoRouter.of(context).go('/preferencesView');
-              context.read<ProfileCubit>().getUserById();
+            onTap: () async {
+              Navigator.pop(context);
+              await GoRouter.of(context).push('/preferencesView');
+              await parentContext.read<ProfileCubit>().getUserById();
             },
           ),
           ListTile(
@@ -49,7 +55,6 @@ class _SettingsDialog extends StatelessWidget {
             ),
             onTap: () async {
               await CashHelper.clearCachedUser();
-
               Navigator.pop(context);
               GoRouter.of(context).go('/');
             },

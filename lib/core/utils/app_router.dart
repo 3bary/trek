@@ -4,6 +4,7 @@ import 'package:greendo/core/utils/service_locator.dart';
 import 'package:greendo/features/home/data/repos/home/home_repo_imp.dart';
 import 'package:greendo/features/home/presentation/views/home_view.dart';
 import 'package:greendo/features/user_preferences/presentation/view_model/user_prefs_cubit.dart';
+
 import '../../features/auth/data/repos/auth_repo.dart';
 import '../../features/auth/presentation/view_model/auth_bloc/auth_bloc.dart';
 import '../../features/auth/presentation/views/login_view.dart';
@@ -35,7 +36,6 @@ abstract class AppRouter {
   static const String kRecommendationView = '/recommendationView';
   static const String kPlaceDetailsView = '/placeDetailsView';
   static const String kRoadMapView = '/roadMapView';
-  static const String kSettingsView = '/settingsView';
 
   static const String kOnboardingView = '/onboardingView';
   static const String kSplashView = '/';

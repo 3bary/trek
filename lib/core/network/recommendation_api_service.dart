@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:greendo/core/network/api_service.dart';
 
 class RecommendationApiService implements IApiService{
-  final _baseUrl = 'https://travel-recommendation-api-production.up.railway.app/';
+  final _baseUrl = 'https://travelrecommendation-production-cafe.up.railway.app/';
   final Dio _dio;
 
   RecommendationApiService(this._dio);

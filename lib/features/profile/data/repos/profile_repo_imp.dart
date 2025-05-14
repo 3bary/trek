@@ -23,6 +23,4 @@ class ProfileRepoImp extends ProfileRepo {
       return Future.value(left(ServerFailure(e.toString())));
     }
   }
-
-
 }

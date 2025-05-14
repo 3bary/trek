@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:greendo/core/models/user_model.dart';
 import 'package:greendo/features/profile/presentation/views/widgets/settings_menu.dart';
 
 import '../../../../../core/utils/constants.dart';
-
 
 class ProfileHeader extends StatefulWidget {
   final bool showCategories;
@@ -28,6 +28,11 @@ class _ProfileHeaderState extends State<ProfileHeader> {
 
   @override
   Widget build(BuildContext context) {
+    print("Image URL: ${widget.user.profileImage}");
+    print(
+      "Full URL: https://final-project-production-5d66.up.railway.app/user/image/${widget.user.id}",
+    );
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -88,18 +93,39 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             ],
           ),
         ),
-        const Positioned(
+        Positioned(
           top: -45,
           left: 0,
           right: 0,
           child: CircleAvatar(
             radius: 74,
-            child: CircleAvatar(
-              radius: 74,
-              backgroundImage: AssetImage("assets/images/profile.jpg"),
+            backgroundColor: Colors.white,
+            child: ClipOval(
+              child: CachedNetworkImage(
+                imageUrl:
+                    'https://final-project-production-5d66.up.railway.app/user/image/${widget.user.id}',
+                fit: BoxFit.cover,
+                width: 140,
+                height: 140,
+                placeholder:
+                    (context, url) => Image.asset(
+                      'assets/images/profile.jpg',
+                      fit: BoxFit.cover,
+                      width: 140,
+                      height: 140,
+                    ),
+                errorWidget:
+                    (context, url, error) => Image.asset(
+                      'assets/images/profile.jpg',
+                      fit: BoxFit.cover,
+                      width: 140,
+                      height: 140,
+                    ),
+              ),
             ),
           ),
         ),
+
         Positioned(
           top: 50,
           left: 105,
