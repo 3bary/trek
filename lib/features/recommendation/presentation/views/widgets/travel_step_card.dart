@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/constants.dart';
-import 'package:greendo/features/recommendation/presentation/views/widgets/road_map_view_body.dart';
-
 import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/widgets/custom_chip.dart';
+import '../../../data/models/travel_step_model.dart';
 
 class TravelStepCard extends StatelessWidget {
-  final TravelStep step;
+  final TravelStepModel step;
 
   const TravelStepCard({super.key, required this.step});
 
@@ -22,20 +21,20 @@ class TravelStepCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(place.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(place!.name!, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text(place.description),
+            Text(place.description!),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
-              children: place.tags.map((tag) =>  CustomChip(label: Text(tag))).toList(),
+              children: place.tags!.map((tag) =>  CustomChip(label: Text(tag))).toList(),
             ),
             const SizedBox(height: 8),
             Row(
               children: [
                 const Icon(Icons.location_on, size: 16),
                 const SizedBox(width: 4),
-                Text("${place.city}, ${place.country}"),
+                Text("${place.location!.city}, ${place.location!.country}"),
               ],
             ),
             const SizedBox(height: 8),

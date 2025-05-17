@@ -70,7 +70,6 @@ abstract class AppRouter {
           ),
         ],
       ),
-
       GoRoute(
         path: kPreferencesView,
         builder:

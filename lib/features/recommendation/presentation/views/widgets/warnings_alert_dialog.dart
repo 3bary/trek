@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/features/recommendation/presentation/views/widgets/road_map_view_body.dart';
+import '../../../data/models/warning_model.dart';
 
 class WarningsAlertDialog extends StatelessWidget {
-  const WarningsAlertDialog({super.key});
-
+  const WarningsAlertDialog({super.key, required this.warnings});
+  final List<WarningModel> warnings;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: const Row(
-        children: const [
+        children:  [
           Icon(Icons.warning_amber_rounded, color: Colors.redAccent),
           SizedBox(width: 8),
           Expanded(
