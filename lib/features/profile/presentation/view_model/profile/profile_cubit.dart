@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/core/helpers/cash_helper.dart';
 import 'package:greendo/features/profile/data/repos/profile_repo_imp.dart';
@@ -28,16 +26,6 @@ class ProfileCubit extends Cubit<ProfileState> {
         emit(ProfileLoaded(user));
       });
     }
-  }
-  Future<void> updateUserImage(File imageFile) async {
-    emit(ProfileLoading());
-
-    final result = await profileRepoImp.updateUserImage(imageFile);
-
-    result.fold(
-          (failure) => emit(ProfileError(failure.errorMessage)),
-          (_) => emit(ProfileImageUpdated()),
-    );
   }
 
 }

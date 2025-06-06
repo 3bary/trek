@@ -1,6 +1,7 @@
-import 'dart:io';
+
 
 import 'package:dartz/dartz.dart';
+
 import 'package:greendo/features/profile/data/repos/profile_repo.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -18,6 +19,7 @@ class ProfileRepoImp extends ProfileRepo {
     try {
       var data = await coreApiService.get(
         endpoint: 'user/${CashHelper.getCachedUser()!.id}',
+
       );
       final user = UserModel.fromJson(data['user']);
       return Future.value(right(user));
@@ -25,17 +27,6 @@ class ProfileRepoImp extends ProfileRepo {
       return Future.value(left(ServerFailure(e.toString())));
     }
   }
-  @override
-  Future<Either<Failure, void>> updateUserImage(File imageFile) async {
-    try {
-      await coreApiService.put(
-        endpoint: 'user/image/${CashHelper.getCachedUser()!.id}',
-        body: {'profile_image': imageFile},
-      );
 
-      return right(null);
-    } catch (e) {
-      return left(ServerFailure(e.toString()));
-    }
-  }
+
 }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/models/user_model.dart';
+import '../../../../../core/models/user_model.dart';
 
 abstract class ProfileState extends Equatable {
   const ProfileState();
@@ -29,4 +29,7 @@ class ProfileError extends ProfileState {
   @override
   List<Object?> get props => [message];
 }
-class ProfileImageUpdated extends ProfileState {}
+
+
+
+

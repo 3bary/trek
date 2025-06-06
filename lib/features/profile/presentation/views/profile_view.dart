@@ -6,8 +6,8 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/utils/assets.dart';
 import '../../../../core/utils/service_locator.dart';
-import '../view_model/profile_cubit.dart';
-import '../view_model/profile_state.dart';
+import '../view_model/profile/profile_cubit.dart';
+import '../view_model/profile/profile_state.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});

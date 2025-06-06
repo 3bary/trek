@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greendo/core/models/user_model.dart';
 import 'package:greendo/features/profile/presentation/views/widgets/settings_menu.dart';
 
+import '../../../../../core/helpers/cash_helper.dart';
 import '../../../../../core/utils/constants.dart';
 
 class ProfileHeader extends StatefulWidget {
@@ -28,11 +29,6 @@ class _ProfileHeaderState extends State<ProfileHeader> {
 
   @override
   Widget build(BuildContext context) {
-    print("Image URL: ${widget.user.profileImage}");
-    print(
-      "Full URL: https://final-project-production-5d66.up.railway.app/user/image/${widget.user.id}",
-    );
-
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -103,20 +99,14 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             child: ClipOval(
               child: CachedNetworkImage(
                 imageUrl:
-                    'https://final-project-production-5d66.up.railway.app/user/image/${widget.user.id}?v=${DateTime.now().millisecondsSinceEpoch}',
+                    'https://project-00z-production.up.railway.app/user/image/${CashHelper.getCachedUser()!.id}?v=${DateTime.now().millisecondsSinceEpoch}',
+                cacheKey: null,
 
                 fit: BoxFit.cover,
                 width: 140,
                 height: 140,
                 placeholder:
                     (context, url) => Image.asset(
-                      'assets/images/profile.jpg',
-                      fit: BoxFit.cover,
-                      width: 140,
-                      height: 140,
-                    ),
-                errorWidget:
-                    (context, url, error) => Image.asset(
                       'assets/images/profile.jpg',
                       fit: BoxFit.cover,
                       width: 140,
@@ -135,7 +125,8 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             backgroundColor: Colors.white,
             child: IconButton(
               icon: const Icon(Icons.settings, color: Colors.black, size: 18),
-              onPressed: () => SettingsMenu.show(context),
+              onPressed:
+                  () => SettingsMenu.show(context, parentContext: context),
             ),
           ),
         ),
