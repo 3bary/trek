@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/helpers/cash_helper.dart';
-import '../../../../core/utils/app_router.dart';
 import '../../data/models/user_prefs_model.dart';
 import '../view_model/user_prefs_cubit.dart';
 import 'categories_view.dart';
@@ -88,8 +87,7 @@ class _PreferencesViewState extends State<PreferencesView> {
         }
         if (state is UserPrefsSuccess) {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-          context.go(AppRouter.kHomeView);
+          context.pop(true);
         }
         if (state is UserPrefsLoading) {
           ScaffoldMessenger.of(

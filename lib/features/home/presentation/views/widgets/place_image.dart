@@ -21,7 +21,7 @@ class PlaceImage extends StatelessWidget {
                   fit: BoxFit.cover,
                   placeholder:
                       (context, url) => Image.asset(
-                        'assets/images/plane.jpg',
+                        'assets/images/google-icon.jpg',
                         fit: BoxFit.cover,
                       ),
                   errorWidget:
@@ -31,7 +31,7 @@ class PlaceImage extends StatelessWidget {
                       ),
                 )
                 : Image.asset(
-                  'assets/images/plane.png',
+                  'assets/images/app_logo.png',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
