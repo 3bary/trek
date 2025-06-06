@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:greendo/core/network/api_service.dart';
 
 class CoreApiService implements IApiService {
-  final _baseUrl = 'https://final-project-production-5d66.up.railway.app/';
+  final _baseUrl = 'https://project-00z-production.up.railway.app/';
   final Dio _dio;
 
   CoreApiService(this._dio);
@@ -32,6 +30,5 @@ class CoreApiService implements IApiService {
     print('✅ Response Data (Review): ${response.data}');
     return response.data;
   }
-
 
 }
