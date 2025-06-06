@@ -15,9 +15,13 @@ class UserPreferencesRepo {
     UserPrefsModel userPrefsModel,
   ) async {
     try {
+      final cleanedPrefs = UserPrefsModel(
+        tags: userPrefsModel.tags?.toSet().toList(),
+        categories: userPrefsModel.categories?.toSet().toList(),
+      );
       var response = await _apiService.put(
         endpoint: "user/updatePreferences/${CashHelper.getCachedUser()!.id}",
-        body: {"preferences": userPrefsModel.toJson()},
+        body: {"preferences": cleanedPrefs.toJson()},
       );
       print('cashed user: ${CashHelper.getCachedUser()!.id}');
       UserPrefsModel newUserPrefs = UserPrefsModel.fromJson(

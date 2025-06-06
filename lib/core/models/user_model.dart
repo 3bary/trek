@@ -30,6 +30,7 @@ class UserModel {
   List<String>? savedPlaces;
   String? profileImage;
 
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (preferences != null) {
