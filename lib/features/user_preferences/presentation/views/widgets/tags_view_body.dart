@@ -51,22 +51,32 @@ class _TagsViewBodyState extends State<TagsViewBody> {
                 spacing: 8,
                 runSpacing: 8,
                 alignment: WrapAlignment.start,
-                children: AppConstants.tags.map((tag) {
-                  bool isSelected = selectedTags.contains(tag.name);
-                  return CustomFilterChip(
-                    label: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(tag.emoji, style: const TextStyle(fontSize: 18)),
-                        const SizedBox(width: 6),
-                        Text(tag.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      ],
-                    ),
-                    isSelected: isSelected,
-                    onChipSelected: () => toggleTag(tag.name, true),
-                    onChipDeselected: () => toggleTag(tag.name, false),
-                  );
-                }).toList(),
+                children:
+                    AppConstants.tags.map((tag) {
+                      bool isSelected = selectedTags.contains(tag.name);
+                      return CustomFilterChip(
+                        label: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              tag.emoji,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              tag.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        isSelected: isSelected,
+                        onChipSelected: () => toggleTag(tag.name, true),
+                        onChipDeselected: () => toggleTag(tag.name, false),
+                      );
+                    }).toList(),
               ),
             ),
           ),
