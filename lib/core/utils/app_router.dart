@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greendo/core/utils/service_locator.dart';
 import 'package:greendo/features/home/data/repos/home/home_repo_imp.dart';
-
 import 'package:greendo/features/home/presentation/views/home_view.dart';
 import 'package:greendo/features/user_preferences/presentation/view_model/user_prefs_cubit.dart';
 
@@ -12,15 +11,15 @@ import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/favorites/presentation/views/favorite_place_view.dart';
-import '../../features/home/presentation/view_model/home/home_cubit.dart';
-
 import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import '../../features/home/presentation/view_model/add_review_interactions/add_review_interactions_cubit.dart';
-
+import '../../features/home/presentation/view_model/home/home_cubit.dart';
 import '../../features/home/presentation/view_model/reviews/place_reviews_cubit.dart';
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/place_details_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
+import '../../features/recommendation/data/repos/recommendation_repo.dart';
+import '../../features/recommendation/presentation/view_model/recommendation_cubit/recommendation_cubit.dart';
 import '../../features/recommendation/presentation/views/recommendation_view.dart';
 import '../../features/recommendation/presentation/views/road_map_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
@@ -142,7 +141,13 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kRecommendationView,
-        builder: (context, state) => const RecommendationView(),
+        builder:
+            (context, state) => BlocProvider(
+              create: (context) {
+                return RecommendationCubit(getIt<RecommendationRepo>());
+              },
+              child: const RecommendationView(),
+            ),
       ),
       GoRoute(path: kRoadMapView, builder: (context, state) => RoadMapView()),
     ],

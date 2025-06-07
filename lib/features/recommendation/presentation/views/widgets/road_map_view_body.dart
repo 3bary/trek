@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/core/models/place_model.dart';
 import 'package:greendo/features/recommendation/presentation/views/widgets/travel_step_card.dart';
 import 'package:greendo/features/recommendation/presentation/views/widgets/warnings_alert_dialog.dart';
 
 import '../../../data/models/travel_step_model.dart';
+import '../../../data/models/warning_model.dart';
 
 class RoadMapViewBody extends StatefulWidget {
   const RoadMapViewBody({super.key});
@@ -14,7 +14,10 @@ class RoadMapViewBody extends StatefulWidget {
 
 class _RoadMapViewBodyState extends State<RoadMapViewBody> {
   bool _warningsShown = false;
-
+  List<TravelStepModel> travelSteps = [
+    // Add your travel steps here
+  ];
+  List<WarningModel> warnings = []; // Add your warnings here>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -32,10 +35,9 @@ class _RoadMapViewBodyState extends State<RoadMapViewBody> {
   void _showWarningsDialog() {
     showDialog(
       context: context,
-      builder: (context) => WarningsAlertDialog(),
+      builder: (context) => WarningsAlertDialog(warnings: warnings),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
