@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../data/models/warning_model.dart';
 
 class WarningsAlertDialog extends StatelessWidget {
@@ -10,7 +11,7 @@ class WarningsAlertDialog extends StatelessWidget {
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: const Row(
-        children:  [
+        children: [
           Icon(Icons.warning_amber_rounded, color: Colors.redAccent),
           SizedBox(width: 8),
           Expanded(
@@ -32,7 +33,7 @@ class WarningsAlertDialog extends StatelessWidget {
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.error_outline, color: Colors.orange),
               title: Text(
-                warning.message,
+                warning.message!,
                 style: const TextStyle(fontSize: 16, color: Colors.black87),
               ),
             );
