@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:greendo/core/network/api_service.dart';
 
-class RecommendationApiService implements IApiService{
-  final _baseUrl = 'https://travelrecommendation-production-cafe.up.railway.app/';
+class RecommendationApiService implements IApiService {
+  final _baseUrl =
+      'https://travelrecommendation-production-cafe.up.railway.app/';
   final Dio _dio;
 
   RecommendationApiService(this._dio);
@@ -15,16 +16,21 @@ class RecommendationApiService implements IApiService{
   }
 
   @override
-  Future<Map<String, dynamic>> post({required String endpoint, required Map<String, dynamic> body}) async {
+  Future<Map<String, dynamic>> post({
+    required String endpoint,
+    required Map<String, dynamic> body,
+  }) async {
     var response = await _dio.post('$_baseUrl$endpoint', data: body);
     print('✅ Response Data: ${response.data}');
     return response.data;
   }
 
   @override
-  Future<Map<String, dynamic>> put({required String endpoint, required Map<String, dynamic> body}) {
+  Future<Map<String, dynamic>> put({
+    required String endpoint,
+    required Map<String, dynamic> body,
+  }) {
     // TODO: implement put
     throw UnimplementedError();
   }
-
 }
