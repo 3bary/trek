@@ -32,6 +32,6 @@ void setupServiceLocator() {
     () => UserPreferencesRepo(CoreApiService(dio)),
   );
   getIt.registerLazySingleton<RecommendationRepo>(
-    () => RecommendationRepo(RecommendationApiService(dio)),
+    () => RecommendationRepo(CoreApiService(dio)),
   );
 }
