@@ -28,4 +28,19 @@ class RecommendationRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+
+  Future<Either<Failure, void>> generateRoadMap() async {
+    try {
+      final response = await _apiService.get(
+        endpoint: "roadmap/${CashHelper.getCachedUser()!.id}",
+      );
+      print("API Response: ${response['message']}");
+      return right(null);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }
