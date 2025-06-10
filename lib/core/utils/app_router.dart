@@ -38,6 +38,7 @@ abstract class AppRouter {
   static const String kRecommendationView = '/recommendationView';
   static const String kPlaceDetailsView = '/placeDetailsView';
   static const String kRoadMapView = '/roadMapView';
+
   static const String kOnboardingView = '/onboardingView';
   static const String kSplashView = '/';
   static final router = GoRouter(

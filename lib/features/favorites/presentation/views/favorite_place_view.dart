@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/core/utils/assets.dart';
 import 'package:lottie/lottie.dart';
+
 import '../../../../core/helpers/cash_helper.dart';
 import '../../../../core/models/place_model.dart';
 import '../../../../core/utils/constants.dart';
@@ -51,7 +52,7 @@ class _FavoritePlaceViewState extends State<FavoritePlaceView> {
             builder: (context, state) {
               if (state is FavoritePlacesLoading) {
                 return Center(
-                  child: Lottie.asset(loading, height: 200, width: 200),
+                  child: Lottie.asset(loading, height: 150, width: 200),
                 );
               } else if (state is FavoritePlacesLoaded) {
                 if (_places.isEmpty) {
