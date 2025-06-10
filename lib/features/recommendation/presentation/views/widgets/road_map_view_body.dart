@@ -124,86 +124,77 @@ class _RoadMapViewBodyState extends State<RoadMapViewBody> {
             );
           }
 
-          return RefreshIndicator(
-            onRefresh: () async {
-              context.read<RecommendationCubit>().generateRoadmap();
-            },
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                Row(
-                  children: [
-                    const Text(
-                      "🗺️ Your Travel Plan",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+          return ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              Row(
+                children: [
+                  const Text(
+                    "🗺️ Your Travel Plan",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                  if (state.hasWarnings)
+                    IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder:
+                              (context) =>
+                                  WarningsAlertDialog(warnings: state.warnings),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.warning_amber,
+                        color: Colors.orange,
                       ),
+                      tooltip: 'View Warnings',
                     ),
-                    const Spacer(),
-                    if (state.hasWarnings)
-                      IconButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder:
-                                (context) => WarningsAlertDialog(
-                                  warnings: state.warnings,
-                                ),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.warning_amber,
-                          color: Colors.orange,
-                        ),
-                        tooltip: 'View Warnings',
+                ],
+              ),
+              const SizedBox(height: 8),
+              if (state.hasWarnings)
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    border: Border.all(color: Colors.orange.shade200),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.warning_amber,
+                        color: Colors.orange.shade700,
+                        size: 20,
                       ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                if (state.hasWarnings)
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.orange.shade50,
-                      border: Border.all(color: Colors.orange.shade200),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.warning_amber,
-                          color: Colors.orange.shade700,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            '${state.warnings.length} warning(s) found for your travel plan',
-                            style: TextStyle(
-                              color: Colors.orange.shade700,
-                              fontWeight: FontWeight.w500,
-                            ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          '${state.warnings.length} warning(s) found for your travel plan',
+                          style: TextStyle(
+                            color: Colors.orange.shade700,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ...state.travelSteps.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final step = entry.value;
-                  return Column(
-                    children: [
-                      TravelStepCard(step: step, stepNumber: index + 1),
-                      if (index < state.travelSteps.length - 1)
-                        const SizedBox(height: 16),
+                      ),
                     ],
-                  );
-                }),
-                const SizedBox(height: 32),
-              ],
-            ),
+                  ),
+                ),
+              ...state.travelSteps.asMap().entries.map((entry) {
+                final index = entry.key;
+                final step = entry.value;
+                return Column(
+                  children: [
+                    TravelStepCard(step: step, stepNumber: index + 1),
+                    if (index < state.travelSteps.length - 1)
+                      const SizedBox(height: 16),
+                  ],
+                );
+              }),
+              const SizedBox(height: 32),
+            ],
           );
         }
 
