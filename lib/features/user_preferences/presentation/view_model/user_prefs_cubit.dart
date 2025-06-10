@@ -1,5 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greendo/features/user_preferences/data/models/user_prefs_model.dart';
 import 'package:greendo/features/user_preferences/data/repos/user_preferences_repo.dart';
 
@@ -15,8 +15,8 @@ class UserPrefsCubit extends Cubit<UserPrefsState> {
     emit(UserPrefsLoading());
     final result = await _repo.updateUserPreferences(prefs);
     result.fold(
-          (failure) => emit(UserPrefsFailure(failure.errorMessage)),
-          (_) => emit(UserPrefsSuccess()),
+      (failure) => emit(UserPrefsFailure(failure.errorMessage)),
+      (_) => emit(UserPrefsSuccess()),
     );
   }
 }

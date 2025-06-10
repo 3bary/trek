@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/utils/app_router.dart';
+
+import '../../../../core/helpers/cash_helper.dart';
 import '../../data/models/user_prefs_model.dart';
 import '../view_model/user_prefs_cubit.dart';
 import 'categories_view.dart';
@@ -21,9 +22,17 @@ class _PreferencesViewState extends State<PreferencesView> {
   List<String> selectedCategories = [];
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _pageController = PageController();
-    super.initState();
+
+    final userPrefs = CashHelper.getCachedUser()?.preferences;
+    print('🌟 Cached tags: ${userPrefs?.tags}');
+    print('🌟 Cached categories: ${userPrefs?.categories}');
+    if (userPrefs != null) {
+      selectedTags = List<String>.from(userPrefs.tags ?? []);
+      selectedCategories = List<String>.from(userPrefs.categories ?? []);
+    }
   }
 
   @override
@@ -63,30 +72,27 @@ class _PreferencesViewState extends State<PreferencesView> {
       categories: selectedCategories,
       tags: selectedTags,
     );
-      context.read<UserPrefsCubit>().updateUserPreferences(userPreferences);
+    context.read<UserPrefsCubit>().updateUserPreferences(userPreferences);
   }
-
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<UserPrefsCubit, UserPrefsState>(
       listener: (context, state) {
         if (state is UserPrefsFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error),
-            ),
-          );
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.error)));
         }
         if (state is UserPrefsSuccess) {
-          context.go(AppRouter.kHomeView);
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          context.pop(true);
         }
         if (state is UserPrefsLoading) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Loading...'),
-            ),
-              );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('Loading...')));
         }
       },
       child: SafeArea(

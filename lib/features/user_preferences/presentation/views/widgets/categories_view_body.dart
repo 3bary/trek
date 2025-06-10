@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_filter_chip.dart';
@@ -51,22 +52,36 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
                 spacing: 8,
                 runSpacing: 8,
                 alignment: WrapAlignment.start,
-                children: AppConstants.categories.map((category) {
-                  bool isSelected = selectedCategories.contains(category.name);
-                  return CustomFilterChip(
-                    label: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(category.emoji, style: const TextStyle(fontSize: 18)),
-                        const SizedBox(width: 6),
-                        Text(category.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      ],
-                    ),
-                    isSelected: isSelected,
-                    onChipSelected: () => toggleCategory(category.name, true),
-                    onChipDeselected: () => toggleCategory(category.name, false),
-                  );
-                }).toList(),
+                children:
+                    AppConstants.categories.map((category) {
+                      bool isSelected = selectedCategories.contains(
+                        category.name,
+                      );
+                      return CustomFilterChip(
+                        label: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              category.emoji,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              category.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                        isSelected: isSelected,
+                        onChipSelected:
+                            () => toggleCategory(category.name, true),
+                        onChipDeselected:
+                            () => toggleCategory(category.name, false),
+                      );
+                    }).toList(),
               ),
             ),
           ),

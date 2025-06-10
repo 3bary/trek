@@ -10,7 +10,7 @@ import '../../features/auth/presentation/view_model/auth_bloc/auth_bloc.dart';
 import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/auth/presentation/views/onboarding_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
-import '../../features/favorites/presentation/views/favorite_view.dart';
+import '../../features/favorites/presentation/views/favorite_place_view.dart';
 import '../../features/home/presentation/view_model/add_interactions/add_interactions_cubit.dart';
 import '../../features/home/presentation/view_model/add_review_interactions/add_review_interactions_cubit.dart';
 import '../../features/home/presentation/view_model/home/home_cubit.dart';
@@ -30,12 +30,13 @@ abstract class AppRouter {
   static const String kSignupView = '/signupView';
   static const String kHomeView = '/homeView';
   static const String kGroupView = '/groupView';
-  static const String kFavoriteView = '/favoriteView';
+  static const String kPlaceFavoriteView = '/placeFavoriteView';
   static const String kProfileView = '/profileView';
   static const String kPreferencesView = '/preferencesView';
   static const String kRecommendationView = '/recommendationView';
   static const String kPlaceDetailsView = '/placeDetailsView';
   static const String kRoadMapView = '/roadMapView';
+
   static const String kOnboardingView = '/onboardingView';
   static const String kSplashView = '/';
   static final router = GoRouter(
@@ -67,6 +68,7 @@ abstract class AppRouter {
           ),
         ],
       ),
+
       GoRoute(
         path: kPreferencesView,
         builder:
@@ -99,7 +101,13 @@ abstract class AppRouter {
         path: kGroupView,
         builder: (context, state) => const GroupsView(),
       ),
-      GoRoute(path: kFavoriteView, builder: (context, state) => FavoriteView()),
+      GoRoute(
+        path: kPlaceFavoriteView,
+        builder: (context, state) {
+          return const FavoritePlaceView();
+        },
+      ),
+
       GoRoute(
         path: kProfileView,
         builder: (context, state) => const ProfileView(),

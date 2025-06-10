@@ -84,6 +84,8 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     final city = place.location?.city ?? "Unknown City";
     final rating = place.averageRating?.toString() ?? "No Rating";
     final description = place.description ?? "No description available.";
+    print("Image URL: ${widget.place.imageUrl}");
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -148,10 +150,12 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                             if (isLiked) {
                               widget.place.likes =
                                   (widget.place.likes ?? 0) + 1;
-                              context.read<AddInteractionsCubit>().likePlace(
-                                widget.place.id ?? '',
-                                'like',
-                              );
+                              context
+                                  .read<AddInteractionsCubit>()
+                                  .handleInteraction(
+                                    widget.place.id ?? '',
+                                    'like',
+                                  );
                             } else {
                               widget.place.likes =
                                   (widget.place.likes ?? 1) - 1;
