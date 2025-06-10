@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/models/travel_step_model.dart';
 import '../../../data/models/update_travel_preferences_request_body.dart';
+import '../../../data/models/warning_model.dart';
 import '../../../data/repos/recommendation_repo.dart';
 
 part 'recommendation_state.dart';
@@ -26,6 +28,29 @@ class RecommendationCubit extends Cubit<RecommendationState> {
       (success) => emit(
         const RecommendationSuccess('Travel preferences updated successfully!'),
       ),
+    );
+  }
+
+  Future<void> generateRoadmap() async {
+    emit(RecommendationLoading());
+
+    final result = await _recommendationRepo.generateRoadmap();
+
+    result.fold(
+      (failure) => emit(RecommendationFailure(failure.errorMessage)),
+      (success) {
+        final warnings = success['warnings'] as List<WarningModel>;
+        final travelSteps = success['travelSteps'] as List<TravelStepModel>;
+        final hasWarnings = success['hasWarnings'] as bool;
+
+        emit(
+          RecommendationRoadmapSuccess(
+            travelSteps: travelSteps,
+            warnings: warnings,
+            hasWarnings: hasWarnings,
+          ),
+        );
+      },
     );
   }
 

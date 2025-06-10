@@ -28,3 +28,18 @@ class RecommendationFailure extends RecommendationState {
   @override
   List<Object> get props => [errorMessage];
 }
+
+class RecommendationRoadmapSuccess extends RecommendationState {
+  final List<TravelStepModel> travelSteps;
+  final List<WarningModel> warnings;
+  final bool hasWarnings;
+
+  const RecommendationRoadmapSuccess({
+    required this.travelSteps,
+    required this.warnings,
+    required this.hasWarnings,
+  });
+
+  @override
+  List<Object> get props => [travelSteps, warnings, hasWarnings];
+}
