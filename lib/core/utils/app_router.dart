@@ -18,6 +18,8 @@ import '../../features/home/presentation/view_model/reviews/place_reviews_cubit.
 import '../../features/home/presentation/views/group_view.dart';
 import '../../features/home/presentation/views/place_details_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
+import '../../features/recommendation/data/repos/recommendation_repo.dart';
+import '../../features/recommendation/presentation/view_model/recommendation_cubit/recommendation_cubit.dart';
 import '../../features/recommendation/presentation/views/recommendation_view.dart';
 import '../../features/recommendation/presentation/views/road_map_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
@@ -68,7 +70,6 @@ abstract class AppRouter {
           ),
         ],
       ),
-
       GoRoute(
         path: kPreferencesView,
         builder:
@@ -139,11 +140,25 @@ abstract class AppRouter {
           );
         },
       ),
-      GoRoute(
-        path: kRecommendationView,
-        builder: (context, state) => const RecommendationView(),
+      ShellRoute(
+        builder: (context, state, child) {
+          return BlocProvider(
+            create:
+                (context) => RecommendationCubit(getIt<RecommendationRepo>()),
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: kRecommendationView,
+            builder: (context, state) => const RecommendationView(),
+          ),
+          GoRoute(
+            path: kRoadMapView,
+            builder: (context, state) => const RoadMapView(),
+          ),
+        ],
       ),
-      GoRoute(path: kRoadMapView, builder: (context, state) => RoadMapView()),
     ],
   );
 }
