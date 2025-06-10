@@ -139,17 +139,25 @@ abstract class AppRouter {
           );
         },
       ),
-      GoRoute(
-        path: kRecommendationView,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) {
-                return RecommendationCubit(getIt<RecommendationRepo>());
-              },
-              child: const RecommendationView(),
-            ),
+      ShellRoute(
+        builder: (context, state, child) {
+          return BlocProvider(
+            create:
+                (context) => RecommendationCubit(getIt<RecommendationRepo>()),
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: kRecommendationView,
+            builder: (context, state) => const RecommendationView(),
+          ),
+          GoRoute(
+            path: kRoadMapView,
+            builder: (context, state) => const RoadMapView(),
+          ),
+        ],
       ),
-      GoRoute(path: kRoadMapView, builder: (context, state) => RoadMapView()),
     ],
   );
 }
