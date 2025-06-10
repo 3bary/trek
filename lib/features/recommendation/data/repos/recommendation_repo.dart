@@ -4,7 +4,9 @@ import 'package:dio/dio.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/helpers/cash_helper.dart';
 import '../../../../core/network/api_service.dart';
+import '../models/travel_step_model.dart';
 import '../models/update_travel_preferences_request_body.dart';
+import '../models/warning_model.dart';
 
 class RecommendationRepo {
   final IApiService _apiService;
@@ -29,13 +31,42 @@ class RecommendationRepo {
     }
   }
 
-  Future<Either<Failure, void>> generateRoadMap() async {
+  Future<Either<Failure, Map<String, dynamic>>> generateRoadmap() async {
     try {
       final response = await _apiService.get(
         endpoint: "roadmap/${CashHelper.getCachedUser()!.id}",
       );
-      print("API Response: ${response['message']}");
-      return right(null);
+
+      // Parse the response
+      final data = response['data'];
+      final messageData = data['message'];
+
+      // Extract warnings
+      List<WarningModel> warnings = [];
+      if (messageData['is_warning'] == true &&
+          messageData['warnings'] != null) {
+        warnings =
+            (messageData['warnings'] as List)
+                .map((warning) => WarningModel.fromJson(warning))
+                .toList();
+      }
+
+      // Extract travel steps (places data)
+      List<TravelStepModel> travelSteps = [];
+      if (data['data'] != null) {
+        travelSteps =
+            (data['data'] as List)
+                .map((stepData) => TravelStepModel.fromJson(stepData))
+                .toList();
+      }
+
+      // Return structured data
+      return right({
+        'warnings': warnings,
+        'travelSteps': travelSteps,
+        'warningCount': messageData['count'] ?? 0,
+        'hasWarnings': messageData['is_warning'] ?? false,
+      });
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
