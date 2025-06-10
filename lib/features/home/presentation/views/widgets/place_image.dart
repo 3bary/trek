@@ -21,17 +21,12 @@ class PlaceImage extends StatelessWidget {
                   fit: BoxFit.cover,
                   placeholder:
                       (context, url) => Image.asset(
-                        'assets/images/plane.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                  errorWidget:
-                      (context, url, error) => Image.asset(
-                        'assets/images/plane.png',
+                        'assets/images/place.png',
                         fit: BoxFit.cover,
                       ),
                 )
                 : Image.asset(
-                  'assets/images/plane.png',
+                  'assets/images/place.png',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
