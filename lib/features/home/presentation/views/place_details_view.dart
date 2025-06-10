@@ -89,7 +89,6 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.place.name ?? "Place Details"),
           leading: BackButton(),
         ),
         body: Column(
