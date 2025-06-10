@@ -9,14 +9,16 @@ import '../models/update_travel_preferences_request_body.dart';
 import '../models/warning_model.dart';
 
 class RecommendationRepo {
-  final IApiService _apiService;
-  RecommendationRepo(this._apiService);
+  final IApiService _coreApiService;
+  final IApiService _recommendationApiService;
+
+  RecommendationRepo(this._coreApiService, this._recommendationApiService);
 
   Future<Either<Failure, void>> updateTravelPreferences(
     UpdateTravelPreferencesRequestBody updateTravelPreferencesRequestBody,
   ) async {
     try {
-      final response = await _apiService.put(
+      final response = await _coreApiService.put(
         endpoint:
             "user_travel_preferences/update/${CashHelper.getCachedUser()!.id}",
         body: updateTravelPreferencesRequestBody.toJson(),
@@ -33,7 +35,7 @@ class RecommendationRepo {
 
   Future<Either<Failure, Map<String, dynamic>>> generateRoadmap() async {
     try {
-      final response = await _apiService.get(
+      final response = await _recommendationApiService.get(
         endpoint: "roadmap/${CashHelper.getCachedUser()!.id}",
       );
 
