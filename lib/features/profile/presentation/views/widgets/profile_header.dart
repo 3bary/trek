@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:greendo/core/models/user_model.dart';
 import 'package:greendo/features/profile/presentation/views/widgets/settings_menu.dart';
 
-import '../../../../../core/helpers/cash_helper.dart';
 import '../../../../../core/utils/constants.dart';
 
 class ProfileHeader extends StatefulWidget {
@@ -97,21 +95,11 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             radius: 74,
             backgroundColor: Colors.white,
             child: ClipOval(
-              child: CachedNetworkImage(
-                imageUrl:
-                    'https://project-00z-production.up.railway.app/user/image/${CashHelper.getCachedUser()!.id}?v=${DateTime.now().millisecondsSinceEpoch}',
-                cacheKey: null,
-
+              child: Image.asset(
+                'assets/images/profile.jpg',
                 fit: BoxFit.cover,
                 width: 140,
                 height: 140,
-                placeholder:
-                    (context, url) => Image.asset(
-                      'assets/images/profile.jpg',
-                      fit: BoxFit.cover,
-                      width: 140,
-                      height: 140,
-                    ),
               ),
             ),
           ),
