@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class GroupsView extends StatelessWidget {
@@ -9,7 +8,14 @@ class GroupsView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Text("Group view ", style: TextStyle(fontSize: 24)),
+          child: Text(
+            "Coming Soon!",
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
         ),
       ),
     );
