@@ -12,18 +12,22 @@ class OnboardingViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children:  [
-          const SizedBox(height:16),
+        children: [
+          const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.only(left: 28.0),
             child: Row(
-              children:  const [
+              children: [
                 Text(
-                  'GreenDo',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600,color: kTextColor),
+                  AppConstants.appName,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: kTextColor,
+                  ),
                 ),
-                SizedBox(width:4),
-                CircleDot(),
+                const SizedBox(width: 4),
+                const CircleDot(),
               ],
             ),
           ),
@@ -31,12 +35,16 @@ class OnboardingViewBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: Column(
-              children: const[
+              children: const [
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Let’s \nget started',
-                    style: TextStyle(fontSize: 48, fontWeight: FontWeight.w600,color: kTextColor),
+                    style: TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.w600,
+                      color: kTextColor,
+                    ),
                   ),
                 ),
                 SizedBox(height: 24),
@@ -44,7 +52,11 @@ class OnboardingViewBody extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Your journey begins now',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: kTextColor),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: kTextColor,
+                    ),
                   ),
                 ),
                 SizedBox(height: 48),
