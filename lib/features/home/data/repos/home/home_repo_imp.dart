@@ -66,8 +66,10 @@ class HomeRepoImp implements HomeRepo {
   ) async {
     try {
       final data = await coreApiService.get(endpoint: 'review/$placeId');
-      if (data['data'] == null) {
-        return left(ServerFailure('No reviews data found'));
+
+      // Check if response indicates no reviews
+      if (data['message'] != null) {
+        return right([]); // Return empty list instead of failure
       }
 
       final reviews =
@@ -79,6 +81,10 @@ class HomeRepoImp implements HomeRepo {
       return right(reviews);
     } catch (e) {
       if (e is DioException) {
+        // Handle 404 specifically - no reviews found
+        if (e.response?.statusCode == 404) {
+          return right([]); // Return empty list for 404
+        }
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
