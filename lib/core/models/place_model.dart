@@ -48,7 +48,6 @@ class PlaceModel {
     image = json['image'];
     imageUrl = json['image_url'];
   }
-
   Location? location;
   String? id;
   String? name;
@@ -92,6 +91,7 @@ class PlaceModel {
     map['image_url'] = imageUrl;
     return map;
   }
+
 }
 
 class Location {
@@ -103,7 +103,6 @@ class Location {
     latitude = (json['latitude'] ?? 0).toDouble();
     longitude = (json['longitude'] ?? 0).toDouble();
   }
-
   String? city;
   String? country;
   double? latitude;
@@ -117,4 +116,5 @@ class Location {
     map['longitude'] = longitude;
     return map;
   }
+
 }

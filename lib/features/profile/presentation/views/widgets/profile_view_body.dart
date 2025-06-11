@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:greendo/core/utils/constants.dart';
+import 'package:greendo/core/models/user_model.dart';
+
 import '../../../../../core/widgets/custom_chip.dart';
 
 class ProfileViewBody extends StatelessWidget {
   final bool showCategories;
+  final UserModel user;
 
-  const ProfileViewBody({super.key, required this.showCategories});
+  const ProfileViewBody({
+    super.key,
+    required this.showCategories,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,31 +22,30 @@ class ProfileViewBody extends StatelessWidget {
           runSpacing: 8,
           children:
               showCategories
-                  ? AppConstants.categories.map((category) {
+                  ? (user.preferences?.categories ?? []).map((category) {
                     return CustomChip(
                       label: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(category.emoji, style: TextStyle(fontSize: 18)), // Emoji
-                          SizedBox(width: 6),
-                          Text(category.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          Text(
+                            category,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                         ],
                       ),
                     );
                   }).toList()
-                  : AppConstants.tags.map((tag) {
+                  : (user.preferences?.tags ?? []).map((tag) {
                     return CustomChip(
                       label: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            tag.emoji,
-                            style: TextStyle(fontSize: 18),
-                          ), // Emoji
-                          SizedBox(width: 6),
-                          Text(
-                            tag.name,
-                            style: TextStyle(
+                            tag,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),

@@ -84,8 +84,13 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     final city = place.location?.city ?? "Unknown City";
     final rating = place.averageRating?.toString() ?? "No Rating";
     final description = place.description ?? "No description available.";
+    print("Image URL: ${widget.place.imageUrl}");
+
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(),
+        ),
         body: Column(
           children: [
             Hero(

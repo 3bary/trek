@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:greendo/core/network/api_service.dart';
 
 class CoreApiService implements IApiService {
-  final _baseUrl = 'https://final-project-production-5d66.up.railway.app/';
+  final _baseUrl = 'https://project-00z-production.up.railway.app/';
   final Dio _dio;
 
   CoreApiService(this._dio);
@@ -10,7 +10,7 @@ class CoreApiService implements IApiService {
   @override
   Future<Map<String, dynamic>> get({required String endpoint}) async {
     var response = await _dio.get('$_baseUrl$endpoint');
-    print('✅ Response Data (Review): ${response.data}');
+    print('✅ Response Data (): ${response.data}');
     return response.data;
   }
 
@@ -30,4 +30,5 @@ class CoreApiService implements IApiService {
     print('✅ Response Data (Review): ${response.data}');
     return response.data;
   }
+
 }
