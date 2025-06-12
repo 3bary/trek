@@ -96,8 +96,6 @@ Shared application infrastructure and cross-cutting concerns:
 - **Data Layer** - Repository patterns, API clients, and data source abstractions
 - **Simplified Approach** - Streamlined without domain layer for faster development cycles
 
-> 🧼 The app follows a layered architecture with separation between `presentation` and `data`. No dedicated `domain` layer.
-
 ---
 
 ## 🚧 Project Status
