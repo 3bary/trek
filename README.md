@@ -8,9 +8,9 @@
 
 - 🔐 User registration and login.
 - 🏷️ Select interests (tags & categories) upon first use.
-- 🧠 Personalized place recommendations based on user preferences.
+- 🧠 Personalized place recommendations & smart **warnings** based on user preferences.
 - 📄 View detailed information about places.
-- ❤️ Save favorite places.
+- ❤️ Save favorite places with **offline caching**.
 - 🙍‍♂️ User profile with the ability to update interests.
 - 🗺️ **Core Feature**: Trip planner that generates a roadmap of 10 places based on 5 questions:
   1. Select up to 3 cities.
@@ -106,6 +106,53 @@ Shared application infrastructure and cross-cutting concerns:
 
 ---
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+* Flutter SDK >= 3.7
+* Dart >= 3.0
+* A connected device or emulator
+
+### Installation
+
+```bash
+git clone https://github.com/your-org/trek.git
+cd trek
+flutter pub get
+```
+
+### Running the App
+
+```bash
+flutter run
+```
+
+> The app communicates with two REST back-ends (core & recommendation).  
+> You can change the base URLs in `lib/core/network/*_api_service.dart`.
+
+---
+
+## 🗺️ Roadmap
+
+- 🌍 **Multi-language** support
+- 🔔 Push notifications for upcoming trip steps
+- 🧑‍🤝‍🧑 Community sharing & trip collaboration
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch `git checkout -b feat/awesome-feature`
+3. Commit your changes `git commit -m 'feat: add awesome feature'`
+4. Push to the branch `git push origin feat/awesome-feature`
+5. Open a Pull Request
+
+Please make sure your code follows the project style guidelines and is properly documented.
+
+---
+
 ## 👨‍💻 Contributors
 
 - [@3bary (Mohamed Ashraf)](https://github.com/3bary) – as Flutter App Developer & UI/UX Designer  
@@ -124,6 +171,3 @@ You are **not allowed** to use it commercially, or modify and redistribute it wi
 ---
 
 ## 📷 Screenshots 
-
-
-
