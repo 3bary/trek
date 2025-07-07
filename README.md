@@ -170,5 +170,15 @@ You are **not allowed** to use it commercially, or modify and redistribute it wi
 [Read full license terms here](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 ---
 
-## 🎥 Project Preview
-[![Watch the video](assets/images/app_logo.png)](https://youtube.com/shorts/y65VX9CWccc?feature=share)
+## 🎥 Project Demo
+Want to see Trek in action?  
+👉 [Click here to watch the full demo video](https://youtube.com/shorts/y65VX9CWccc?feature=share)
+
+The video walks through the core features of the app, including:
+- User onboarding and interest selection
+- Personalized place recommendations
+- Trip roadmap generator based on user preferences
+- Favorite places with offline support
+- Clean UI with smooth navigation and animations
+
+Feel free to check it out and explore how the app works in real usage!
