@@ -171,4 +171,4 @@ You are **not allowed** to use it commercially, or modify and redistribute it wi
 ---
 
 ## 🎥 Project Preview
-[![Watch the video](assets/app_logo.png)](https://youtube.com/shorts/y65VX9CWccc?feature=share)
+[![Watch the video](assets/images/app_logo.png)](https://youtube.com/shorts/y65VX9CWccc?feature=share)
