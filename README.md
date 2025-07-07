@@ -117,7 +117,7 @@ Shared application infrastructure and cross-cutting concerns:
 ### Installation
 
 ```bash
-git clone https://github.com/your-org/trek.git
+git clone https://github.com/3bary/trek.git
 cd trek
 flutter pub get
 ```
