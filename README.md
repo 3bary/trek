@@ -170,4 +170,5 @@ You are **not allowed** to use it commercially, or modify and redistribute it wi
 [Read full license terms here](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 ---
 
-## 📷 Screenshots 
+## 🎥 Project Preview
+[![Watch the video](assets/app_logo.png)](https://youtube.com/shorts/y65VX9CWccc?feature=share)
